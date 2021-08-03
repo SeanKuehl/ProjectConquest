@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/secondSample.png-7a61c44d7343cde957b5e500032da4e9.stex"
+path="res://.import/Blue.png-a32727101a475ec700512e689e60daa7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game/Assets/Images/Experimental/secondSample.png"
-dest_files=[ "res://.import/secondSample.png-7a61c44d7343cde957b5e500032da4e9.stex" ]
+source_file="res://Game/Assets/Images/Experimental/Blue.png"
+dest_files=[ "res://.import/Blue.png-a32727101a475ec700512e689e60daa7.stex" ]
 
 [params]
 
