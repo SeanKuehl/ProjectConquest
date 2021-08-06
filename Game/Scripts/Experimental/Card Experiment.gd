@@ -91,8 +91,10 @@ func _ready():
 func get_input():
 	if Input.is_action_pressed("CLICK") and mouseIsInTile:
 		clickedAndDraggedOn = true
+	
 	if Input.is_action_just_released("CLICK"):
 		clickedAndDraggedOn = false
+		
 		
 	
 	
@@ -118,11 +120,12 @@ func _physics_process(_delta):
 
 
 
+
+
+
 func _on_Card_mouse_entered():
-	#remember to turn on "pickable" in the editor or this won't work!
 	mouseIsInTile = true
 
 
 func _on_Card_mouse_exited():
-	
 	mouseIsInTile = false
