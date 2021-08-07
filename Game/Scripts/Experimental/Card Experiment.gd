@@ -6,6 +6,10 @@ extends KinematicBody2D
 var mouseIsInTile = false
 var temp = false
 
+
+signal userWantsToDisplayCard(cardName, cardPicture, cardDescription)
+
+var cardType = "Base"	#this would be 'location' or 'battle'
 var cardName = ""
 var cardPicture = ""
 var cardDescription = ""
@@ -14,13 +18,21 @@ var colorSubDict = {"RED": "res://Game/Assets/Images/Experimental/Red.png",
 "BLUE": "res://Game/Assets/Images/Experimental/Blue.png",
 "BLACK": "res://Game/Assets/Images/Experimental/Black.png"}
 
-onready var baseBackground = $BaseBackground/Background
-onready var colorBackground = $ColorBackground/sample
-onready var pictureBackground = $PictureBackground/Background
-onready var picture = $Picture/secondSample
-onready var descriptionOrEffectBackground = $DescriptionOrEffectBackground/Background
-onready var nameLabel = $Name
-onready var descriptionOrEffectLabel = $DescriptionOrEffect
+
+onready var thisNode = get_node("../"+name)	#get this node based on it's name, .. handles that there's a parent
+#name in this case is the name of the node, even if it is auto renamed when added to this tree this should still get this node
+
+#when I instance the node, I'd have to set it's get_node() name and pass it in so the card
+#can access it's own children
+
+onready var baseBackground = thisNode.get_node("BaseBackground/Background")
+onready var colorBackground = thisNode.get_node("ColorBackground/sample")
+onready var pictureBackground = thisNode.get_node("PictureBackground/Background")
+onready var picture = thisNode.get_node("Picture/secondSample")
+onready var descriptionOrEffectBackground = thisNode.get_node("DescriptionOrEffectBackground/Background")
+onready var nameLabel = thisNode.get_node("Name")
+onready var descriptionOrEffectLabel = thisNode.get_node("DescriptionOrEffect")
+
 
 var baseBackgroundColor = load(colorSubDict["BLACK"])
 var colorBackgroundColor = load(colorSubDict["BLUE"])
@@ -55,22 +67,60 @@ func ReadLinesFromFile(fileName):
 	return content
 
 func _ready():
+	pass
+	
+#	var content = ReadLinesFromFile("res://Game/Assets/Card Files/Experimental.txt")
+#
+#	cardName = content[0]	
+#	nameLabel.text = cardName
+#
+#	cardDescription = content[2]
+#	descriptionOrEffectLabel.text = cardDescription
+#
+#	#for x in content:
+#		#print(x)
+#
+#	#load the image
+#	cardPicture = content[1]
+#	var image = load("res://Game/Assets/Images/Experimental/"+cardPicture)
+#	cardPicture = image	#this is for later when it's passed to the cardDisplay
+#
+#	picture.texture = image
+#	#actual pic is texture property
+#	#it's just highlighting, which may be why it doesn't work on black
+#
+#	#set background colors
+#	baseBackground.texture = baseBackgroundColor
+#	colorBackground.texture = colorBackgroundColor
+#	pictureBackground.texture = pictureBackgroundColor
+#	descriptionOrEffectBackground.texture = descriptionOrEffectBackgroundColor
+
 	
 	
-	var content = ReadLinesFromFile("res://Game/Assets/Card Files/Experimental.txt")
+	
+	#var new_position = get_global_mouse_position()
+	#movement = new_position - position;
+	
+func init(passedFile, passedOwner):
+	
+	var content = ReadLinesFromFile(passedFile)
+	#this is now the child of the root scene so it's no longer direct children
+	
+	cardOwner = passedOwner
 	
 	cardName = content[0]	
+	
 	nameLabel.text = cardName
 	
 	cardDescription = content[2]
 	descriptionOrEffectLabel.text = cardDescription
 	
-	#for x in content:
-		#print(x)
+	
 	
 	#load the image
 	cardPicture = content[1]
 	var image = load("res://Game/Assets/Images/Experimental/"+cardPicture)
+	cardPicture = image	#this is for later when it's passed to the cardDisplay
 	
 	picture.texture = image
 	#actual pic is texture property
@@ -95,7 +145,8 @@ func get_input():
 	if Input.is_action_just_released("CLICK"):
 		clickedAndDraggedOn = false
 		
-		
+	if Input.is_action_just_pressed("RIGHT_CLICK"):
+		emit_signal("userWantsToDisplayCard", cardName, cardPicture, cardDescription)
 	
 	
 	if Input.is_action_just_pressed("SPACE"):
@@ -119,7 +170,8 @@ func _physics_process(_delta):
 	
 
 
-
+func here():
+	print("here")
 
 
 
