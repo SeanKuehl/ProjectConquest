@@ -9,6 +9,8 @@ var temp = false
 
 signal userWantsToDisplayCard(cardName, cardPicture, cardDescription)
 
+var cardIsDocked = false
+var dockNumber = 0 
 var cardType = "Base"	#this would be 'location' or 'battle'
 var cardName = ""
 var cardPicture = ""
@@ -138,6 +140,24 @@ func init(passedFile, passedOwner):
 	#var new_position = get_global_mouse_position()
 	#movement = new_position - position;
 	
+func GetCardIsDocked():
+	return cardIsDocked
+
+func SetCardIsDocked(value):
+	cardIsDocked = value
+	
+func GetDockNumber():
+	return dockNumber
+	
+func SetDockNumber(num):
+	dockNumber = num
+	
+func SetCardType(value):
+	cardType = value
+	
+func GetCardType():
+	return cardType
+	
 func get_input():
 	if Input.is_action_pressed("CLICK") and mouseIsInTile:
 		clickedAndDraggedOn = true
@@ -154,6 +174,8 @@ func get_input():
 		#if it's a property of kinematic body 2d you can use it like this and it should effect everything
 		
 		
+func GetClickAndDraggedOn():
+	return clickedAndDraggedOn
 	
 func _physics_process(_delta):
 	#I'm only putting it in here so it constantly checks
@@ -176,8 +198,10 @@ func here():
 
 
 func _on_Card_mouse_entered():
+	
 	mouseIsInTile = true
 
 
 func _on_Card_mouse_exited():
+	
 	mouseIsInTile = false

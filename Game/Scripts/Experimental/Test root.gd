@@ -17,13 +17,15 @@ func _ready():
 	
 func load_base_card_class(files):
 	for x in files:
-		var newCard = experimentalBaseCardClass.instance()
-		add_child(newCard)	#if this comes after init() there are some errors with the children being NIL bases
-		newCard.init(x, "PlayerOne")
-		
-		#connect the card signals
-		#this should mean I can connect the signals of loaded/instanced scripts as well in a similar fashion(location, battle etc. cards)
-		get_node("Display").ConnectCardSignal(newCard)
+		for y in range(5):
+			#this y loop is temp just to have more card to test the card dock with
+			var newCard = experimentalBaseCardClass.instance()
+			add_child(newCard)	#if this comes after init() there are some errors with the children being NIL bases
+			newCard.init(x, "PlayerOne")
+			
+			#connect the card signals
+			#this should mean I can connect the signals of loaded/instanced scripts as well in a similar fashion(location, battle etc. cards)
+			get_node("Display").ConnectCardSignal(newCard)
 		
 		
 	
