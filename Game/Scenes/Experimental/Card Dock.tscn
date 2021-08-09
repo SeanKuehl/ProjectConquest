@@ -59,3 +59,5 @@ __meta__ = {
 }
 [connection signal="body_entered" from="." to="." method="_on_Dock_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_Dock_body_exited"]
+[connection signal="pressed" from="BaseCardButton" to="." method="_on_BaseCardButton_pressed"]
+[connection signal="pressed" from="OtherBaseCardButton" to="." method="_on_OtherBaseCardButton_pressed"]
