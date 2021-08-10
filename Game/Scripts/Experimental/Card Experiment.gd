@@ -158,6 +158,10 @@ func SetCardType(value):
 func GetCardType():
 	return cardType
 	
+func GetDisplayStuff():
+	return [cardName, cardPicture, cardDescription]
+	
+	
 func get_input():
 	if Input.is_action_pressed("CLICK") and mouseIsInTile:
 		clickedAndDraggedOn = true
