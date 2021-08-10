@@ -18,7 +18,8 @@ var cardDescription = ""
 
 var colorSubDict = {"RED": "res://Game/Assets/Images/Experimental/Red.png",
 "BLUE": "res://Game/Assets/Images/Experimental/Blue.png",
-"BLACK": "res://Game/Assets/Images/Experimental/Black.png"}
+"BLACK": "res://Game/Assets/Images/Experimental/Black.png",
+"YELLOW": "res://Game/Assets/Images/Experimental/Yellow.png"}
 
 
 onready var thisNode = get_node("../"+name)	#get this node based on it's name, .. handles that there's a parent

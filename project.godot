@@ -687,6 +687,10 @@ run/main_scene="res://Game/Scenes/Experimental/Test root.tscn"
 
 enabled=PoolStringArray( "gdUnit3" )
 
+[gdunit3]
+
+settings/update_notification_enabled=false
+
 [input]
 
 CLICK={
