@@ -162,6 +162,7 @@ func _on_Dock_body_exited(body):
 		occupiedSlots[body.GetDockNumber()-1] = 0	#free the slot it was using, -1 because slots starts at 0 not 1
 		referenceSlots[body.GetDockNumber()-1] = 0	#take the reference to the card out of the slot since it should no longer be effected
 		body.SetCardIsDocked(false)
+		cardIsBeingHoveredOver = false
 	
 
 

@@ -89,6 +89,7 @@ func load_monster_cards(files):
 		#connect the card signals
 		#this should mean I can connect the signals of loaded/instanced scripts as well in a similar fashion(location, battle etc. cards)
 		get_node("Display").ConnectCardSignal(newCard)
+		get_node("Dock").PlaceCard(newCard)
 		GameState.AddPlayerOneMonsterCard(newCard)
 		#more signal connections will be needed for location cards
 		
