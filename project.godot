@@ -683,6 +683,10 @@ _global_script_class_icons={
 config/name="ProjectConquest"
 run/main_scene="res://Game/Scenes/Experimental/Test root.tscn"
 
+[autoload]
+
+GameState="*res://Game/Scripts/global/GameState.gd"
+
 [editor_plugins]
 
 enabled=PoolStringArray( "gdUnit3" )

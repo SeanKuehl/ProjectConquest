@@ -27,11 +27,11 @@ position = Vector2( 76.593, 115.395 )
 position = Vector2( 338.622, 114.277 )
 shape = SubResource( 1 )
 
-[node name="BaseCardButton" type="Button" parent="."]
-margin_right = 71.0
+[node name="LocationCardButton" type="Button" parent="."]
+margin_right = 92.0
 margin_bottom = 20.0
 custom_styles/normal = SubResource( 2 )
-text = "Base Card"
+text = "Location Cards"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -48,16 +48,38 @@ position = Vector2( 428.598, 113.499 )
 [node name="FifthSpot" type="Position2D" parent="."]
 position = Vector2( 562.734, 116.674 )
 
-[node name="OtherBaseCardButton" type="Button" parent="."]
-margin_left = 74.0
-margin_top = 1.0
-margin_right = 139.0
-margin_bottom = 21.0
-text = "Other Base"
+[node name="MonsterCardButton" type="Button" parent="."]
+margin_left = 117.654
+margin_top = 1.7937
+margin_right = 201.654
+margin_bottom = 21.7937
+text = "Monster Cards"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BattleCardButton" type="Button" parent="."]
+margin_left = 258.747
+margin_top = 0.793701
+margin_right = 270.747
+margin_bottom = 20.7937
+text = "Battle Cards"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StrategyCardButton" type="Button" parent="."]
+margin_left = 388.12
+margin_top = 1.5874
+margin_right = 400.12
+margin_bottom = 21.5874
+text = "Strategy Cards"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="body_entered" from="." to="." method="_on_Dock_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_Dock_body_exited"]
-[connection signal="pressed" from="BaseCardButton" to="." method="_on_BaseCardButton_pressed"]
-[connection signal="pressed" from="OtherBaseCardButton" to="." method="_on_OtherBaseCardButton_pressed"]
+[connection signal="pressed" from="LocationCardButton" to="." method="_on_LocationCardButton_pressed"]
+[connection signal="pressed" from="MonsterCardButton" to="." method="_on_MonsterCardButton_pressed"]
+[connection signal="pressed" from="BattleCardButton" to="." method="_on_BattleCardButton_pressed"]
+[connection signal="pressed" from="StrategyCardButton" to="." method="_on_StrategyCardButton_pressed"]
