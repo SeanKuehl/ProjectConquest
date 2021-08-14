@@ -15,23 +15,36 @@ signal battleStart(gameState, battleCardItIsOn)	#send the gameState so the locat
 signal battleCardUsed(gameState, battleCardItIsOn)	
 signal battleEnd(gameState, battleCardItIsOn)
 
+onready var locationDockOne = $LocationDock1
+onready var locationDockTwo = $LocationDock2
+onready var locationDockThree = $LocationDock3
+onready var locationDockFour = $LocationDock4
+onready var locationDockFive = $LocationDock5
+onready var locationDockSix = $LocationDock6
+onready var locationDockSeven = $LocationDock7
+onready var locationDockEight = $LocationDock8
+onready var locationDockNine = $LocationDock9
+onready var listOfLocationDocks = [locationDockOne, locationDockTwo, locationDockThree, locationDockFour, locationDockFive, locationDockSix, locationDockSeven, locationDockEight, locationDockNine]
+
 
 func _ready():
-	
+	GameState.SetLocationDocks(listOfLocationDocks)
 	#load_base_card_class(GetFilePathsInDirectory(experimentalCardDirectory))
 	#load_location_cards(GetFilePathsInDirectory(locationCardDirectory))
 	#load_monster_cards(GetFilePathsInDirectory(monsterCardDirectory))
 	load_playerone_cards(GetFilePathsInDirectory(locationCardDirectory), GetFilePathsInDirectory(monsterCardDirectory))
 	load_playertwo_cards(GetFilePathsInDirectory(locationCardDirectory), GetFilePathsInDirectory(monsterCardDirectory))
 	
+	GameState.ClearPlayerCards("PlayerTwo")	#it's player one's turn first
+	
 	get_node("Dock").LoadPlayerCards(GameState.GetPlayerOneUnusedCards())
 	#GameState.ChangeCurrentTurn()
 	#I can now handle changing turns with cards in the card dock, now I need to handle the location card docks and any cards that might be in/on them
-	get_node("Dock").ClearAll()	#wipe the data in card dock
+	#get_node("Dock").ClearAll()	#wipe the data in card dock
 	#in card dock, it seems the values from dicts and the actual values are not the same, this could/will be the source of future problems
-	GameState.ClearPlayerCards("PlayerOne")	#make the unused cards of playerone(the ones that would be in the dock) invisible and unusable
+	#GameState.ClearPlayerCards("PlayerOne")	#make the unused cards of playerone(the ones that would be in the dock) invisible and unusable
 	
-	get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
+	#get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
 	
 	#get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
 	#these work and trigger code in the custom script
@@ -184,3 +197,17 @@ func list_files_in_directory(path):
 	dir.list_dir_end()
 
 	return files
+
+
+func _on_End_Turn_pressed():
+	
+	get_node("Dock").ClearAll()	#wipe the data in card dock
+	#in card dock, it seems the values from dicts and the actual values are not the same, this could/will be the source of future problems
+	GameState.ClearPlayerCards(GameState.GetCurrentTurn())	#make the unused cards of playerone(the ones that would be in the dock) invisible and unusable
+	GameState.ChangeCurrentTurn()
+	
+	if GameState.GetCurrentTurn() == "PlayerOne":
+		get_node("Dock").LoadPlayerCards(GameState.GetPlayerOneUnusedCards())
+	else:
+		get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
+	

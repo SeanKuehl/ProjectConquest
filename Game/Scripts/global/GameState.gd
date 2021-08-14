@@ -2,8 +2,8 @@ extends Node
 
 onready var turn = "PlayerOne"	#start the game on the first player's turn
 
-onready var locationDocks = []
-
+onready var locationDocks = []	#location docks are numbered 1-9 from bottom left to top right
+#don't keep stuff other than references, manip values in the docks to check/edit things
 
 
 #player one cards
@@ -48,30 +48,107 @@ func ChangeCurrentTurn():
 		turn = "PlayerOne"
 
 func ClearPlayerCards(player):
+	#this func will eventually become "end turn"
 	if player == "PlayerOne":
-		var playerOneCards = GetPlayerOneUnusedCards()
 		
-		for x in range(len(playerOneCards)):
-			#4 is how many types of cards there are, max is exclusive
-			for y in range(len(playerOneCards[x])):
-				#that's how many cards of each type there could be, max is exclusive
-				playerOneCards[x][y].hide()
-				playerOneCards[x][y].set_process(false)
-				playerOneCards[x][y].set_physics_process(false)
-				playerOneCards[x][y].set_process_input(false)
-				
-	else:
+		#set all location docks to hidden mode
+		for x in range(len(locationDocks)):
+			locationDocks[x].SetLocationDockToHidden()
+			
+		
+		
+		
+		var playerOneCards = GetPlayerOneUnusedCards()
+		var locationCards = playerOneCards[0]
+		var monsterCards = playerOneCards[1]
+		var battleCards = playerOneCards[2]
+		var strategyCards = playerOneCards[3]
+		
+		for x in range(len(locationCards)):
+			#max is exclusive
+			if locationCards[x].GetIsDocked() == true:
+				#don't hide it, I'll make all location docks go into card back mode elsewhere
+				pass
+			else:
+				#it's just in the card dock or unused, hide
+				locationCards[x].hide()
+				locationCards[x].set_process(false)
+				locationCards[x].set_physics_process(false)
+				locationCards[x].set_process_input(false)
+		
+		for x in range(len(monsterCards)):
+			#max  is exclusive
+			#there will be a special check for monster cards, but not right now
+			monsterCards[x].hide()
+			monsterCards[x].set_process(false)
+			monsterCards[x].set_physics_process(false)
+			monsterCards[x].set_process_input(false)
+			
+			
+		for x in range(len(battleCards)):
+			battleCards[x].hide()
+			battleCards[x].set_process(false)
+			battleCards[x].set_physics_process(false)
+			battleCards[x].set_process_input(false)
+			
+		for x in range(len(strategyCards)):
+			strategyCards[x].hide()
+			strategyCards[x].set_process(false)
+			strategyCards[x].set_physics_process(false)
+			strategyCards[x].set_process_input(false)
+			
+		
+			
+			
+	elif player == "PlayerTwo":
+		#set all location docks to hidden mode
+		for x in range(len(locationDocks)):
+			locationDocks[x].SetLocationDockToHidden()
 		
 		var playerTwoCards = GetPlayerTwoUnusedCards()
+		var locationCards = playerTwoCards[0]
+		var monsterCards = playerTwoCards[1]
+		var battleCards = playerTwoCards[2]
+		var strategyCards = playerTwoCards[3]
 		
-		for x in range(len(playerTwoCards)):
-			#4 is how many types of cards there are, max is exclusive
-			for y in range(len(playerTwoCards[x])):
-				#that's how many cards of each type there could be, max is exclusive
-				playerTwoCards[x][y].hide()
-				playerTwoCards[x][y].set_process(false)
-				playerTwoCards[x][y].set_physics_process(false)
-				playerTwoCards[x][y].set_process_input(false)
+		for x in range(len(locationCards)):
+			#max is exclusive
+			if locationCards[x].GetIsDocked() == true:
+				#don't hide it, I'll make all location docks go into card back mode elsewhere
+				pass
+			else:
+				#it's just in the card dock or unused, hide
+				locationCards[x].hide()
+				locationCards[x].set_process(false)
+				locationCards[x].set_physics_process(false)
+				locationCards[x].set_process_input(false)
+		
+		for x in range(len(monsterCards)):
+			#max  is exclusive
+			#there will be a special check for monster cards, but not right now
+			monsterCards[x].hide()
+			monsterCards[x].set_process(false)
+			monsterCards[x].set_physics_process(false)
+			monsterCards[x].set_process_input(false)
+			
+			
+		for x in range(len(battleCards)):
+			battleCards[x].hide()
+			battleCards[x].set_process(false)
+			battleCards[x].set_physics_process(false)
+			battleCards[x].set_process_input(false)
+			
+		for x in range(len(strategyCards)):
+			strategyCards[x].hide()
+			strategyCards[x].set_process(false)
+			strategyCards[x].set_physics_process(false)
+			strategyCards[x].set_process_input(false)
+	
+func SetLocationDocks(listOfLocationDocks):
+	locationDocks = listOfLocationDocks
+	
+	
+	
 	
 func AddLocationDock(newLocationDock):
 	locationDocks.append(newLocationDock)

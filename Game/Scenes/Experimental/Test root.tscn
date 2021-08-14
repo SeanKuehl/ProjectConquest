@@ -10,10 +10,10 @@
 script = ExtResource( 3 )
 
 [node name="Display" parent="." instance=ExtResource( 4 )]
-margin_left = -207.939
-margin_top = -71.5975
-margin_right = -207.939
-margin_bottom = -71.5975
+margin_left = -389.163
+margin_top = 114.346
+margin_right = -389.163
+margin_bottom = 114.346
 
 [node name="Controller" parent="." instance=ExtResource( 1 )]
 
@@ -21,4 +21,39 @@ margin_bottom = -71.5975
 position = Vector2( -219.768, 81.4991 )
 
 [node name="LocationDock1" parent="." instance=ExtResource( 5 )]
-position = Vector2( 101.022, -217.758 )
+position = Vector2( -158.544, -88.4468 )
+
+[node name="LocationDock2" parent="." instance=ExtResource( 5 )]
+position = Vector2( 118.164, -89.1641 )
+
+[node name="LocationDock3" parent="." instance=ExtResource( 5 )]
+position = Vector2( 393.776, -88.2202 )
+
+[node name="LocationDock4" parent="." instance=ExtResource( 5 )]
+position = Vector2( -160.28, -337.732 )
+
+[node name="LocationDock5" parent="." instance=ExtResource( 5 )]
+position = Vector2( 119.107, -333.956 )
+
+[node name="LocationDock6" parent="." instance=ExtResource( 5 )]
+position = Vector2( 394.719, -334.9 )
+
+[node name="LocationDock7" parent="." instance=ExtResource( 5 )]
+position = Vector2( -158.392, -568.038 )
+
+[node name="LocationDock8" parent="." instance=ExtResource( 5 )]
+position = Vector2( 116.276, -567.094 )
+
+[node name="LocationDock9" parent="." instance=ExtResource( 5 )]
+position = Vector2( 396.607, -564.262 )
+
+[node name="End Turn" type="Button" parent="."]
+margin_left = 561.0
+margin_top = 110.0
+margin_right = 774.0
+margin_bottom = 270.0
+text = "End Turn"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="End Turn" to="." method="_on_End_Turn_pressed"]

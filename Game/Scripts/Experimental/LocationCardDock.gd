@@ -24,7 +24,7 @@ func _physics_process(_delta):
 	if typeof(storedCard) == TYPE_OBJECT:
 		#then it hasn't been assigned yet and is still an int
 	
-		if Input.is_action_pressed("CLICK") and mouseIsInTile and dockedCardShown == false and timeHasPassedSinceLastClickEvent:
+		if Input.is_action_pressed("CLICK") and mouseIsInTile and dockedCardShown == false and timeHasPassedSinceLastClickEvent and GameState.GetCurrentTurn() == storedCard.GetCardOwner():
 			
 			#show the docked card, show  the card and change the background sprite to grey and send signal to show card
 			$Sprite/Grey.texture = defaultImage
@@ -40,7 +40,7 @@ func _physics_process(_delta):
 			
 			storedCard.emit_signal("userWantsToDisplayCard", valuesToDisplay[0], valuesToDisplay[1], valuesToDisplay[2])
 			#userWantsToDisplayCard(cardName, cardPicture, cardDescription)
-		if Input.is_action_just_pressed("CLICK") and mouseIsInTile and dockedCardShown == true and timeHasPassedSinceLastClickEvent:
+		if Input.is_action_just_pressed("CLICK") and mouseIsInTile and dockedCardShown == true and timeHasPassedSinceLastClickEvent and GameState.GetCurrentTurn() == storedCard.GetCardOwner():
 			
 			#hide the docked card, hide and disable the card and change the background sprite to the card back
 			$Sprite/Grey.texture = cardBackImage
@@ -66,6 +66,7 @@ func _physics_process(_delta):
 				
 			cardHoveredOverArea.SetCardIsDocked(true)
 			storedCard = cardHoveredOverArea
+			storedCard.SetIsDocked(true)
 			$Sprite/Grey.texture = cardBackImage
 			#set the cards position to Centre and disable/hide it
 			#show it later if they mouse over or something
@@ -75,7 +76,19 @@ func _physics_process(_delta):
 		
 		
 
-
+func SetLocationDockToHidden():
+	#this func is for use when changing turns between players
+	#hide the docked card, hide and disable the card and change the background sprite to the card back
+	if typeof(storedCard) == TYPE_OBJECT:
+		#if the stored card is not an int(no stored card)
+		$Sprite/Grey.texture = cardBackImage
+		storedCard.hide()
+		storedCard.set_process(false)
+		storedCard.set_physics_process(false)
+		storedCard.set_process_input(false)
+		dockedCardShown = false
+		timeHasPassedSinceLastClickEvent = true
+		#$ClickCooldown.start()
 	
 
 

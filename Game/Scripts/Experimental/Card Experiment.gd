@@ -200,6 +200,8 @@ func _physics_process(_delta):
 func here():
 	print("here")
 
+func GetCardOwner():
+	return cardOwner
 
 
 func _on_Card_mouse_entered():

@@ -7,6 +7,7 @@ var customScript = ""
 var customScriptDirectory = "res://Game/Scripts/card scripts/location card scripts/"
 var cardEffect = ""
 var parent = 0
+var isDocked = false
 	#this is used for connecting signals from the root scene to the custom script
 #signals: battle started, battle card played, battle ended
 
@@ -67,7 +68,11 @@ func _ready():
 #	descriptionOrEffectBackground.texture = descriptionOrEffectBackgroundColor
 
 	
+func GetIsDocked():
+	return isDocked
 	
+func SetIsDocked(dockedStatus):
+	isDocked = dockedStatus
 	
 	#var new_position = get_global_mouse_position()
 	#movement = new_position - position;
