@@ -20,8 +20,20 @@ func _ready():
 	
 	#load_base_card_class(GetFilePathsInDirectory(experimentalCardDirectory))
 	#load_location_cards(GetFilePathsInDirectory(locationCardDirectory))
-	load_monster_cards(GetFilePathsInDirectory(monsterCardDirectory))
+	#load_monster_cards(GetFilePathsInDirectory(monsterCardDirectory))
+	load_playerone_cards(GetFilePathsInDirectory(locationCardDirectory), GetFilePathsInDirectory(monsterCardDirectory))
+	load_playertwo_cards(GetFilePathsInDirectory(locationCardDirectory), GetFilePathsInDirectory(monsterCardDirectory))
 	
+	get_node("Dock").LoadPlayerCards(GameState.GetPlayerOneUnusedCards())
+	#GameState.ChangeCurrentTurn()
+	#I can now handle changing turns with cards in the card dock, now I need to handle the location card docks and any cards that might be in/on them
+	get_node("Dock").ClearAll()	#wipe the data in card dock
+	#in card dock, it seems the values from dicts and the actual values are not the same, this could/will be the source of future problems
+	GameState.ClearPlayerCards("PlayerOne")	#make the unused cards of playerone(the ones that would be in the dock) invisible and unusable
+	
+	get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
+	
+	#get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
 	#these work and trigger code in the custom script
 	#emit_signal("battleStart", 0, 0)
 	#emit_signal("battleEnd",0,0)
@@ -93,6 +105,68 @@ func load_monster_cards(files):
 		GameState.AddPlayerOneMonsterCard(newCard)
 		#more signal connections will be needed for location cards
 		
+	
+func load_playerone_cards(locationCards, monsterCards):
+	for x in locationCards:
+		
+		var newCard = locationCardClass.instance()
+		
+		add_child(newCard)	#if this comes after init() there are some errors with the children being NIL bases
+		newCard.init(x, "PlayerOne")
+		
+		#get_node("Dock").PlaceOtherCard(newCard)
+		
+		#connect the card signals
+		#this should mean I can connect the signals of loaded/instanced scripts as well in a similar fashion(location, battle etc. cards)
+		get_node("Display").ConnectCardSignal(newCard)
+		#get_node("Dock").PlaceCard(newCard)
+		GameState.AddPlayerOneLocationCard(newCard)
+		
+	for x in monsterCards:
+		
+		var newCard = monsterCardClass.instance()
+		
+		add_child(newCard)	#if this comes after init() there are some errors with the children being NIL bases
+		newCard.init(x, "PlayerOne")
+		
+		#get_node("Dock").PlaceOtherCard(newCard)
+				
+		#connect the card signals
+		#this should mean I can connect the signals of loaded/instanced scripts as well in a similar fashion(location, battle etc. cards)
+		get_node("Display").ConnectCardSignal(newCard)
+		#get_node("Dock").PlaceCard(newCard)
+		GameState.AddPlayerOneMonsterCard(newCard)
+		
+func load_playertwo_cards(locationCards, monsterCards):
+	for x in locationCards:
+		
+		var newCard = locationCardClass.instance()
+		
+		add_child(newCard)	#if this comes after init() there are some errors with the children being NIL bases
+		newCard.init(x, "PlayerTwo")
+		
+		#get_node("Dock").PlaceOtherCard(newCard)
+				
+		#connect the card signals
+		#this should mean I can connect the signals of loaded/instanced scripts as well in a similar fashion(location, battle etc. cards)
+		get_node("Display").ConnectCardSignal(newCard)
+		#get_node("Dock").PlaceCard(newCard)
+		GameState.AddPlayerTwoLocationCard(newCard)
+		
+	for x in monsterCards:
+		
+		var newCard = monsterCardClass.instance()
+		
+		add_child(newCard)	#if this comes after init() there are some errors with the children being NIL bases
+		newCard.init(x, "PlayerTwo")
+		
+		#get_node("Dock").PlaceOtherCard(newCard)
+				
+		#connect the card signals
+		#this should mean I can connect the signals of loaded/instanced scripts as well in a similar fashion(location, battle etc. cards)
+		get_node("Display").ConnectCardSignal(newCard)
+		#get_node("Dock").PlaceCard(newCard)
+		GameState.AddPlayerTwoMonsterCard(newCard)
 	
 func list_files_in_directory(path):
 	var files = []

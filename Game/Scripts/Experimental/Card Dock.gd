@@ -48,22 +48,79 @@ func _ready():
 	
 
 
+func ClearAll():
+	#this is used when switching from one player's turn to another
+	#the global gamestate has references for the cards, so no need to worry
+	#about losing them
+	
+	
+			
+	
+	monsterCardOccupiedSlots = [0,0,0,0,0]
+	monsterCardReferenceSlots = [0,0,0,0,0]	#contains references to the actual cards
 
+	locationCardOccupiedSlots = [0,0,0,0,0]
+	locationCardReferenceSlots = [0,0,0,0,0]
 
+	battleCardOccupiedSlots = [0,0,0,0,0]
+	battleCardReferenceSlots = [0,0,0,0,0]
+
+	strategyCardOccupiedSlots = [0,0,0,0,0]
+	strategyCardReferenceSlots = [0,0,0,0,0]
+	#it says that it places the same card twice, this is worth looking into
+	
+	#clear the references in the dicts and lists by setting them here
+	cardTypeOccupiedSlotsDict = {"Monster": monsterCardOccupiedSlots,
+	"Location": locationCardOccupiedSlots, "Battle": battleCardOccupiedSlots,
+	"Strategy": strategyCardOccupiedSlots}
+
+	cardTypeReferenceSlotsDict = {"Monster": monsterCardReferenceSlots,
+	"Location": locationCardReferenceSlots, "Battle": battleCardReferenceSlots,
+	"Strategy": strategyCardReferenceSlots}
+
+	listOfAllReferenceSlotLists = [monsterCardReferenceSlots, locationCardReferenceSlots, battleCardReferenceSlots, strategyCardReferenceSlots]
+	listOfAllOccupiedSlotLists = [monsterCardOccupiedSlots, locationCardOccupiedSlots, battleCardOccupiedSlots, strategyCardOccupiedSlots]
+
+	
+	#reset slotState to the default
+	slotState = "Location"
+	cardHoveredOverArea = 0
+
+	
 
 func PlaceCard(card):
+	
 	#if card's cardType is the current one, normal place it
 	#otherwise hidden place it
 	#occupied slots are the ones that are 1 or 0, reference 
+	#it's doing this twice? why? how?
+	var occupiedSlots = 0
+	var referenceSlots = 0
 	
-	var occupiedSlots = cardTypeOccupiedSlotsDict[card.GetCardType()]
-	var referenceSlots = cardTypeReferenceSlotsDict[card.GetCardType()]
+	if card.GetCardType() == "Location":
+		occupiedSlots = locationCardOccupiedSlots
+		referenceSlots = locationCardReferenceSlots
+	if card.GetCardType() == "Monster":
+		occupiedSlots = monsterCardOccupiedSlots
+		referenceSlots = monsterCardReferenceSlots
+	if card.GetCardType() == "Battle":
+		occupiedSlots = battleCardOccupiedSlots
+		referenceSlots = battleCardReferenceSlots
+	if card.GetCardType() == "Strategy":
+		occupiedSlots = strategyCardOccupiedSlots
+		referenceSlots = strategyCardReferenceSlots
 	
+	
+	
+	#there is something wrong with the use of the dictionaries above
 	if card.GetCardType() == slotState:
 		#regular place
 		
+		#now monster cards are effected by the old problems but not location cards
+		#it doesn't seem like this is called for monster cards
 		for x in range(numOfSlots):
-			if occupiedSlots[x] == 0:
+			if occupiedSlots[x] == 0 and card.GetCardIsDocked() == false:
+				print(card.GetCardType(), occupiedSlots[x])
 				#the slot is free
 				if (x+1) == 1:
 					card.position = firstSlot.global_position
@@ -80,13 +137,19 @@ func PlaceCard(card):
 				cardIsBeingHoveredOver = false	#there is no longer a card hovering over
 				referenceSlots[x] = card
 				#cardHoveredOverArea = 0	#clear the reference to the card
+				#just in case the card was set to hidden previousely
+				card.show()
+				card.set_process(true)
+				card.set_physics_process(true)
+				card.set_process_input(true)
 				occupiedSlots[x] = 1	#set the slot to occupied
 				#this should update the actual occupied/reference slots, but it's a possible bug to think about
+				
 				break
 	else:
 		#hidden place
 		for x in range(numOfSlots):
-			if occupiedSlots[x] == 0:
+			if occupiedSlots[x] == 0 and card.GetCardIsDocked() == false:
 				if (x+1) == 1:
 					card.position = firstSlot.global_position
 				if (x+1) == 2:
@@ -142,15 +205,34 @@ func _physics_process(_delta):
 		
 		if cardHoveredOverArea.GetClickAndDraggedOn() == false and cardHoveredOverArea.GetCardIsDocked() == false:
 			#align card
+			
 			PlaceCard(cardHoveredOverArea)
 				
 		
+func LoadPlayerCards(listOfCards):
+	var locationCards = listOfCards[0]
+	var monsterCards = listOfCards[1]
+	var battleCards = listOfCards[2]
+	var strategyCards = listOfCards[3]
+	
+	for x in locationCards:
+		PlaceCard(x)
 		
+	
+	for x in monsterCards:
+		PlaceCard(x)
+		
+	for x in battleCards:
+		PlaceCard(x)
+		
+	for x in strategyCards:
+		PlaceCard(x)
 		
 
 func _on_Dock_body_entered(body):
 	
 	cardHoveredOverArea = body
+	
 	cardIsBeingHoveredOver = true
 
 
