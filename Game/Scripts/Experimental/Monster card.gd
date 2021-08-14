@@ -33,6 +33,7 @@ func _ready():
 
 	#when I instance the node, I'd have to set it's get_node() name and pass it in so the card
 	#can access it's own children
+	cardIsDocked = false
 
 	baseBackground = thisNode.get_node("BaseBackground/Background")
 	colorBackground = thisNode.get_node("ColorBackground/sample")
@@ -190,7 +191,8 @@ func init(passedFile, passedOwner):
 	#$animation.play("first")
 	
 
-	
+func GetAnimation():
+	return animation
 
 	
 func _physics_process(_delta):

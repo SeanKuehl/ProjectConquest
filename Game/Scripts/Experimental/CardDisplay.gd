@@ -18,6 +18,9 @@ func _ready():
 func ConnectCardSignal(card):
 	card.connect("userWantsToDisplayCard", self, "DisplayCard")
 	
+func ConnectMonsterDockSignal(dock):
+	dock.connect("displayDockedMonster", self, "DisplayCard")
+	
 func DisplayCard(cardName, cardPicture, cardDescription):
 	nameLabel.text = cardName
 	descriptionOrEffectLabel.text = cardDescription

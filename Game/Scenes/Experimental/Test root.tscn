@@ -21,31 +21,31 @@ margin_bottom = 114.346
 position = Vector2( -219.768, 81.4991 )
 
 [node name="LocationDock1" parent="." instance=ExtResource( 5 )]
-position = Vector2( -158.544, -88.4468 )
+position = Vector2( -254.436, -85.4502 )
 
 [node name="LocationDock2" parent="." instance=ExtResource( 5 )]
-position = Vector2( 118.164, -89.1641 )
+position = Vector2( 143.635, -83.1709 )
 
 [node name="LocationDock3" parent="." instance=ExtResource( 5 )]
-position = Vector2( 393.776, -88.2202 )
+position = Vector2( 537.613, -76.2338 )
 
 [node name="LocationDock4" parent="." instance=ExtResource( 5 )]
-position = Vector2( -160.28, -337.732 )
+position = Vector2( -260.667, -357.21 )
 
 [node name="LocationDock5" parent="." instance=ExtResource( 5 )]
-position = Vector2( 119.107, -333.956 )
+position = Vector2( 146.077, -354.932 )
 
 [node name="LocationDock6" parent="." instance=ExtResource( 5 )]
-position = Vector2( 394.719, -334.9 )
+position = Vector2( 546.048, -360.371 )
 
 [node name="LocationDock7" parent="." instance=ExtResource( 5 )]
-position = Vector2( -158.392, -568.038 )
+position = Vector2( -255.782, -633.964 )
 
 [node name="LocationDock8" parent="." instance=ExtResource( 5 )]
-position = Vector2( 116.276, -567.094 )
+position = Vector2( 144.744, -645.006 )
 
 [node name="LocationDock9" parent="." instance=ExtResource( 5 )]
-position = Vector2( 396.607, -564.262 )
+position = Vector2( 549.434, -643.672 )
 
 [node name="End Turn" type="Button" parent="."]
 margin_left = 561.0

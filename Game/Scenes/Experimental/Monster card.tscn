@@ -35,7 +35,7 @@ margin_right = 51.6854
 margin_bottom = 89.204
 
 [node name="CollisionBox" parent="." index="8"]
-position = Vector2( 150.149, -5.34862 )
+position = Vector2( -0.709824, 14.5481 )
 
 [node name="SoundPlayer" type="AudioStreamPlayer" parent="." index="9"]
 

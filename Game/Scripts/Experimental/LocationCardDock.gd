@@ -8,10 +8,19 @@ var defaultImage = load("res://Game/Assets/Images/Experimental/Grey.png")
 
 var storedCard = 0
 
+var playerOneMonster = 0
+var thereIsPlayerOneMonster = false
+
+var playerTwoMonster = 0
+var thereIsPlayerTwoMonster = false
+
 var mouseIsInTile = false
 var dockedCardShown = false
 
 var timeHasPassedSinceLastClickEvent = true
+
+onready var playerOneDock = $PlayerOneMonsterCardDock
+onready var playerTwoDock = $PlayerTwoMonsterCardDock
 
 
 func _ready():
@@ -20,6 +29,8 @@ func _ready():
 
 	
 func _physics_process(_delta):
+	
+	
 	
 	if typeof(storedCard) == TYPE_OBJECT:
 		#then it hasn't been assigned yet and is still an int
@@ -57,8 +68,9 @@ func _physics_process(_delta):
 		#if click and dragged on = true
 			
 		if cardHoveredOverArea.GetClickAndDraggedOn() == false and cardHoveredOverArea.GetCardIsDocked() == false and cardHoveredOverArea.GetCardType() == "Location":
-			#dock it
+			#dock it, this is location card
 			cardHoveredOverArea.global_position = $Centre.global_position
+			
 			cardHoveredOverArea.hide()
 			cardHoveredOverArea.set_process(false)
 			cardHoveredOverArea.set_physics_process(false)
@@ -68,6 +80,55 @@ func _physics_process(_delta):
 			storedCard = cardHoveredOverArea
 			storedCard.SetIsDocked(true)
 			$Sprite/Grey.texture = cardBackImage
+			#set the cards position to Centre and disable/hide it
+			#show it later if they mouse over or something
+			#instead change the sprite to the card back image
+				
+				
+				
+		if cardHoveredOverArea.GetClickAndDraggedOn() == false and cardHoveredOverArea.GetCardIsDocked() == false and cardHoveredOverArea.GetCardType() == "Monster":
+			#dock it, this is monster card
+			if cardHoveredOverArea.GetCardOwner() == "PlayerOne" and thereIsPlayerOneMonster == false:
+				playerOneDock.LoadMonsterCardInformation(cardHoveredOverArea)
+				#still need to connect signal to display
+				get_parent().get_node("Display").ConnectMonsterDockSignal(playerOneDock)
+				#print(get_parent().get_node("Display").name)
+				cardHoveredOverArea.hide()
+				cardHoveredOverArea.set_process(false)
+				cardHoveredOverArea.set_physics_process(false)
+				cardHoveredOverArea.set_process_input(false)
+				cardHoveredOverArea.SetCardIsDocked(true)
+				playerOneMonster = cardHoveredOverArea
+				thereIsPlayerOneMonster = true
+				
+				#check if this is the second of two opposing monsters placed
+				if thereIsPlayerTwoMonster:
+					SetLocationDockToRevealed()
+				
+			elif cardHoveredOverArea.GetCardOwner() == "PlayerTwo" and thereIsPlayerTwoMonster == false:
+				playerTwoDock.LoadMonsterCardInformation(cardHoveredOverArea)
+				#still need to connect signal to display
+				get_parent().get_node("Display").ConnectMonsterDockSignal(playerTwoDock)
+				#print(get_parent().get_node("Display").name)
+				cardHoveredOverArea.hide()
+				cardHoveredOverArea.set_process(false)
+				cardHoveredOverArea.set_physics_process(false)
+				cardHoveredOverArea.set_process_input(false)
+				cardHoveredOverArea.SetCardIsDocked(true)
+				playerOneMonster = cardHoveredOverArea
+				thereIsPlayerTwoMonster = true
+				
+				#check if this is the second of two opposing monsters placed
+				if thereIsPlayerOneMonster:
+					SetLocationDockToRevealed()
+			
+			#cardHoveredOverArea.global_position = $Centre.global_position
+			
+				
+			#cardHoveredOverArea.SetCardIsDocked(true)
+			#storedCard = cardHoveredOverArea
+			#storedCard.SetIsDocked(true)
+			#$Sprite/Grey.texture = cardBackImage
 			#set the cards position to Centre and disable/hide it
 			#show it later if they mouse over or something
 			#instead change the sprite to the card back image
@@ -90,7 +151,18 @@ func SetLocationDockToHidden():
 		timeHasPassedSinceLastClickEvent = true
 		#$ClickCooldown.start()
 	
-
+func SetLocationDockToRevealed():
+	#this is used for battles, the card must reveal to both players for a battle
+	if typeof(storedCard) == TYPE_OBJECT:
+		$Sprite/Grey.texture = defaultImage
+		storedCard.show()
+		#storedCard.set_process(true)
+		#storedCard.set_physics_process(true)
+		#storedCard.set_process_input(true)
+		
+		dockedCardShown = true
+		
+		
 
 
 func _on_LocationDock_body_entered(body):

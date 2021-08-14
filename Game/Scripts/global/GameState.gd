@@ -79,10 +79,14 @@ func ClearPlayerCards(player):
 		for x in range(len(monsterCards)):
 			#max  is exclusive
 			#there will be a special check for monster cards, but not right now
-			monsterCards[x].hide()
-			monsterCards[x].set_process(false)
-			monsterCards[x].set_physics_process(false)
-			monsterCards[x].set_process_input(false)
+			if monsterCards[x].GetCardIsDocked() == true:
+				#don't hide it, it's docked in a monster card dock waiting for a battle
+				pass
+			else:
+				monsterCards[x].hide()
+				monsterCards[x].set_process(false)
+				monsterCards[x].set_physics_process(false)
+				monsterCards[x].set_process_input(false)
 			
 			
 		for x in range(len(battleCards)):

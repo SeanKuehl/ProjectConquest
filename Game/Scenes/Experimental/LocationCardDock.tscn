@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Game/Assets/Images/Experimental/Grey.png" type="Texture" id=1]
 [ext_resource path="res://Game/Scripts/Experimental/LocationCardDock.gd" type="Script" id=2]
+[ext_resource path="res://Game/Scenes/Experimental/MonsterCardDock.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 67.4016, 67.5065 )
@@ -25,6 +26,12 @@ shape = SubResource( 1 )
 [node name="ClickCooldown" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
+
+[node name="PlayerOneMonsterCardDock" parent="." instance=ExtResource( 3 )]
+position = Vector2( -109.542, -0.480011 )
+
+[node name="PlayerTwoMonsterCardDock" parent="." instance=ExtResource( 3 )]
+position = Vector2( 110.314, 0.779907 )
 [connection signal="body_entered" from="." to="." method="_on_LocationDock_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_LocationDock_body_exited"]
 [connection signal="mouse_entered" from="." to="." method="_on_LocationDock_mouse_entered"]
