@@ -10,10 +10,7 @@ var locationCardClass = load("res://Game/Scenes/Experimental/Location Card.tscn"
 var monsterCardDirectory = "res://Game/Assets/Card Files/monster cards/"
 var monsterCardClass = load("res://Game/Scenes/Experimental/Monster card.tscn")
 
-#signals for the location cards
-signal battleStart(gameState, battleCardItIsOn)	#send the gameState so the location card can manipulate it and the card it's on so only the right location card is used
-signal battleCardUsed(gameState, battleCardItIsOn)	
-signal battleEnd(gameState, battleCardItIsOn)
+
 
 onready var locationDockOne = $LocationDock1
 onready var locationDockTwo = $LocationDock2
@@ -26,8 +23,13 @@ onready var locationDockEight = $LocationDock8
 onready var locationDockNine = $LocationDock9
 onready var listOfLocationDocks = [locationDockOne, locationDockTwo, locationDockThree, locationDockFour, locationDockFive, locationDockSix, locationDockSeven, locationDockEight, locationDockNine]
 
+var monsterAttackMenuWidth = 1024
+var monsterAttackMenuHieght = 600
+
 
 func _ready():
+	get_node("AttackMenu").hide()
+	
 	GameState.SetLocationDocks(listOfLocationDocks)
 	#load_base_card_class(GetFilePathsInDirectory(experimentalCardDirectory))
 	#load_location_cards(GetFilePathsInDirectory(locationCardDirectory))
@@ -35,9 +37,14 @@ func _ready():
 	load_playerone_cards(GetFilePathsInDirectory(locationCardDirectory), GetFilePathsInDirectory(monsterCardDirectory))
 	load_playertwo_cards(GetFilePathsInDirectory(locationCardDirectory), GetFilePathsInDirectory(monsterCardDirectory))
 	
-	GameState.ClearPlayerCards("PlayerTwo")	#it's player one's turn first
+	#get_tree().change_scene("res://Game/Scenes/Experimental/InGameMenus/MonsterAttackMenu.tscn")
+	#get_tree().reload_current_scene()
 	
+	
+	GameState.ClearPlayerCards("PlayerTwo")	#it's player one's turn first
 	get_node("Dock").LoadPlayerCards(GameState.GetPlayerOneUnusedCards())
+	
+	
 	#GameState.ChangeCurrentTurn()
 	#I can now handle changing turns with cards in the card dock, now I need to handle the location card docks and any cards that might be in/on them
 	#get_node("Dock").ClearAll()	#wipe the data in card dock
@@ -51,6 +58,34 @@ func _ready():
 	#emit_signal("battleStart", 0, 0)
 	#emit_signal("battleEnd",0,0)
 	#emit_signal("battleCardUsed",0,0)
+	#get_tree().change_scene("res://Game/Scenes/Experimental/InGameMenus/MonsterAttackMenu.tscn")
+	#get_tree().change_scene("res://Game/Scenes/Experimental/Test root.tscn")
+	#get_tree().reload_current_scene()
+	#get_tree().get_current_scene().get_node("AttackMenu").hide()
+	get_tree().get_current_scene().get_node("AttackMenu").rect_global_position = Vector2(140-(monsterAttackMenuWidth/2),-350-(monsterAttackMenuHieght/2))	#this is apparently the positin of the top left corder
+	#1024, 600
+	#rect is just top left corner, and it's 1024 wide and 600 tall, so do the math
+	
+	
+func ShowMonsterAttackOptions(monsterAttackInformation):
+	
+	get_node("AttackMenu").LoadMonsterAttacks(monsterAttackInformation)
+	
+	#get position of active location card of battle so I can get coords for attack menu
+	
+	var attackMenuLocation = GameState.GetCenterOfLocationCardDockAtIndex(GameState.GetindexOfActiveLocationCardDock())
+	
+	#adjust because attack menu places itself based on top left corner and not it's center
+	attackMenuLocation.x -= monsterAttackMenuWidth/2
+	attackMenuLocation.y -= monsterAttackMenuHieght/2
+	
+	#hide the location card showing in the dock, otherwise it will draw over the 
+	#selection dialogue
+	GameState.SetLocationCardAtIndexToHidden(GameState.GetindexOfActiveLocationCardDock())
+	
+	get_node("AttackMenu").rect_global_position = attackMenuLocation
+	get_node("AttackMenu").show()
+	
 	
 func GetFilePathsInDirectory(dir):
 	#load the one card into the scene by reading the card's text file from directory

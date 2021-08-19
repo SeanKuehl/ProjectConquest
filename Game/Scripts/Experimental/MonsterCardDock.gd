@@ -26,8 +26,10 @@ func get_input():
 		#if there is no monster docked, there is nothing to do
 		emit_signal("displayDockedMonster", monsterCardName, monsterCardPicture, monsterCardDescription)
 		
-	
-	
+	if Input.is_action_pressed("RIGHT_CLICK") and mouseIsInTile and thereIsAMonsterDocked and GameState.GetBattleState() == "MonsterAttackPhase":
+		get_parent().RootShowMonsterAttackOptions()
+		#get parent, call one of it's funcs with params to do stuff
+	#if monster is right clicked on during the "MonsterAttackPhase" you can select it's attacks
 		
 	
 		

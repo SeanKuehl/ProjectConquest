@@ -120,7 +120,7 @@ func PlaceCard(card):
 		#it doesn't seem like this is called for monster cards
 		for x in range(numOfSlots):
 			if occupiedSlots[x] == 0 and card.GetCardIsDocked() == false:
-				print(card.GetCardType(), occupiedSlots[x])
+				
 				#the slot is free
 				if (x+1) == 1:
 					card.position = firstSlot.global_position

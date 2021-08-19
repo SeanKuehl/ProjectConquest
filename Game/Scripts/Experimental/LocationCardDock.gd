@@ -6,6 +6,8 @@ var cardHoveredOverArea = 0
 var cardBackImage = load("res://Game/Assets/Images/Experimental/CardBack.png")
 var defaultImage = load("res://Game/Assets/Images/Experimental/Grey.png")
 
+onready var thisNode = get_node("../"+name)
+
 var storedCard = 0
 
 var playerOneMonster = 0
@@ -22,6 +24,13 @@ var timeHasPassedSinceLastClickEvent = true
 onready var playerOneDock = $PlayerOneMonsterCardDock
 onready var playerTwoDock = $PlayerTwoMonsterCardDock
 
+var battleHappening = false	#so gamestate and others can find where the battle is happening
+var lastPlayerToLand = ""
+#it will need to manipulate game state, can the custom script access that? Or Will I need a sunchronizing func?
+
+
+signal BattleStarted()	#wtf do I want this to do? be connected to the location card's script
+signal BattleEnded()
 
 func _ready():
 	pass
@@ -32,7 +41,7 @@ func _physics_process(_delta):
 	
 	
 	
-	if typeof(storedCard) == TYPE_OBJECT:
+	if typeof(storedCard) == TYPE_OBJECT and GameState.GetBattleState() != "MonsterAttackPhase":
 		#then it hasn't been assigned yet and is still an int
 	
 		if Input.is_action_pressed("CLICK") and mouseIsInTile and dockedCardShown == false and timeHasPassedSinceLastClickEvent and GameState.GetCurrentTurn() == storedCard.GetCardOwner():
@@ -70,6 +79,8 @@ func _physics_process(_delta):
 		if cardHoveredOverArea.GetClickAndDraggedOn() == false and cardHoveredOverArea.GetCardIsDocked() == false and cardHoveredOverArea.GetCardType() == "Location":
 			#dock it, this is location card
 			cardHoveredOverArea.global_position = $Centre.global_position
+			#connect the signals for "battle start" etc. from here to card upon docking
+			cardHoveredOverArea.ConnectCustomScriptToLocationDockSignal(thisNode)
 			
 			cardHoveredOverArea.hide()
 			cardHoveredOverArea.set_process(false)
@@ -104,6 +115,17 @@ func _physics_process(_delta):
 				#check if this is the second of two opposing monsters placed
 				if thereIsPlayerTwoMonster:
 					SetLocationDockToRevealed()
+					
+					#get the index of the location card dock
+					var stringIndex = name[-1]
+					var intIndex = int(stringIndex) -1	#the list of location card docks starts at 0, so the -1 is to adjust for that
+					lastPlayerToLand = "PlayerOne"
+					
+					GameState.RegisterBattleStarted(intIndex, lastPlayerToLand)
+					
+					emit_signal("BattleStarted")
+					
+					
 				
 			elif cardHoveredOverArea.GetCardOwner() == "PlayerTwo" and thereIsPlayerTwoMonster == false:
 				playerTwoDock.LoadMonsterCardInformation(cardHoveredOverArea)
@@ -115,12 +137,24 @@ func _physics_process(_delta):
 				cardHoveredOverArea.set_physics_process(false)
 				cardHoveredOverArea.set_process_input(false)
 				cardHoveredOverArea.SetCardIsDocked(true)
-				playerOneMonster = cardHoveredOverArea
+				playerTwoMonster = cardHoveredOverArea
 				thereIsPlayerTwoMonster = true
 				
 				#check if this is the second of two opposing monsters placed
 				if thereIsPlayerOneMonster:
 					SetLocationDockToRevealed()
+					
+					#get the index of the location card dock
+					var stringIndex = name[-1]
+					var intIndex = int(stringIndex) -1	#the list of location card docks starts at 0, so the -1 is to adjust for that
+					lastPlayerToLand = "PlayerTwo"
+					
+					GameState.RegisterBattleStarted(intIndex, lastPlayerToLand)
+					
+					emit_signal("BattleStarted")
+					
+					
+					
 			
 			#cardHoveredOverArea.global_position = $Centre.global_position
 			
@@ -134,8 +168,25 @@ func _physics_process(_delta):
 			#instead change the sprite to the card back image
 				
 		
-		
-		
+
+
+func RootShowMonsterAttackOptions():
+	#I have the cards stored here, so I'll get their information here
+	#I need the attacks from the monster
+	var monsterAttackInformation = 0
+	if GameState.GetPlayerBattleTurn() == "PlayerOne":
+		#this func could only be reached from MonsterAttackPhase so I should use battleTurn instead of regular turn
+		monsterAttackInformation = playerOneMonster.GetAttacksToDisplay()
+	else:
+		monsterAttackInformation = playerTwoMonster.GetAttacksToDisplay()
+	
+	
+	get_parent().ShowMonsterAttackOptions(monsterAttackInformation)
+
+
+func GetCenter():
+	return $Centre.global_position
+
 
 func SetLocationDockToHidden():
 	#this func is for use when changing turns between players

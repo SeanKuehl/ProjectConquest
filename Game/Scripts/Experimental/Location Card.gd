@@ -124,7 +124,7 @@ func init(passedFile, passedOwner):
 		cardEffect = effect
 		customScript = load(customScriptDirectory+customScript)
 		customScript = customScript.new()
-		customScript.ConnectSignalsFromRoot(parent)
+		#customScript.ConnectSignalsFromRoot(parent)
 	
 	#set background colors
 	baseBackground.texture = baseBackgroundColor
@@ -155,7 +155,8 @@ func _physics_process(_delta):
 	get_input()
    
 	
-
+func ConnectCustomScriptToLocationDockSignal(dock):
+	customScript.ConnectSignalsFromLocationDock(dock)
 
 
 func _on_Card_mouse_entered():

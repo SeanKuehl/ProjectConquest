@@ -1,0 +1,128 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Game/Scripts/Experimental/InGameMenus/MonsterAttackMenu.gd" type="Script" id=1]
+
+[node name="AttackMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AttackLabelOne" type="Label" parent="Panel"]
+margin_left = 224.0
+margin_top = 94.0
+margin_right = 801.0
+margin_bottom = 117.0
+text = "sample"
+
+[node name="AttackOneAccept" type="Button" parent="Panel"]
+margin_left = 882.0
+margin_top = 73.2866
+margin_right = 955.0
+margin_bottom = 157.287
+text = "Y"
+
+[node name="AttackLabelTwo" type="Label" parent="Panel"]
+margin_left = 224.0
+margin_top = 270.0
+margin_right = 840.0
+margin_bottom = 300.0
+text = "sample"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AttackTwoAccept" type="Button" parent="Panel"]
+margin_left = 882.0
+margin_top = 260.954
+margin_right = 955.0
+margin_bottom = 344.954
+text = "Y"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AttackLabelThree" type="Label" parent="Panel"]
+margin_left = 224.0
+margin_top = 408.0
+margin_right = 824.0
+margin_bottom = 422.0
+text = "sample"
+
+[node name="AttackThreeAccept" type="Button" parent="Panel"]
+margin_left = 882.0
+margin_top = 408.0
+margin_right = 955.0
+margin_bottom = 478.0
+text = "Y"
+
+[node name="Skip" type="Button" parent="Panel"]
+margin_left = 402.0
+margin_top = 558.0
+margin_right = 493.0
+margin_bottom = 578.0
+text = "Skip"
+
+[node name="CloseButton" type="Button" parent="Panel"]
+margin_right = 52.0
+margin_bottom = 45.0
+text = "X"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AttackOneScrollContainer" type="ScrollContainer" parent="."]
+margin_left = 224.0
+margin_top = 130.0
+margin_right = 852.0
+margin_bottom = 238.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AttackOneScrollingText" type="Label" parent="AttackOneScrollContainer"]
+margin_right = 600.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 600, 100 )
+
+[node name="AttackTwoScrollContainer" type="ScrollContainer" parent="."]
+margin_left = 224.0
+margin_top = 300.0
+margin_right = 852.0
+margin_bottom = 408.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AttackTwoScrollingText" type="Label" parent="AttackTwoScrollContainer"]
+margin_right = 600.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 600, 100 )
+
+[node name="AttackThreeScrollContainer" type="ScrollContainer" parent="."]
+margin_left = 224.0
+margin_top = 450.0
+margin_right = 852.0
+margin_bottom = 558.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AttackThreeScrollingText" type="Label" parent="AttackThreeScrollContainer"]
+margin_right = 600.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 600, 100 )
+[connection signal="pressed" from="Panel/AttackOneAccept" to="." method="_on_AttackOneAccept_pressed"]
+[connection signal="pressed" from="Panel/AttackTwoAccept" to="." method="_on_AttackTwoAccept_pressed"]
+[connection signal="pressed" from="Panel/AttackThreeAccept" to="." method="_on_AttackThreeAccept_pressed"]
+[connection signal="pressed" from="Panel/Skip" to="." method="_on_Skip_pressed"]
+[connection signal="pressed" from="Panel/CloseButton" to="." method="_on_CloseButton_pressed"]

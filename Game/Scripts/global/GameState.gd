@@ -5,6 +5,7 @@ onready var turn = "PlayerOne"	#start the game on the first player's turn
 onready var locationDocks = []	#location docks are numbered 1-9 from bottom left to top right
 #don't keep stuff other than references, manip values in the docks to check/edit things
 
+var sceneRoot = load("res://Game/Scripts/Experimental/Test root.gd")
 
 #player one cards
 onready var playerOneUnusedMonsterCards = []
@@ -32,10 +33,20 @@ onready var playerTwoUsedBattleCards = []
 onready var playerTwoUnusedStrategyCards = []
 onready var playerTwoUsedStrategyCards = []
 
+var thereIsActiveBattle = false
+var indexOfActiveLocationCardDock = -1	#-1 so it will error instead of silent fail if there's a problem
+var playerBattleTurn = ""	#regular turns are seperate from battle turns, because battle turns aren't the same as regular turns and will go until the battle ends at which point the regular turns will resume
+var playerWhoLandedlast = ""
+var battleState = ""	#depending on the battle state the player's actions may be restricted. They can only select monster attacks in "monster attack" phase for instance
 
 func _ready():
 	pass
 	
+func RegisterBattleStarted(index, lastPlayerToLand):
+	thereIsActiveBattle = true
+	indexOfActiveLocationCardDock = index
+	playerWhoLandedlast = lastPlayerToLand
+	#playerBattleTurn will be decided by the location card
 
 func GetCurrentTurn():
 	return turn
@@ -151,6 +162,53 @@ func ClearPlayerCards(player):
 func SetLocationDocks(listOfLocationDocks):
 	locationDocks = listOfLocationDocks
 	
+func GetBattleState():
+	return battleState
+
+func GetPlayerWhoLandedlast():
+	return playerWhoLandedlast
+	
+func GetindexOfActiveLocationCardDock():
+	return indexOfActiveLocationCardDock
+	
+
+func GetCenterOfLocationCardDockAtIndex(index):
+	var dock = locationDocks[index]
+	return dock.GetCenter()
+	
+	
+func SetLocationCardAtIndexToHidden(index):
+	#I need this function otherwise the shown location card will draw over
+	#the attack selection dialogue, which looks terrible
+	var dock = locationDocks[index]
+	dock.SetLocationDockToHidden()
+	
+	
+func SetPlayerBattleTurn(playerTurn):
+	playerBattleTurn = playerTurn
+	
+func GetPlayerBattleTurn():
+	return playerBattleTurn
+	
+func StartBattle():
+	print(playerBattleTurn)
+	#check the turns, swap over the turns if nessesary, in most cases it won't be
+	if playerBattleTurn == turn:
+		#if the playerBattleTurn is the same as the lastplayertoland/current turn then we don't need to change anything
+		battleState = "MonsterAttackPhase"
+	else:
+		#this code won't work because of the sceneRoot, but that's another story for later
+		
+		#swap whose turn it is
+		sceneRoot.get_node("Dock").ClearAll()	#wipe the data in card dock
+	#in card dock, it seems the values from dicts and the actual values are not the same, this could/will be the source of future problems
+		GameState.ClearPlayerCards(GameState.GetCurrentTurn())	#make the unused cards of playerone(the ones that would be in the dock) invisible and unusable
+		GameState.ChangeCurrentTurn()
+	
+		if GameState.GetCurrentTurn() == "PlayerOne":
+			sceneRoot.get_node("Dock").LoadPlayerCards(GameState.GetPlayerOneUnusedCards())
+		else:
+			sceneRoot.get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
 	
 	
 	

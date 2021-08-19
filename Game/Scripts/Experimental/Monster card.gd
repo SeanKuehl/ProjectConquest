@@ -158,7 +158,7 @@ func init(passedFile, passedOwner):
 	textFileIndex+= numberOfAnimationFrames + 1
 	
 	customScript = load("res://Game/Scripts/card scripts/monster card scripts/"+content[textFileIndex])
-		
+	customScript = customScript.new()
 	
 	#set background colors
 	baseBackground.texture = baseBackgroundColor
@@ -190,6 +190,10 @@ func init(passedFile, passedOwner):
 	$animation.frames = newAnimation
 	#$animation.play("first")
 	
+func GetAttacksToDisplay():
+		
+	return customScript.GetAttacksForDisplay()
+
 
 func GetAnimation():
 	return animation
