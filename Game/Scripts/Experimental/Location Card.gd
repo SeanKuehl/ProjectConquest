@@ -8,6 +8,7 @@ var customScriptDirectory = "res://Game/Scripts/card scripts/location card scrip
 var cardEffect = ""
 var parent = 0
 var isDocked = false
+var priority = -1	
 	#this is used for connecting signals from the root scene to the custom script
 #signals: battle started, battle card played, battle ended
 
@@ -67,6 +68,15 @@ func _ready():
 #	pictureBackground.texture = pictureBackgroundColor
 #	descriptionOrEffectBackground.texture = descriptionOrEffectBackgroundColor
 
+func GetPriority():
+	return priority
+	
+func SetPriority(newPriority):
+	priority = newPriority
+	
+func FilterAttack(attack):
+	return customScript.Filter(attack)
+	
 	
 func GetIsDocked():
 	return isDocked

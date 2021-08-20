@@ -17,6 +17,8 @@ var attacks = []
 var sound = ""
 var animation = []
 
+
+
 var attributeLabel = ""
 var healthLabel = ""
 
@@ -194,6 +196,30 @@ func GetAttacksToDisplay():
 		
 	return customScript.GetAttacksForDisplay()
 
+func ActivateMonsterCardScriptEffect(monsterAttack):
+	if monsterAttack[0] == 1:
+		#do the first attack
+		return customScript.FirstAttack(monsterAttack)
+	elif monsterAttack[0] == 2:
+		#do the second attack
+		return customScript.SecondAttack(monsterAttack)
+	elif monsterAttack[0] == 3:
+		#do the third attack
+		return customScript.ThirdAttack(monsterAttack)
+
+func TakeDamage(monsterAttack):
+	#use the health/attribute labels as the temp/battle values so that the user 
+	#gets the right information while the original values are still present
+	var damageToDo = monsterAttack[2]
+	var newHealth = int(healthLabel.text)
+	print(str(newHealth)+" this is the health after int conversion")
+	newHealth -= damageToDo
+	print(str(newHealth)+" this is the health after damage done")
+	if newHealth < 0:
+		newHealth = 0	#don't want to display a negative health
+	
+	healthLabel.text = str(newHealth)
+	
 
 func GetAnimation():
 	return animation
@@ -212,7 +238,9 @@ func _physics_process(_delta):
 	get_input()
    
 	
-
+func GetBattleHealth():
+	#this is the health stored inside the label that reflects changes due to things from battle like attacks
+	return int(healthLabel.text)
 
 
 func _on_Card_mouse_entered():

@@ -120,7 +120,7 @@ func _physics_process(_delta):
 					var stringIndex = name[-1]
 					var intIndex = int(stringIndex) -1	#the list of location card docks starts at 0, so the -1 is to adjust for that
 					lastPlayerToLand = "PlayerOne"
-					
+					GameState.AddCardToActiveCardList(storedCard)
 					GameState.RegisterBattleStarted(intIndex, lastPlayerToLand)
 					
 					emit_signal("BattleStarted")
@@ -148,7 +148,7 @@ func _physics_process(_delta):
 					var stringIndex = name[-1]
 					var intIndex = int(stringIndex) -1	#the list of location card docks starts at 0, so the -1 is to adjust for that
 					lastPlayerToLand = "PlayerTwo"
-					
+					GameState.AddCardToActiveCardList(storedCard)
 					GameState.RegisterBattleStarted(intIndex, lastPlayerToLand)
 					
 					emit_signal("BattleStarted")
@@ -186,6 +186,36 @@ func RootShowMonsterAttackOptions():
 
 func GetCenter():
 	return $Centre.global_position
+
+func GetVictory():
+	#returns bool
+	var playerOneMonsterHealth = playerOneMonster.GetBattleHealth()
+	var playerTwoMonsterHealth = playerTwoMonster.GetBattleHealth()
+	
+	if playerOneMonsterHealth == 0 or playerTwoMonsterHealth == 0:
+		#if either monster's health is zero, someone won
+		return true
+	else:
+		return false
+	
+	
+
+
+func UseMonsterCardEffect(monsterAttack):
+	if GameState.GetPlayerBattleTurn() == "PlayerOne":
+		monsterAttack = playerOneMonster.ActivateMonsterCardScriptEffect(monsterAttack)
+	else:
+		monsterAttack = playerTwoMonster.ActivateMonsterCardScriptEffect(monsterAttack)
+
+	return monsterAttack
+
+func DealDamageToMonster(monsterAttack):
+	if GameState.GetPlayerBattleTurn() == "PlayerOne":
+		playerOneMonster.TakeDamage(monsterAttack)
+		
+	else:
+		playerTwoMonster.TakeDamage(monsterAttack)
+		
 
 
 func SetLocationDockToHidden():

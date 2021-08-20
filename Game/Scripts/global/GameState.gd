@@ -33,6 +33,10 @@ onready var playerTwoUsedBattleCards = []
 onready var playerTwoUnusedStrategyCards = []
 onready var playerTwoUsedStrategyCards = []
 
+
+var activeCardsList = []	#if a card is "active" then it filters monster attacks(based on it's priority)
+var activeCardPriority = 1
+
 var thereIsActiveBattle = false
 var indexOfActiveLocationCardDock = -1	#-1 so it will error instead of silent fail if there's a problem
 var playerBattleTurn = ""	#regular turns are seperate from battle turns, because battle turns aren't the same as regular turns and will go until the battle ends at which point the regular turns will resume
@@ -57,6 +61,38 @@ func ChangeCurrentTurn():
 		turn = "PlayerTwo"
 	else:
 		turn = "PlayerOne"
+
+func DoMonsterEffectAtCurrentBattleIndex(index, monsterAttack):
+	var dock = locationDocks[index]
+	return dock.UseMonsterCardEffect(monsterAttack)
+	#returns monster attack
+	
+
+func DealDamageToOtherMonsterAtCurrentBattleIndex(index, monsterAttack):
+	var dock = locationDocks[index]
+	dock.DealDamageToMonster(monsterAttack)
+	
+func CheckForVictoryAtCurrentBattleIndex(index):
+	var dock = locationDocks[index]
+	return dock.GetVictory()
+	
+
+func AddCardToActiveCardList(card):
+	#add the card and give it a priority, the more recent it is the higher the priority
+	card.SetPriority(activeCardPriority)
+	activeCardPriority += 1	
+	activeCardsList.append(card)
+	
+func FilterMonsterCardAttacks(attacksToFilter):
+	#for in range through active cards, call the filter func of that active thing
+	var filteredAttacks = []
+	for attack in attacksToFilter:
+		for activeCard in activeCardsList:
+			attack = activeCard.FilterAttack(attack)
+			
+		filteredAttacks.append(attack)
+	return filteredAttacks
+	#this function returns the list of attacks
 
 func ClearPlayerCards(player):
 	#this func will eventually become "end turn"

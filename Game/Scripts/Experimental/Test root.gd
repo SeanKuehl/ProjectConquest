@@ -69,7 +69,14 @@ func _ready():
 	
 func ShowMonsterAttackOptions(monsterAttackInformation):
 	
-	get_node("AttackMenu").LoadMonsterAttacks(monsterAttackInformation)
+	#filter the attacks
+	var filteredAttacks = GameState.FilterMonsterCardAttacks(monsterAttackInformation)
+	#every time the user wants to see the attacks they are filtered first
+	
+	
+	
+	
+	get_node("AttackMenu").LoadMonsterAttacks(filteredAttacks)
 	
 	#get position of active location card of battle so I can get coords for attack menu
 	
@@ -85,6 +92,29 @@ func ShowMonsterAttackOptions(monsterAttackInformation):
 	
 	get_node("AttackMenu").rect_global_position = attackMenuLocation
 	get_node("AttackMenu").show()
+	
+	
+func HandleMonsterAttackSelection(chosenFilteredAttack, skipSelected):
+	
+	if skipSelected:
+		pass
+	else:
+		
+		#call monster custom script func
+		
+		chosenFilteredAttack = GameState.DoMonsterEffectAtCurrentBattleIndex(GameState.GetindexOfActiveLocationCardDock(), chosenFilteredAttack)
+		#deal damage to other monster
+		
+		GameState.DealDamageToOtherMonsterAtCurrentBattleIndex(GameState.GetindexOfActiveLocationCardDock(), chosenFilteredAttack)
+		#check for victory
+		var victory = GameState.CheckForVictoryAtCurrentBattleIndex(GameState.GetindexOfActiveLocationCardDock())
+		#if no victory, change battle state and continue with battle
+		if victory:
+			#handle victory, clear battle data, restore regular turns, put cards in used piles etc
+			pass
+		else:
+			#battle continues
+			pass
 	
 	
 func GetFilePathsInDirectory(dir):
