@@ -4,19 +4,18 @@ extends "res://Game/Scripts/Experimental/Card Experiment.gd"
 
 
 var customScript = ""
-var customScriptDirectory = "res://Game/Scripts/card scripts/location card scripts/"
+var customScriptDirectory = "res://Game/Scripts/card scripts/battle card scripts/"
 var cardEffect = ""
 var parent = 0
 var isDocked = false
 var priority = -1	
-
 	#this is used for connecting signals from the root scene to the custom script
 #signals: battle started, battle card played, battle ended
 
 
 
 func _ready():
-	cardType = "Location"	#this would be 'location' or 'battle'
+	cardType = "Battle"	#this would be 'location' or 'battle'
 
 
 
@@ -38,8 +37,8 @@ func _ready():
 
 
 	baseBackgroundColor = load(colorSubDict["BLACK"])
-	colorBackgroundColor = load(colorSubDict["RED"])
-	pictureBackgroundColor = load(colorSubDict["BLUE"])
+	colorBackgroundColor = load(colorSubDict["BLUE"])
+	pictureBackgroundColor = load(colorSubDict["RED"])
 	descriptionOrEffectBackgroundColor = load(colorSubDict["BLACK"])
 
 	
@@ -79,14 +78,7 @@ func FilterAttack(attack):
 	return customScript.Filter(attack)
 	
 	
-func GetIsDocked():
-	return isDocked
-	
-func SetIsDocked(dockedStatus):
-	isDocked = dockedStatus
-	
-	#var new_position = get_global_mouse_position()
-	#movement = new_position - position;
+
 	
 func init(passedFile, passedOwner):
 	
@@ -128,7 +120,7 @@ func init(passedFile, passedOwner):
 		for x in range(effectLinesStartIndex,effectLinesStartIndex+numberOfEffectLines):
 			effect += content[x]
 			customScriptIndex += 1
-			
+		
 		customScript = content[customScriptIndex]
 		cardDescription = effect	#this is required because the signal to the display sends cardDescription and not effect
 		descriptionOrEffectLabel.text = effect
@@ -160,14 +152,17 @@ func _physics_process(_delta):
 	#position = position.move_toward(newPos, delta * moveSpeed)
 	if clickedAndDraggedOn:
 		position = newPos
+		
+		
+	
 	
 	
 	
 	get_input()
    
 	
-func ConnectCustomScriptToLocationDockSignal(dock):
-	customScript.ConnectSignalsFromLocationDock(dock)
+#func ConnectCustomScriptToLocationDockSignal(dock):
+	#customScript.ConnectSignalsFromLocationDock(dock)
 
 
 func _on_Card_mouse_entered():

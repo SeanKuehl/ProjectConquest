@@ -15,6 +15,7 @@ var cardType = "Base"	#this would be 'location' or 'battle'
 var cardName = ""
 var cardPicture = ""
 var cardDescription = ""
+var iAmBeingDragged = false
 
 var colorSubDict = {"RED": "res://Game/Assets/Images/Experimental/Red.png",
 "BLUE": "res://Game/Assets/Images/Experimental/Blue.png",

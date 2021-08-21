@@ -5,6 +5,8 @@ onready var turn = "PlayerOne"	#start the game on the first player's turn
 onready var locationDocks = []	#location docks are numbered 1-9 from bottom left to top right
 #don't keep stuff other than references, manip values in the docks to check/edit things
 
+var thereIsACardBeingDragged = false
+
 var sceneRoot = load("res://Game/Scripts/Experimental/Test root.gd")
 
 #player one cards
@@ -42,6 +44,19 @@ var indexOfActiveLocationCardDock = -1	#-1 so it will error instead of silent fa
 var playerBattleTurn = ""	#regular turns are seperate from battle turns, because battle turns aren't the same as regular turns and will go until the battle ends at which point the regular turns will resume
 var playerWhoLandedlast = ""
 var battleState = ""	#depending on the battle state the player's actions may be restricted. They can only select monster attacks in "monster attack" phase for instance
+
+
+
+
+
+func GetThereIsACardBeingDragged():
+	return thereIsACardBeingDragged
+
+func SetThereIsACardBeingDragged(newValue):
+	thereIsACardBeingDragged = newValue
+
+
+
 
 func _ready():
 	pass

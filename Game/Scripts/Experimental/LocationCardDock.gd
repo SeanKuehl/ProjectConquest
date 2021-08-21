@@ -155,17 +155,13 @@ func _physics_process(_delta):
 					
 					
 					
+		if cardHoveredOverArea.GetClickAndDraggedOn() == false and cardHoveredOverArea.GetCardIsDocked() == false and cardHoveredOverArea.GetCardType() == "Battle":
+			#check if a battle is happening
+			if thereIsPlayerOneMonster and thereIsPlayerTwoMonster:
+				pass
+				#is this how I want them to play this kind of card?
+				#Or do I want a UI to come up so I can maybe more easily filter it?
 			
-			#cardHoveredOverArea.global_position = $Centre.global_position
-			
-				
-			#cardHoveredOverArea.SetCardIsDocked(true)
-			#storedCard = cardHoveredOverArea
-			#storedCard.SetIsDocked(true)
-			#$Sprite/Grey.texture = cardBackImage
-			#set the cards position to Centre and disable/hide it
-			#show it later if they mouse over or something
-			#instead change the sprite to the card back image
 				
 		
 
