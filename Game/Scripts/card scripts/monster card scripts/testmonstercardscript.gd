@@ -39,7 +39,7 @@ func FirstAttack(filteredAttack):
 			#for x in range(20):
 			#	var my_random_number = rng.randi_range(1, 8)	#inclusive
 				#print("random num is: "+str(my_random_number))
-			filteredAttack[2] = 100	#for testing, forget the randomness
+			filteredAttack[2] = 40	#for testing, forget the randomness
 	
 	return filteredAttack
 	

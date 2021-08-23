@@ -157,11 +157,34 @@ func _physics_process(_delta):
 					
 		if cardHoveredOverArea.GetClickAndDraggedOn() == false and cardHoveredOverArea.GetCardIsDocked() == false and cardHoveredOverArea.GetCardType() == "Battle":
 			#check if a battle is happening
-			if thereIsPlayerOneMonster and thereIsPlayerTwoMonster:
-				pass
-				#is this how I want them to play this kind of card?
-				#Or do I want a UI to come up so I can maybe more easily filter it?
-			
+			if thereIsPlayerOneMonster and thereIsPlayerTwoMonster and GameState.GetBattleState() == "BattleCardPhase":
+				#take card, filter card, do card
+				print("this worked and got here")
+				#they will drag the card onto the location dock where there is a battle going on
+				#this card will then be filtered, then it's effect played and it added to active cards
+				cardHoveredOverArea.hide()
+				var filteredBattleCardToHandle = GameState.FilterBattleCard(cardHoveredOverArea.GetFilterData())	
+				
+				#check if the battle card/effect is allowed
+				#[attribute, true]
+				if filteredBattleCardToHandle[1]:
+					#call func in root to handle the effect
+					print("this is in this location")
+					cardIsBeingHoveredOver = false
+					get_parent().HandleFilteredBattleCard(filteredBattleCardToHandle, cardHoveredOverArea)
+				else:
+					#card is not allowed to be played, make it visible and tell user they cannot play it
+					#dock the card since it cannot be played
+					
+					
+					
+					cardHoveredOverArea.show()
+					cardIsBeingHoveredOver = false
+					get_parent().get_node("Dock").PlaceCard(cardHoveredOverArea)
+					print("this card cannot be played")
+				
+				#in the meantime the card itself should hide, it will reappear only if it is not allowed to be played
+				#and the user should be told this
 				
 		
 

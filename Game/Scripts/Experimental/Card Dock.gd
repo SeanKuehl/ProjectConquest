@@ -97,6 +97,8 @@ func PlaceCard(card):
 	var occupiedSlots = 0
 	var referenceSlots = 0
 	
+	
+	
 	if card.GetCardType() == "Location":
 		occupiedSlots = locationCardOccupiedSlots
 		referenceSlots = locationCardReferenceSlots

@@ -10,6 +10,8 @@ var parent = 0
 var isDocked = false
 var priority = -1	
 
+
+
 	#this is used for connecting signals from the root scene to the custom script
 #signals: battle started, battle card played, battle ended
 
@@ -78,6 +80,8 @@ func SetPriority(newPriority):
 func FilterAttack(attack):
 	return customScript.Filter(attack)
 	
+func BattleCardFilter(battleCardToFilter):
+	return customScript.FilterBattleCard(battleCardToFilter)
 	
 func GetIsDocked():
 	return isDocked
@@ -173,8 +177,13 @@ func ConnectCustomScriptToLocationDockSignal(dock):
 func _on_Card_mouse_entered():
 	
 	mouseIsInTile = true
+		
 
 
 func _on_Card_mouse_exited():
 	
 	mouseIsInTile = false
+	
+
+
+

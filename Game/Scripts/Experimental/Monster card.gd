@@ -23,6 +23,7 @@ var attributeLabel = ""
 var healthLabel = ""
 
 
+
 func _ready():
 	cardType = "Monster"	#this would be 'location' or 'battle'
 
@@ -212,9 +213,9 @@ func TakeDamage(monsterAttack):
 	#gets the right information while the original values are still present
 	var damageToDo = monsterAttack[2]
 	var newHealth = int(healthLabel.text)
-	print(str(newHealth)+" this is the health after int conversion")
+	
 	newHealth -= damageToDo
-	print(str(newHealth)+" this is the health after damage done")
+	
 	if newHealth < 0:
 		newHealth = 0	#don't want to display a negative health
 	
@@ -245,9 +246,15 @@ func GetBattleHealth():
 
 func _on_Card_mouse_entered():
 	
+	
 	mouseIsInTile = true
+		
 
 
 func _on_Card_mouse_exited():
 	
 	mouseIsInTile = false
+	
+
+
+

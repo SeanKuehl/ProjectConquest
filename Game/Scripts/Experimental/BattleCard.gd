@@ -9,6 +9,7 @@ var cardEffect = ""
 var parent = 0
 var isDocked = false
 var priority = -1	
+var attribute = ""
 	#this is used for connecting signals from the root scene to the custom script
 #signals: battle started, battle card played, battle ended
 
@@ -77,8 +78,18 @@ func SetPriority(newPriority):
 func FilterAttack(attack):
 	return customScript.Filter(attack)
 	
-	
 
+	
+func BattleCardFilter(battleCardToFilter):
+	return customScript.FilterBattleCard(battleCardToFilter)
+	
+func ActivateEffect(filteredVersion):
+	customScript.Effect(filteredVersion)
+
+func GetFilterData():
+	#attribute and whether or not the effect are allowed are all that 
+	#can really be changed about a battle card
+	return [attribute, true]
 	
 func init(passedFile, passedOwner):
 	
@@ -122,6 +133,10 @@ func init(passedFile, passedOwner):
 			customScriptIndex += 1
 		
 		customScript = content[customScriptIndex]
+		
+		attribute = content[customScriptIndex+1]
+		
+		
 		cardDescription = effect	#this is required because the signal to the display sends cardDescription and not effect
 		descriptionOrEffectLabel.text = effect
 		cardEffect = effect

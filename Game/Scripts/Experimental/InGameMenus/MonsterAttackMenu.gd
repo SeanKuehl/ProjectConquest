@@ -108,14 +108,14 @@ func GetIfAttackSelectable(attackIndex):
 	#this checks both that the index exists(there is no third attack if there is only 2 in the list
 	#and that it's enabled(the attack is not disabled
 	var numOfAttacks = len(loadedAttacks)
-	print("x")
+	
 	if attackIndex <= numOfAttacks:
-		print("y")
+		
 		#the attack exists, check if enabled
 		var attack = loadedAttacks[attackIndex-1]	#-1 because lists start at zero
-		print(attack)
+		
 		if attack[6]:
-			print("z")
+			
 			#the attack is enabled, return true
 			return true
 			

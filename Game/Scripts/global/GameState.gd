@@ -108,6 +108,12 @@ func FilterMonsterCardAttacks(attacksToFilter):
 		filteredAttacks.append(attack)
 	return filteredAttacks
 	#this function returns the list of attacks
+	
+func FilterBattleCard(battleCardToFilter):
+	for activeCard in activeCardsList:
+		battleCardToFilter = activeCard.BattleCardFilter(battleCardToFilter)
+		
+	return battleCardToFilter
 
 func ClearPlayerCards(player):
 	#this func will eventually become "end turn"
@@ -215,6 +221,9 @@ func SetLocationDocks(listOfLocationDocks):
 	
 func GetBattleState():
 	return battleState
+	
+func SetBattleState(newBattleState):
+	battleState = newBattleState
 
 func GetPlayerWhoLandedlast():
 	return playerWhoLandedlast
@@ -234,12 +243,24 @@ func SetLocationCardAtIndexToHidden(index):
 	var dock = locationDocks[index]
 	dock.SetLocationDockToHidden()
 	
+func SetLocationCardAtIndexToRevealed(index):
+	#I need this function otherwise the shown location card will draw over
+	#the attack selection dialogue, which looks terrible
+	var dock = locationDocks[index]
+	dock.SetLocationDockToRevealed()
+	
 	
 func SetPlayerBattleTurn(playerTurn):
 	playerBattleTurn = playerTurn
 	
 func GetPlayerBattleTurn():
 	return playerBattleTurn
+	
+func ChangePlayerBattleTurn():
+	if playerBattleTurn == "PlayerOne":
+		playerBattleTurn = "PlayerTwo"
+	else:
+		playerBattleTurn = "PlayerOne"
 	
 func StartBattle():
 	print(playerBattleTurn)
@@ -261,7 +282,7 @@ func StartBattle():
 		else:
 			sceneRoot.get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
 	
-	
+	#filter the current player's monster!
 	
 func AddLocationDock(newLocationDock):
 	locationDocks.append(newLocationDock)

@@ -113,11 +113,45 @@ func HandleMonsterAttackSelection(chosenFilteredAttack, skipSelected):
 		#if no victory, change battle state and continue with battle
 		if victory:
 			#handle victory, clear battle data, restore regular turns, put cards in used piles etc
-			pass
+			print("battle was won")
 		else:
-			#battle continues
-			pass
+			#battle continues, switch to battle card phase
+			GameState.SetLocationCardAtIndexToRevealed(GameState.GetindexOfActiveLocationCardDock())
+			get_node("AttackMenu").hide()
+			GameState.SetBattleState("BattleCardPhase")	#this phase allows battle cards to be dragged onto location card docks
+			#need to make a skip button appear for the user if they want to skip
+					#playing a battle card
+			print("changed to battle card phase")
 	
+	
+func HandleFilteredBattleCard(filteredBattleCard, card):
+	#[attribute, true]
+	
+	#do the battle card's effect
+	card.ActivateEffect(filteredBattleCard)
+	
+	GameState.AddCardToActiveCardList(card)
+	
+	#now this player's battle turns are over, switch to other player's battle turn
+	#this is basically the same as normally switching turns, just using the battle turn instead so I can restore
+	#the normal turn order after
+	print("it's now the other player's battle turn")
+	#use player battle turn not current turn
+	get_node("Dock").ClearAll()	#wipe the data in card dock
+	#in card dock, it seems the values from dicts and the actual values are not the same, this could/will be the source of future problems
+	GameState.ClearPlayerCards(GameState.GetPlayerBattleTurn())	#make the unused cards of playerone(the ones that would be in the dock) invisible and unusable
+	GameState.ChangePlayerBattleTurn()
+	
+	if GameState.GetPlayerBattleTurn() == "PlayerOne":
+		get_node("Dock").LoadPlayerCards(GameState.GetPlayerOneUnusedCards())
+	else:
+		get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
+	
+	
+	#turn switching code doesn't seem to work, may have something to do with current turn vs. battle turn
+	#set the battle state for the next player
+	#filter their monster's data before allowing them to progress, same thing 
+	GameState.SetBattleState("MonsterAttackPhase")
 	
 func GetFilePathsInDirectory(dir):
 	#load the one card into the scene by reading the card's text file from directory

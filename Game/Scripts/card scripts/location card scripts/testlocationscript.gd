@@ -32,5 +32,12 @@ func Filter(attack):
 		attack[6] = false
 	return attack
 	
+func FilterBattleCard(battleCardToFilter):
+	#[attribute, true]
+	
+	return battleCardToFilter
+	
+	
+	
 func OnBattleEnd():
 	print("battle ended")
