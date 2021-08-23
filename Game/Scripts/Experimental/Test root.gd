@@ -72,6 +72,7 @@ func _ready():
 func ShowMonsterAttackOptions(monsterAttackInformation):
 	
 	#filter the attacks
+	
 	var filteredAttacks = GameState.FilterMonsterCardAttacks(monsterAttackInformation)
 	#every time the user wants to see the attacks they are filtered first
 	
@@ -139,19 +140,25 @@ func HandleFilteredBattleCard(filteredBattleCard, card):
 	#use player battle turn not current turn
 	get_node("Dock").ClearAll()	#wipe the data in card dock
 	#in card dock, it seems the values from dicts and the actual values are not the same, this could/will be the source of future problems
+	
 	GameState.ClearPlayerCards(GameState.GetPlayerBattleTurn())	#make the unused cards of playerone(the ones that would be in the dock) invisible and unusable
 	GameState.ChangePlayerBattleTurn()
 	
 	if GameState.GetPlayerBattleTurn() == "PlayerOne":
+		print(GameState.GetPlayerBattleTurn())
+		print("player one is now taking their battle turn")
 		get_node("Dock").LoadPlayerCards(GameState.GetPlayerOneUnusedCards())
 	else:
+		print("player two is now taking their battle turn")
 		get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
 	
+	#add functionality to loadPlayerCards to not mess with cards involved in a battle(may need to set stuff up for this in battle card)
 	
-	#turn switching code doesn't seem to work, may have something to do with current turn vs. battle turn
 	#set the battle state for the next player
-	#filter their monster's data before allowing them to progress, same thing 
 	GameState.SetBattleState("MonsterAttackPhase")
+	#filter their monster's data before allowing them to progress, same thing 
+	GameState.FilterMonsterData(GameState.GetPlayerMonsterDataAtCurrentBattleIndex(GameState.GetPlayerBattleTurn()))
+	
 	
 func GetFilePathsInDirectory(dir):
 	#load the one card into the scene by reading the card's text file from directory

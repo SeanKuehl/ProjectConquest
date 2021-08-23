@@ -115,6 +115,15 @@ func FilterBattleCard(battleCardToFilter):
 		
 	return battleCardToFilter
 
+#GameState.FilterMonsterData(dataToFilter)
+func FilterMonsterData(dataToFilter):
+	#[attribute, health]
+	for activeCard in activeCardsList:
+		dataToFilter = activeCard.MonsterDataFilter(dataToFilter)
+		
+	return dataToFilter
+
+
 func ClearPlayerCards(player):
 	#this func will eventually become "end turn"
 	if player == "PlayerOne":
@@ -158,10 +167,15 @@ func ClearPlayerCards(player):
 			
 			
 		for x in range(len(battleCards)):
-			battleCards[x].hide()
-			battleCards[x].set_process(false)
-			battleCards[x].set_physics_process(false)
-			battleCards[x].set_process_input(false)
+			if battleCards[x].GetCardInvolvedInBattle() == true:
+				#it's a part of a battle, don't mess with it
+				pass
+			else:
+				
+				battleCards[x].hide()
+				battleCards[x].set_process(false)
+				battleCards[x].set_physics_process(false)
+				battleCards[x].set_process_input(false)
 			
 		for x in range(len(strategyCards)):
 			strategyCards[x].hide()
@@ -198,17 +212,26 @@ func ClearPlayerCards(player):
 		for x in range(len(monsterCards)):
 			#max  is exclusive
 			#there will be a special check for monster cards, but not right now
-			monsterCards[x].hide()
-			monsterCards[x].set_process(false)
-			monsterCards[x].set_physics_process(false)
-			monsterCards[x].set_process_input(false)
+			if monsterCards[x].GetCardIsDocked() == true:
+				#don't hide it, it's docked in a monster card dock waiting for a battle
+				pass
+			else:
+				monsterCards[x].hide()
+				monsterCards[x].set_process(false)
+				monsterCards[x].set_physics_process(false)
+				monsterCards[x].set_process_input(false)
 			
 			
 		for x in range(len(battleCards)):
-			battleCards[x].hide()
-			battleCards[x].set_process(false)
-			battleCards[x].set_physics_process(false)
-			battleCards[x].set_process_input(false)
+			if battleCards[x].GetCardInvolvedInBattle() == true:
+				#it's a part of a battle, don't mess with it
+				pass
+			else:
+				
+				battleCards[x].hide()
+				battleCards[x].set_process(false)
+				battleCards[x].set_physics_process(false)
+				battleCards[x].set_process_input(false)
 			
 		for x in range(len(strategyCards)):
 			strategyCards[x].hide()
@@ -262,8 +285,13 @@ func ChangePlayerBattleTurn():
 	else:
 		playerBattleTurn = "PlayerOne"
 	
+func GetPlayerMonsterDataAtCurrentBattleIndex(player):
+	#player is either "PlayerOne" or "PlayerTwo"
+	var dock = locationDocks[GetindexOfActiveLocationCardDock()]
+	return dock.GetPlayerMonsterData(player)
+	
 func StartBattle():
-	print(playerBattleTurn)
+	
 	#check the turns, swap over the turns if nessesary, in most cases it won't be
 	if playerBattleTurn == turn:
 		#if the playerBattleTurn is the same as the lastplayertoland/current turn then we don't need to change anything
@@ -282,7 +310,9 @@ func StartBattle():
 		else:
 			sceneRoot.get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
 	
-	#filter the current player's monster!
+	#[attribute, health]
+	#filter the current player's monster that's involved in the battle!
+	GameState.FilterMonsterData(GetPlayerMonsterDataAtCurrentBattleIndex(GameState.GetPlayerBattleTurn()))
 	
 func AddLocationDock(newLocationDock):
 	locationDocks.append(newLocationDock)

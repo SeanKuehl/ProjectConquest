@@ -83,6 +83,9 @@ func FilterAttack(attack):
 func BattleCardFilter(battleCardToFilter):
 	return customScript.FilterBattleCard(battleCardToFilter)
 	
+func MonsterDataFilter(monsterData):
+	return customScript.FilterMonsterData(monsterData)
+	
 func ActivateEffect(filteredVersion):
 	customScript.Effect(filteredVersion)
 
@@ -106,7 +109,7 @@ func init(passedFile, passedOwner):
 	cardDescription = content[2]
 	
 	
-	
+	cardIsDocked = false
 	
 	#load the image
 	cardPicture = content[1]

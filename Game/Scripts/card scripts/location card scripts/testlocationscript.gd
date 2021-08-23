@@ -37,7 +37,8 @@ func FilterBattleCard(battleCardToFilter):
 	
 	return battleCardToFilter
 	
-	
+func FilterMonsterData(monsterData):
+	return monsterData
 	
 func OnBattleEnd():
 	print("battle ended")

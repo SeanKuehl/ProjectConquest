@@ -50,7 +50,7 @@ var descriptionOrEffectBackgroundColor = load(colorSubDict["BLACK"])
 
 var cardOwner = ""	#this will eventually be "PlayerOne" or "PlayerTwo"
 var clickedAndDraggedOn = false
-
+var cardInvolvedInBattle = false
 
 func ReadLinesFromFile(fileName):
 	var file = File.new()
@@ -147,6 +147,12 @@ func GetCardIsDocked():
 
 func SetCardIsDocked(value):
 	cardIsDocked = value
+	
+func GetCardInvolvedInBattle():
+	return cardInvolvedInBattle
+	
+func SetCardInvolvedInBattle(newValue):
+	cardInvolvedInBattle = newValue
 	
 func GetDockNumber():
 	return dockNumber

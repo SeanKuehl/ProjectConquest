@@ -22,6 +22,8 @@ var animation = []
 var attributeLabel = ""
 var healthLabel = ""
 
+var damageTaken = 0
+
 
 
 func _ready():
@@ -215,6 +217,7 @@ func TakeDamage(monsterAttack):
 	var newHealth = int(healthLabel.text)
 	
 	newHealth -= damageToDo
+	damageTaken += damageToDo
 	
 	if newHealth < 0:
 		newHealth = 0	#don't want to display a negative health
@@ -242,6 +245,14 @@ func _physics_process(_delta):
 func GetBattleHealth():
 	#this is the health stored inside the label that reflects changes due to things from battle like attacks
 	return int(healthLabel.text)
+
+func GetData():
+	#this is the original attribute and health, they will be filtered
+	#by damage taken and all the active cards
+	#then the 'battle' versions will be updated with the current information
+	#damageTaken, this is a local var, filter it here before all the other things
+	return [attribute, (health-damageTaken)]
+	#[attribute, health]
 
 
 func _on_Card_mouse_entered():

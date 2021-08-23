@@ -150,6 +150,8 @@ func PlaceCard(card):
 				break
 	else:
 		#hidden place
+		
+		
 		for x in range(numOfSlots):
 			if occupiedSlots[x] == 0 and card.GetCardIsDocked() == false:
 				if (x+1) == 1:
@@ -218,16 +220,42 @@ func LoadPlayerCards(listOfCards):
 	var strategyCards = listOfCards[3]
 	
 	for x in locationCards:
-		PlaceCard(x)
 		
-	
+		if x.GetIsDocked():
+			#gotta replace the above with something meant for this singular purpose
+			
+			#it's a part of a battle
+			pass
+		else:
+			
+			x.SetCardIsDocked(false)	#otherwise this will enter the Place function but will not be placed and just not do anything
+			PlaceCard(x)
+		
+	#GetCardIsDocked(), but for location it's GetIsDocked()
 	for x in monsterCards:
-		PlaceCard(x)
+		
+		if x.GetCardIsDocked():
+			
+			#it's a part of a battle
+			pass
+		else:
+			
+			x.SetCardIsDocked(false)	#otherwise this will enter the Place function but will not be placed and just not do anything
+			PlaceCard(x)
 		
 	for x in battleCards:
-		PlaceCard(x)
+		
+		if x.GetCardInvolvedInBattle():
+			
+			#it's a part of a battle
+			pass
+		else:
+			
+			x.SetCardIsDocked(false)	#otherwise this will enter the Place function but will not be placed and just not do anything
+			PlaceCard(x)
 		
 	for x in strategyCards:
+		x.SetCardIsDocked(false)	#otherwise this will enter the Place function but will not be placed and just not do anything
 		PlaceCard(x)
 		
 

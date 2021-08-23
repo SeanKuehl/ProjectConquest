@@ -83,6 +83,9 @@ func FilterAttack(attack):
 func BattleCardFilter(battleCardToFilter):
 	return customScript.FilterBattleCard(battleCardToFilter)
 	
+func MonsterDataFilter(monsterData):
+	return customScript.FilterMonsterData(monsterData)
+	
 func GetIsDocked():
 	return isDocked
 	

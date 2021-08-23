@@ -109,6 +109,9 @@ func _physics_process(_delta):
 				cardHoveredOverArea.set_physics_process(false)
 				cardHoveredOverArea.set_process_input(false)
 				cardHoveredOverArea.SetCardIsDocked(true)
+				
+				
+				
 				playerOneMonster = cardHoveredOverArea
 				thereIsPlayerOneMonster = true
 				
@@ -120,6 +123,7 @@ func _physics_process(_delta):
 					var stringIndex = name[-1]
 					var intIndex = int(stringIndex) -1	#the list of location card docks starts at 0, so the -1 is to adjust for that
 					lastPlayerToLand = "PlayerOne"
+					
 					GameState.AddCardToActiveCardList(storedCard)
 					GameState.RegisterBattleStarted(intIndex, lastPlayerToLand)
 					
@@ -137,6 +141,9 @@ func _physics_process(_delta):
 				cardHoveredOverArea.set_physics_process(false)
 				cardHoveredOverArea.set_process_input(false)
 				cardHoveredOverArea.SetCardIsDocked(true)
+				
+				
+				
 				playerTwoMonster = cardHoveredOverArea
 				thereIsPlayerTwoMonster = true
 				
@@ -148,7 +155,10 @@ func _physics_process(_delta):
 					var stringIndex = name[-1]
 					var intIndex = int(stringIndex) -1	#the list of location card docks starts at 0, so the -1 is to adjust for that
 					lastPlayerToLand = "PlayerTwo"
+					
 					GameState.AddCardToActiveCardList(storedCard)
+					
+					
 					GameState.RegisterBattleStarted(intIndex, lastPlayerToLand)
 					
 					emit_signal("BattleStarted")
@@ -163,6 +173,7 @@ func _physics_process(_delta):
 				#they will drag the card onto the location dock where there is a battle going on
 				#this card will then be filtered, then it's effect played and it added to active cards
 				cardHoveredOverArea.hide()
+				cardHoveredOverArea.SetCardInvolvedInBattle(true)
 				var filteredBattleCardToHandle = GameState.FilterBattleCard(cardHoveredOverArea.GetFilterData())	
 				
 				#check if the battle card/effect is allowed
@@ -202,6 +213,12 @@ func RootShowMonsterAttackOptions():
 	
 	get_parent().ShowMonsterAttackOptions(monsterAttackInformation)
 
+
+func GetPlayerMonsterData(player):
+	if player == "PlayerOne":
+		return playerOneMonster.GetData()
+	else:
+		return playerTwoMonster.GetData()
 
 func GetCenter():
 	return $Centre.global_position
