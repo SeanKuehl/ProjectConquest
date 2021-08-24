@@ -25,11 +25,11 @@ func OnBattleStart():
 	
 func Filter(attack):
 	#[1, "flaming Sting", 60, "Inferno", "there is a one in eight chance this attack does 100 damage", true, true]
-	if attack[2] == 40:
+	#if attack[2] == 40:
 		#this filtering works!
-		attack[2] = 1000
-		attack[5] = false
-		attack[6] = false
+		#attack[2] = 1000
+		#attack[5] = false
+		#attack[6] = false
 	return attack
 	
 func FilterBattleCard(battleCardToFilter):

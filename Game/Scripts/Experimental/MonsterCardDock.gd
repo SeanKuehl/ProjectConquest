@@ -32,6 +32,16 @@ func get_input():
 	#if monster is right clicked on during the "MonsterAttackPhase" you can select it's attacks
 		
 	
+	
+func ClearMonsterCardData():
+	
+	monsterCardName = ""
+	monsterCardPicture = ""
+	monsterCardDescription = ""
+	
+	
+	animation = AnimatedSprite.new()
+	thereIsAMonsterDocked = false
 		
 func LoadMonsterCardInformation(card):
 	var displayStuff = card.GetDisplayStuff()	#list of cardname, pic and description

@@ -220,19 +220,29 @@ func GetPlayerMonsterData(player):
 	else:
 		return playerTwoMonster.GetData()
 
+func SetPlayerMonsterData(player, data):
+	if player == "PlayerOne":
+		playerOneMonster.SetData(data)
+	else:
+		playerTwoMonster.SetData(data)
+
+
 func GetCenter():
 	return $Centre.global_position
 
 func GetVictory():
-	#returns bool
+	#returns string
 	var playerOneMonsterHealth = playerOneMonster.GetBattleHealth()
 	var playerTwoMonsterHealth = playerTwoMonster.GetBattleHealth()
 	
-	if playerOneMonsterHealth == 0 or playerTwoMonsterHealth == 0:
-		#if either monster's health is zero, someone won
-		return true
+	if playerOneMonsterHealth <= 0:
+		return "PlayerTwo"	#if player one's monster is at 0 health, then player two won
+	elif playerTwoMonsterHealth <= 0:
+		return "PlayerOne"
 	else:
-		return false
+		#no one has won yet
+		return "No victory"
+	
 	
 	
 
@@ -247,11 +257,52 @@ func UseMonsterCardEffect(monsterAttack):
 
 func DealDamageToMonster(monsterAttack):
 	if GameState.GetPlayerBattleTurn() == "PlayerOne":
-		playerOneMonster.TakeDamage(monsterAttack)
-		
-	else:
+		#if the attack is happening on player one's turn, deal the damage
+		#to player two's monster
 		playerTwoMonster.TakeDamage(monsterAttack)
 		
+	else:
+		#if the attack is happening on player two's turn, deal the damage
+		#to player one's monster
+		playerOneMonster.TakeDamage(monsterAttack)
+		
+
+func ClearBattleData():
+	
+	#clear out the monster card docks
+	playerOneDock.ClearMonsterCardData()
+	playerTwoDock.ClearMonsterCardData()
+	
+	#store references to monster and location cards so they can be processed
+	#by the root
+	var cardsToReturn = [playerOneMonster, playerTwoMonster, storedCard]
+	
+	#clear references to monsters and location card
+	#set monsters and location card's docked statuses to not docked
+	storedCard.SetIsDocked(false)
+	storedCard = 0	#this is the reference to the location card
+
+	playerOneMonster.SetCardIsDocked(false)
+	playerOneMonster = 0
+	thereIsPlayerOneMonster = false
+
+
+	playerTwoMonster.SetCardIsDocked(false)
+	playerTwoMonster = 0
+	thereIsPlayerTwoMonster = false
+	
+	
+	#set image to grey, set other values to blank
+	lastPlayerToLand = ""
+	dockedCardShown = false
+	$Sprite/Grey.texture = defaultImage
+	
+	return cardsToReturn
+	
+	
+	
+	
+	
 
 
 func SetLocationDockToHidden():

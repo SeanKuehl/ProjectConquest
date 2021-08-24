@@ -9,6 +9,10 @@ var thereIsACardBeingDragged = false
 
 var sceneRoot = load("res://Game/Scripts/Experimental/Test root.gd")
 
+#player one stuff
+var playerOnePoints = 0	#you get points by winning battles, if you win enough battles you win the game
+
+
 #player one cards
 onready var playerOneUnusedMonsterCards = []
 onready var playerOneUsedMonsterCards = []
@@ -21,6 +25,10 @@ onready var playerOneUsedBattleCards = []
 
 onready var playerOneUnusedStrategyCards = []
 onready var playerOneUsedStrategyCards = []
+
+
+#player two stuff
+var playerTwoPoints = 0	#you get points by winning battles, if you win enough battles you win the game
 
 #player two cards
 onready var playerTwoUnusedMonsterCards = []
@@ -55,17 +63,43 @@ func GetThereIsACardBeingDragged():
 func SetThereIsACardBeingDragged(newValue):
 	thereIsACardBeingDragged = newValue
 
-
-
+func AwardBattleVictoryPoint(player):
+	if player == "PlayerOne":
+		playerOnePoints += 1
+	else:
+		playerTwoPoints += 1
 
 func _ready():
 	pass
+	
+func RegisterBattleEnded():
+	thereIsActiveBattle = false
+	indexOfActiveLocationCardDock = -1
+	playerWhoLandedlast = ""
 	
 func RegisterBattleStarted(index, lastPlayerToLand):
 	thereIsActiveBattle = true
 	indexOfActiveLocationCardDock = index
 	playerWhoLandedlast = lastPlayerToLand
 	#playerBattleTurn will be decided by the location card
+
+func SetCurrentTurn(root):
+	#player is either "PlayerOne" or "PlayerTwo"
+	root.get_node("Dock").ClearAll()	#wipe the data in card dock
+	#in card dock, it seems the values from dicts and the actual values are not the same, this could/will be the source of future problems
+	
+	#clear the cards of the player whose battle turn it was
+	GameState.ClearPlayerCards(GameState.GetPlayerBattleTurn())	#make the unused cards of playerone(the ones that would be in the dock) invisible and unusable
+	
+	#restore the cards of the person whose current turn it is
+	if GameState.GetCurrentTurn() == "PlayerOne":
+		
+		get_node("Dock").LoadPlayerCards(GameState.GetPlayerOneUnusedCards())
+	else:
+		
+		get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
+	
+
 
 func GetCurrentTurn():
 	return turn
@@ -122,6 +156,22 @@ func FilterMonsterData(dataToFilter):
 		dataToFilter = activeCard.MonsterDataFilter(dataToFilter)
 		
 	return dataToFilter
+
+
+func RestoreRegularTurnOrder(root):
+	#if the player battle turn is different from current turn, set turn to current turn
+	if GetCurrentTurn() != GetPlayerBattleTurn():
+		SetCurrentTurn(root)
+		
+	
+	
+	#clear playerBattleTurn
+	SetPlayerBattleTurn("")
+	
+	#clear battle state
+	SetBattleState("")
+	
+	
 
 
 func ClearPlayerCards(player):
@@ -254,6 +304,65 @@ func GetPlayerWhoLandedlast():
 func GetindexOfActiveLocationCardDock():
 	return indexOfActiveLocationCardDock
 	
+func PutActiveCardsIntoUsedPiles():
+	#for battle cards set "cardisinvolvedinbattle" to false
+	#only battle and location cards can become active cards
+	
+	#remove the cards from the unused piles
+	
+	for activeCard in activeCardsList:
+		if activeCard.GetCardOwner() == "PlayerOne":
+			if activeCard.GetCardType() == "Location":
+				
+				#set the cards "isDocked" to false
+				activeCard.SetIsDocked(false)
+				
+				#remove the card from the unused pile
+				playerOneUnusedLocationCards.erase(activeCard)	#this should remove the reference to the location card from the list
+				
+				playerOneUsedLocationCards.append(activeCard)	#now add the reference to the used cards
+				
+				#now remove the reference from the active cards list
+				activeCardsList.erase(activeCard)
+				
+			elif activeCard.GetCardType() == "Battle":
+				activeCard.SetCardIsInvolvedInBattle(false)
+				activeCard.SetCardIsDocked(false)
+				playerOneUnusedBattleCards.erase(activeCard)
+				playerOneUsedBattleCards.append(activeCard)
+				activeCardsList.erase(activeCard)
+				
+		elif activeCard.GetCardOwner() == "PlayerTwo":
+			if activeCard.GetCardType() == "Location":
+				#set the cards "isDocked" to false
+				activeCard.SetIsDocked(false)
+				
+				#remove the card from the unused pile
+				playerTwoUnusedLocationCards.erase(activeCard)	#this should remove the reference to the location card from the list
+				
+				playerTwoUsedLocationCards.append(activeCard)	#now add the reference to the used cards
+				
+				#now remove the reference from the active cards list
+				activeCardsList.erase(activeCard)
+				
+			elif activeCard.GetCardType() == "Battle":
+				activeCard.SetCardIsInvolvedInBattle(false)
+				activeCard.SetCardIsDocked(false)
+				playerTwoUnusedBattleCards.erase(activeCard)
+				playerTwoUsedBattleCards.append(activeCard)
+				activeCardsList.erase(activeCard)
+	
+func RestoreOriginalStatsToUsedMonsterCards():
+	#in case a card's effect is to bring a card back from the unused pile or in case
+	#one needs to come back from the unused pile, the cards should be ready to go with their original stats
+	
+	#reset for playerone
+	for x in playerOneUsedMonsterCards:
+		x.ResetData()	#this will reset health, attribute and clear damage taken.
+	
+	#reset for playertwo
+	for x in playerTwoUsedMonsterCards:
+		x.ResetData()
 
 func GetCenterOfLocationCardDockAtIndex(index):
 	var dock = locationDocks[index]
@@ -289,6 +398,12 @@ func GetPlayerMonsterDataAtCurrentBattleIndex(player):
 	#player is either "PlayerOne" or "PlayerTwo"
 	var dock = locationDocks[GetindexOfActiveLocationCardDock()]
 	return dock.GetPlayerMonsterData(player)
+	
+func SetPlayerMonsterDataAtCurrentBattleIndex(player, data):
+	#player is either "PlayerOne" or "PlayerTwo"
+	var dock = locationDocks[GetindexOfActiveLocationCardDock()]
+	dock.SetPlayerMonsterData(player, data)
+	
 	
 func StartBattle():
 	

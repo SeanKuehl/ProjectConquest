@@ -33,13 +33,13 @@ func FirstAttack(filteredAttack):
 	#this could also be used for a different effect besides filtering/changing the attack
 	
 	#if both the attack and effect are enabled
-	if filteredAttack[5] and filteredAttack[6]:
+	#if filteredAttack[5] and filteredAttack[6]:
 		#if the attack isn't already at or over 100 damage
-		if filteredAttack[2] < 100:
+		#if filteredAttack[2] < 100:
 			#for x in range(20):
 			#	var my_random_number = rng.randi_range(1, 8)	#inclusive
 				#print("random num is: "+str(my_random_number))
-			filteredAttack[2] = 40	#for testing, forget the randomness
+			#filteredAttack[2] = 40	#for testing, forget the randomness
 	
 	return filteredAttack
 	

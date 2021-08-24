@@ -251,8 +251,18 @@ func GetData():
 	#by damage taken and all the active cards
 	#then the 'battle' versions will be updated with the current information
 	#damageTaken, this is a local var, filter it here before all the other things
-	return [attribute, (health-damageTaken)]
+	var healthToShow = int(health) - damageTaken
+	return [attribute, healthToShow]
 	#[attribute, health]
+	
+func SetData(newData):
+	attributeLabel.text = str(newData[0])
+	healthLabel.text = str(newData[1])
+	
+func ResetData():
+	attributeLabel.text = attribute
+	healthLabel.text = health
+	damageTaken = 0
 
 
 func _on_Card_mouse_entered():

@@ -14,6 +14,8 @@ var battleCardDirectory = "res://Game/Assets/Card Files/battle cards/"
 var battleCardClass = load("res://Game/Scenes/Experimental/Battle card.tscn")
 
 
+onready var thisNode = get_node(name)
+
 onready var locationDockOne = $LocationDock1
 onready var locationDockTwo = $LocationDock2
 onready var locationDockThree = $LocationDock3
@@ -31,6 +33,7 @@ var monsterAttackMenuHieght = 600
 
 func _ready():
 	get_node("AttackMenu").hide()
+	get_node("SkipBattleCardPhase").hide()
 	
 	GameState.SetLocationDocks(listOfLocationDocks)
 	#load_base_card_class(GetFilePathsInDirectory(experimentalCardDirectory))
@@ -69,6 +72,31 @@ func _ready():
 	#rect is just top left corner, and it's 1024 wide and 600 tall, so do the math
 	
 	
+func HandleVictory(player):
+	get_node("AttackMenu").hide()
+	
+	var indexOfBattle = GameState.GetindexOfActiveLocationCardDock() + 1	#the usual index in meant for lists, so it starts at zero. But in the scene tree the LocationDock objects start at 1, hence the + 1
+	
+	get_node("LocationDock"+str(indexOfBattle)).ClearBattleData() 
+			
+	#remove/clear all active cards and put them into their appropriate used piles
+	GameState.PutActiveCardsIntoUsedPiles()
+			
+	#have monster cards in unused piles restore their original stats
+	GameState.RestoreOriginalStatsToUsedMonsterCards()
+			
+	#restore/set/reset regular turns, clear playerbattle turn
+	GameState.RestoreRegularTurnOrder(thisNode)
+			
+	#award point
+	GameState.AwardBattleVictoryPoint(player)
+			
+	#check for win(later)
+			
+	#end the battle and set indexes in gamestate
+	GameState.RegisterBattleEnded()
+	
+	
 func ShowMonsterAttackOptions(monsterAttackInformation):
 	
 	#filter the attacks
@@ -100,7 +128,12 @@ func ShowMonsterAttackOptions(monsterAttackInformation):
 func HandleMonsterAttackSelection(chosenFilteredAttack, skipSelected):
 	
 	if skipSelected:
-		pass
+			GameState.SetLocationCardAtIndexToRevealed(GameState.GetindexOfActiveLocationCardDock())
+			get_node("AttackMenu").hide()
+			GameState.SetBattleState("BattleCardPhase")	#this phase allows battle cards to be dragged onto location card docks
+			#need to make a skip button appear for the user if they want to skip
+					#playing a battle card
+			print("changed to battle card phase")
 	else:
 		
 		#call monster custom script func
@@ -112,9 +145,16 @@ func HandleMonsterAttackSelection(chosenFilteredAttack, skipSelected):
 		#check for victory
 		var victory = GameState.CheckForVictoryAtCurrentBattleIndex(GameState.GetindexOfActiveLocationCardDock())
 		#if no victory, change battle state and continue with battle
-		if victory:
-			#handle victory, clear battle data, restore regular turns, put cards in used piles etc
-			print("battle was won")
+		if victory == "PlayerOne":	#it works right with turns etc. but it says player one won when they lost, player two won I'm pretty sure
+			HandleVictory("PlayerOne")
+			
+			print("battle was won by player one")
+		elif victory == "PlayerTwo":
+			
+			HandleVictory("PlayerTwo")
+			
+			print("battle was won by player two")
+			
 		else:
 			#battle continues, switch to battle card phase
 			GameState.SetLocationCardAtIndexToRevealed(GameState.GetindexOfActiveLocationCardDock())
@@ -122,43 +162,90 @@ func HandleMonsterAttackSelection(chosenFilteredAttack, skipSelected):
 			GameState.SetBattleState("BattleCardPhase")	#this phase allows battle cards to be dragged onto location card docks
 			#need to make a skip button appear for the user if they want to skip
 					#playing a battle card
+			var buttonLocation = GameState.GetCenterOfLocationCardDockAtIndex(GameState.GetindexOfActiveLocationCardDock())
+			get_node("SkipBattleCardPhase").rect_global_position.x = buttonLocation.x
+			get_node("SkipBattleCardPhase").rect_global_position.y = buttonLocation.y + 100
+			get_node("SkipBattleCardPhase").show()
+					
 			print("changed to battle card phase")
 	
 	
 func HandleFilteredBattleCard(filteredBattleCard, card):
 	#[attribute, true]
 	
+	#if len(filteredBattleCard) == 0, then it's a skip(they pressed the skip button)
 	#do the battle card's effect
-	card.ActivateEffect(filteredBattleCard)
-	
-	GameState.AddCardToActiveCardList(card)
-	
-	#now this player's battle turns are over, switch to other player's battle turn
-	#this is basically the same as normally switching turns, just using the battle turn instead so I can restore
-	#the normal turn order after
-	print("it's now the other player's battle turn")
-	#use player battle turn not current turn
-	get_node("Dock").ClearAll()	#wipe the data in card dock
-	#in card dock, it seems the values from dicts and the actual values are not the same, this could/will be the source of future problems
-	
-	GameState.ClearPlayerCards(GameState.GetPlayerBattleTurn())	#make the unused cards of playerone(the ones that would be in the dock) invisible and unusable
-	GameState.ChangePlayerBattleTurn()
-	
-	if GameState.GetPlayerBattleTurn() == "PlayerOne":
-		print(GameState.GetPlayerBattleTurn())
-		print("player one is now taking their battle turn")
-		get_node("Dock").LoadPlayerCards(GameState.GetPlayerOneUnusedCards())
+	if len(filteredBattleCard) == 0:
+		#they pressed the skip button
+		#now this player's battle turns are over, switch to other player's battle turn
+			#this is basically the same as normally switching turns, just using the battle turn instead so I can restore
+			#the normal turn order after
+			print("it's now the other player's battle turn")
+			#use player battle turn not current turn
+			get_node("Dock").ClearAll()	#wipe the data in card dock
+			#in card dock, it seems the values from dicts and the actual values are not the same, this could/will be the source of future problems
+			
+			GameState.ClearPlayerCards(GameState.GetPlayerBattleTurn())	#make the unused cards of playerone(the ones that would be in the dock) invisible and unusable
+			GameState.ChangePlayerBattleTurn()
+			
+			if GameState.GetPlayerBattleTurn() == "PlayerOne":
+				print(GameState.GetPlayerBattleTurn())
+				print("player one is now taking their battle turn")
+				get_node("Dock").LoadPlayerCards(GameState.GetPlayerOneUnusedCards())
+			else:
+				print("player two is now taking their battle turn")
+				get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
+			
+			#add functionality to loadPlayerCards to not mess with cards involved in a battle(may need to set stuff up for this in battle card)
+			
+			#set the battle state for the next player
+			GameState.SetBattleState("MonsterAttackPhase")
+			#filter their monster's data before allowing them to progress, same thing 
+			var newDataToSet = GameState.FilterMonsterData(GameState.GetPlayerMonsterDataAtCurrentBattleIndex(GameState.GetPlayerBattleTurn()))
+			GameState.SetPlayerMonsterDataAtCurrentBattleIndex(GameState.GetPlayerBattleTurn(), newDataToSet)
 	else:
-		print("player two is now taking their battle turn")
-		get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
 	
-	#add functionality to loadPlayerCards to not mess with cards involved in a battle(may need to set stuff up for this in battle card)
-	
-	#set the battle state for the next player
-	GameState.SetBattleState("MonsterAttackPhase")
-	#filter their monster's data before allowing them to progress, same thing 
-	GameState.FilterMonsterData(GameState.GetPlayerMonsterDataAtCurrentBattleIndex(GameState.GetPlayerBattleTurn()))
-	
+		card.ActivateEffect(filteredBattleCard)
+		
+		GameState.AddCardToActiveCardList(card)
+		
+		#check for victory, the last battle card played may have acheived it
+		var victory = GameState.CheckForVictoryAtCurrentBattleIndex(GameState.GetindexOfActiveLocationCardDock())
+		
+		if victory == "PlayerOne":
+			HandleVictory("PlayerOne")
+		elif victory == "PlayerTwo":
+			HandleVictory("PlayerTwo")
+		else:
+			
+		
+		
+			#now this player's battle turns are over, switch to other player's battle turn
+			#this is basically the same as normally switching turns, just using the battle turn instead so I can restore
+			#the normal turn order after
+			print("it's now the other player's battle turn")
+			#use player battle turn not current turn
+			get_node("Dock").ClearAll()	#wipe the data in card dock
+			#in card dock, it seems the values from dicts and the actual values are not the same, this could/will be the source of future problems
+			
+			GameState.ClearPlayerCards(GameState.GetPlayerBattleTurn())	#make the unused cards of playerone(the ones that would be in the dock) invisible and unusable
+			GameState.ChangePlayerBattleTurn()
+			
+			if GameState.GetPlayerBattleTurn() == "PlayerOne":
+				print(GameState.GetPlayerBattleTurn())
+				print("player one is now taking their battle turn")
+				get_node("Dock").LoadPlayerCards(GameState.GetPlayerOneUnusedCards())
+			else:
+				print("player two is now taking their battle turn")
+				get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
+			
+			#add functionality to loadPlayerCards to not mess with cards involved in a battle(may need to set stuff up for this in battle card)
+			
+			#set the battle state for the next player
+			GameState.SetBattleState("MonsterAttackPhase")
+			#filter their monster's data before allowing them to progress, same thing 
+			var newDataToSet = GameState.FilterMonsterData(GameState.GetPlayerMonsterDataAtCurrentBattleIndex(GameState.GetPlayerBattleTurn()))
+			GameState.SetPlayerMonsterDataAtCurrentBattleIndex(GameState.GetPlayerBattleTurn(), newDataToSet)
 	
 func GetFilePathsInDirectory(dir):
 	#load the one card into the scene by reading the card's text file from directory
@@ -349,3 +436,11 @@ func _on_End_Turn_pressed():
 	else:
 		get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
 	
+
+
+func _on_SkipBattleCardPhase_pressed():
+	HandleFilteredBattleCard([], [])
+	
+	#now hide the button
+	
+	get_node("SkipBattleCardPhase").hide()
