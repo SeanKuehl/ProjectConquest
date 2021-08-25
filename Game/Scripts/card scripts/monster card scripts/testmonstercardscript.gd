@@ -43,8 +43,11 @@ func FirstAttack(filteredAttack):
 	
 	return filteredAttack
 	
-func SecondAttack():
-	print("second attack worked")
+func SecondAttack(filteredAttack):
+	return filteredAttack
+	
+func ThirdAttack(filteredAttack):
+	return filteredAttack
 
 
 

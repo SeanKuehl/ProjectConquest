@@ -14,7 +14,7 @@ var battleCardDirectory = "res://Game/Assets/Card Files/battle cards/"
 var battleCardClass = load("res://Game/Scenes/Experimental/Battle card.tscn")
 
 
-onready var thisNode = get_node(name)
+onready var thisNode = get_tree().get_current_scene()
 
 onready var locationDockOne = $LocationDock1
 onready var locationDockTwo = $LocationDock2
@@ -82,10 +82,14 @@ func HandleVictory(player):
 	#remove/clear all active cards and put them into their appropriate used piles
 	GameState.PutActiveCardsIntoUsedPiles()
 			
-	#have monster cards in unused piles restore their original stats
+	#put monster cards into used piles
+	GameState.PutMonsterCardsIntoUsedPiles()
+			
+	#have monster cards in used piles restore their original stats
 	GameState.RestoreOriginalStatsToUsedMonsterCards()
 			
 	#restore/set/reset regular turns, clear playerbattle turn
+	#thisNode is a null instance
 	GameState.RestoreRegularTurnOrder(thisNode)
 			
 	#award point

@@ -84,6 +84,7 @@ func RegisterBattleStarted(index, lastPlayerToLand):
 	#playerBattleTurn will be decided by the location card
 
 func SetCurrentTurn(root):
+	print("this was called")
 	#player is either "PlayerOne" or "PlayerTwo"
 	root.get_node("Dock").ClearAll()	#wipe the data in card dock
 	#in card dock, it seems the values from dicts and the actual values are not the same, this could/will be the source of future problems
@@ -93,11 +94,11 @@ func SetCurrentTurn(root):
 	
 	#restore the cards of the person whose current turn it is
 	if GameState.GetCurrentTurn() == "PlayerOne":
-		
-		get_node("Dock").LoadPlayerCards(GameState.GetPlayerOneUnusedCards())
+		print("it is now player one's turn")
+		root.get_node("Dock").LoadPlayerCards(GameState.GetPlayerOneUnusedCards())
 	else:
-		
-		get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
+		print("it is now player two's turn")
+		root.get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
 	
 
 
@@ -161,7 +162,7 @@ func FilterMonsterData(dataToFilter):
 func RestoreRegularTurnOrder(root):
 	#if the player battle turn is different from current turn, set turn to current turn
 	if GetCurrentTurn() != GetPlayerBattleTurn():
-		SetCurrentTurn(root)
+		SetCurrentTurn(root)	
 		
 	
 	
@@ -304,6 +305,25 @@ func GetPlayerWhoLandedlast():
 func GetindexOfActiveLocationCardDock():
 	return indexOfActiveLocationCardDock
 	
+	
+func PutMonsterCardsIntoUsedPiles():
+	
+	
+	for card in playerOneUnusedMonsterCards:
+		playerOneUnusedMonsterCards.erase(card)
+		card.SetCardIsDocked(false)	#card is officially no longer a part of a battle
+		#card.SetInUsedPile(true)
+		playerOneUsedMonsterCards.append(card)
+		print(playerOneUsedMonsterCards)
+		
+		
+	for card in playerTwoUnusedMonsterCards:
+		playerTwoUnusedMonsterCards.erase(card)
+		card.SetCardIsDocked(false)	#card is officially no longer a part of a battle
+		
+		playerTwoUsedMonsterCards.append(card)
+		print(playerTwoUsedMonsterCards)
+	
 func PutActiveCardsIntoUsedPiles():
 	#for battle cards set "cardisinvolvedinbattle" to false
 	#only battle and location cards can become active cards
@@ -344,6 +364,7 @@ func PutActiveCardsIntoUsedPiles():
 				
 				#now remove the reference from the active cards list
 				activeCardsList.erase(activeCard)
+				print("player two", playerTwoUnusedLocationCards)
 				
 			elif activeCard.GetCardType() == "Battle":
 				activeCard.SetCardIsInvolvedInBattle(false)
@@ -447,9 +468,11 @@ func AddPlayerOneStrategyCard(newStrategyCard):
 	
 	
 func GetPlayerOneUnusedCards():
+	
 	return [playerOneUnusedLocationCards, playerOneUnusedMonsterCards, playerOneUnusedBattleCards, playerOneUnusedStrategyCards]
 	
 func GetPlayerTwoUnusedCards():
+	print("player two", playerTwoUnusedMonsterCards)
 	return [playerTwoUnusedLocationCards, playerTwoUnusedMonsterCards, playerTwoUnusedBattleCards, playerTwoUnusedStrategyCards]
 	
 	

@@ -97,7 +97,7 @@ func _physics_process(_delta):
 				
 				
 				
-		if cardHoveredOverArea.GetClickAndDraggedOn() == false and cardHoveredOverArea.GetCardIsDocked() == false and cardHoveredOverArea.GetCardType() == "Monster":
+		if cardHoveredOverArea.GetClickAndDraggedOn() == false and cardHoveredOverArea.GetCardIsDocked() == false and cardHoveredOverArea.GetCardType() == "Monster" and cardHoveredOverArea.GetInUsedPile() == false:
 			#dock it, this is monster card
 			if cardHoveredOverArea.GetCardOwner() == "PlayerOne" and thereIsPlayerOneMonster == false:
 				playerOneDock.LoadMonsterCardInformation(cardHoveredOverArea)
@@ -275,19 +275,20 @@ func ClearBattleData():
 	
 	#store references to monster and location cards so they can be processed
 	#by the root
-	var cardsToReturn = [playerOneMonster, playerTwoMonster, storedCard]
+	
+	
 	
 	#clear references to monsters and location card
 	#set monsters and location card's docked statuses to not docked
 	storedCard.SetIsDocked(false)
 	storedCard = 0	#this is the reference to the location card
 
-	playerOneMonster.SetCardIsDocked(false)
+	playerOneMonster.SetInUsedPile(true)
 	playerOneMonster = 0
 	thereIsPlayerOneMonster = false
 
 
-	playerTwoMonster.SetCardIsDocked(false)
+	playerTwoMonster.SetInUsedPile(true)
 	playerTwoMonster = 0
 	thereIsPlayerTwoMonster = false
 	
@@ -297,7 +298,7 @@ func ClearBattleData():
 	dockedCardShown = false
 	$Sprite/Grey.texture = defaultImage
 	
-	return cardsToReturn
+	
 	
 	
 	

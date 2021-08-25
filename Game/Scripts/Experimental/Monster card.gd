@@ -17,7 +17,7 @@ var attacks = []
 var sound = ""
 var animation = []
 
-
+var inUsedPile = false
 
 var attributeLabel = ""
 var healthLabel = ""
@@ -84,7 +84,11 @@ func _ready():
 #	descriptionOrEffectBackground.texture = descriptionOrEffectBackgroundColor
 
 	
+func GetInUsedPile():
+	return inUsedPile
 	
+func SetInUsedPile(newVal):
+	inUsedPile = newVal
 	
 	#var new_position = get_global_mouse_position()
 	#movement = new_position - position;

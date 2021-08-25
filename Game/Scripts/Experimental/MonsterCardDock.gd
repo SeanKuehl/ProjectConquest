@@ -34,13 +34,13 @@ func get_input():
 	
 	
 func ClearMonsterCardData():
-	
+	print("got here")
 	monsterCardName = ""
 	monsterCardPicture = ""
 	monsterCardDescription = ""
 	
-	
-	animation = AnimatedSprite.new()
+	animation.stop()
+	animation.frames = SpriteFrames.new()
 	thereIsAMonsterDocked = false
 		
 func LoadMonsterCardInformation(card):

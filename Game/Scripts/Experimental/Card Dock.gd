@@ -227,7 +227,7 @@ func LoadPlayerCards(listOfCards):
 			#it's a part of a battle
 			pass
 		else:
-			
+			print("location card placed")
 			x.SetCardIsDocked(false)	#otherwise this will enter the Place function but will not be placed and just not do anything
 			PlaceCard(x)
 		
@@ -239,7 +239,7 @@ func LoadPlayerCards(listOfCards):
 			#it's a part of a battle
 			pass
 		else:
-			
+			print("monster card placed")
 			x.SetCardIsDocked(false)	#otherwise this will enter the Place function but will not be placed and just not do anything
 			PlaceCard(x)
 		
@@ -250,7 +250,7 @@ func LoadPlayerCards(listOfCards):
 			#it's a part of a battle
 			pass
 		else:
-			
+			print("battle card placed")
 			x.SetCardIsDocked(false)	#otherwise this will enter the Place function but will not be placed and just not do anything
 			PlaceCard(x)
 		
