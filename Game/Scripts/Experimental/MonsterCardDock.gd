@@ -34,7 +34,7 @@ func get_input():
 	
 	
 func ClearMonsterCardData():
-	print("got here")
+	
 	monsterCardName = ""
 	monsterCardPicture = ""
 	monsterCardDescription = ""

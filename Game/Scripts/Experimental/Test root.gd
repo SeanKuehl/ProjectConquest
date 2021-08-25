@@ -13,6 +13,8 @@ var monsterCardClass = load("res://Game/Scenes/Experimental/Monster card.tscn")
 var battleCardDirectory = "res://Game/Assets/Card Files/battle cards/"
 var battleCardClass = load("res://Game/Scenes/Experimental/Battle card.tscn")
 
+var strategyCardDirectory = "res://Game/Assets/Card Files/strategy cards/"
+var strategyCardClass = load("res://Game/Scenes/Experimental/Strategy Card.tscn")
 
 onready var thisNode = get_tree().get_current_scene()
 
@@ -39,8 +41,8 @@ func _ready():
 	#load_base_card_class(GetFilePathsInDirectory(experimentalCardDirectory))
 	#load_location_cards(GetFilePathsInDirectory(locationCardDirectory))
 	#load_monster_cards(GetFilePathsInDirectory(monsterCardDirectory))
-	load_playerone_cards(GetFilePathsInDirectory(locationCardDirectory), GetFilePathsInDirectory(monsterCardDirectory), GetFilePathsInDirectory(battleCardDirectory))
-	load_playertwo_cards(GetFilePathsInDirectory(locationCardDirectory), GetFilePathsInDirectory(monsterCardDirectory), GetFilePathsInDirectory(battleCardDirectory))
+	load_playerone_cards(GetFilePathsInDirectory(locationCardDirectory), GetFilePathsInDirectory(monsterCardDirectory), GetFilePathsInDirectory(battleCardDirectory), GetFilePathsInDirectory(strategyCardDirectory))
+	load_playertwo_cards(GetFilePathsInDirectory(locationCardDirectory), GetFilePathsInDirectory(monsterCardDirectory), GetFilePathsInDirectory(battleCardDirectory), GetFilePathsInDirectory(strategyCardDirectory))
 	
 	#get_tree().change_scene("res://Game/Scenes/Experimental/InGameMenus/MonsterAttackMenu.tscn")
 	#get_tree().reload_current_scene()
@@ -128,16 +130,22 @@ func ShowMonsterAttackOptions(monsterAttackInformation):
 	get_node("AttackMenu").rect_global_position = attackMenuLocation
 	get_node("AttackMenu").show()
 	
+func SwitchToBattleCardPhase():
+	GameState.SetLocationCardAtIndexToRevealed(GameState.GetindexOfActiveLocationCardDock())
+	get_node("AttackMenu").hide()
+	GameState.SetBattleState("BattleCardPhase")	#this phase allows battle cards to be dragged onto location card docks
+	#need to make a skip button appear for the user if they want to skip
+	#playing a battle card
+	var buttonLocation = GameState.GetCenterOfLocationCardDockAtIndex(GameState.GetindexOfActiveLocationCardDock())
+	get_node("SkipBattleCardPhase").rect_global_position.x = buttonLocation.x
+	get_node("SkipBattleCardPhase").rect_global_position.y = buttonLocation.y + 100
+	get_node("SkipBattleCardPhase").show()
+	print("changed to battle card phase")
 	
 func HandleMonsterAttackSelection(chosenFilteredAttack, skipSelected):
 	
 	if skipSelected:
-			GameState.SetLocationCardAtIndexToRevealed(GameState.GetindexOfActiveLocationCardDock())
-			get_node("AttackMenu").hide()
-			GameState.SetBattleState("BattleCardPhase")	#this phase allows battle cards to be dragged onto location card docks
-			#need to make a skip button appear for the user if they want to skip
-					#playing a battle card
-			print("changed to battle card phase")
+		SwitchToBattleCardPhase()
 	else:
 		
 		#call monster custom script func
@@ -161,17 +169,7 @@ func HandleMonsterAttackSelection(chosenFilteredAttack, skipSelected):
 			
 		else:
 			#battle continues, switch to battle card phase
-			GameState.SetLocationCardAtIndexToRevealed(GameState.GetindexOfActiveLocationCardDock())
-			get_node("AttackMenu").hide()
-			GameState.SetBattleState("BattleCardPhase")	#this phase allows battle cards to be dragged onto location card docks
-			#need to make a skip button appear for the user if they want to skip
-					#playing a battle card
-			var buttonLocation = GameState.GetCenterOfLocationCardDockAtIndex(GameState.GetindexOfActiveLocationCardDock())
-			get_node("SkipBattleCardPhase").rect_global_position.x = buttonLocation.x
-			get_node("SkipBattleCardPhase").rect_global_position.y = buttonLocation.y + 100
-			get_node("SkipBattleCardPhase").show()
-					
-			print("changed to battle card phase")
+			SwitchToBattleCardPhase()
 	
 	
 func HandleFilteredBattleCard(filteredBattleCard, card):
@@ -318,7 +316,7 @@ func load_monster_cards(files):
 		#more signal connections will be needed for location cards
 		
 	
-func load_playerone_cards(locationCards, monsterCards, battleCards):
+func load_playerone_cards(locationCards, monsterCards, battleCards, strategyCards):
 	for x in locationCards:
 		
 		var newCard = locationCardClass.instance()
@@ -364,7 +362,21 @@ func load_playerone_cards(locationCards, monsterCards, battleCards):
 		#get_node("Dock").PlaceCard(newCard)
 		GameState.AddPlayerOneBattleCard(newCard)
 		
-func load_playertwo_cards(locationCards, monsterCards, battleCards):
+	for x in strategyCards:
+		var newCard = strategyCardClass.instance()
+		
+		add_child(newCard)	#if this comes after init() there are some errors with the children being NIL bases
+		newCard.init(x, "PlayerOne")
+		
+		#get_node("Dock").PlaceOtherCard(newCard)
+		
+		#connect the card signals
+		#this should mean I can connect the signals of loaded/instanced scripts as well in a similar fashion(location, battle etc. cards)
+		get_node("Display").ConnectCardSignal(newCard)
+		#get_node("Dock").PlaceCard(newCard)
+		GameState.AddPlayerOneStrategyCard(newCard)
+		
+func load_playertwo_cards(locationCards, monsterCards, battleCards, strategyCards):
 	for x in locationCards:
 		
 		var newCard = locationCardClass.instance()
@@ -409,6 +421,20 @@ func load_playertwo_cards(locationCards, monsterCards, battleCards):
 		get_node("Display").ConnectCardSignal(newCard)
 		#get_node("Dock").PlaceCard(newCard)
 		GameState.AddPlayerTwoBattleCard(newCard)
+		
+	for x in strategyCards:
+		var newCard = strategyCardClass.instance()
+		
+		add_child(newCard)	#if this comes after init() there are some errors with the children being NIL bases
+		newCard.init(x, "PlayerTwo")
+		
+		#get_node("Dock").PlaceOtherCard(newCard)
+				
+		#connect the card signals
+		#this should mean I can connect the signals of loaded/instanced scripts as well in a similar fashion(location, battle etc. cards)
+		get_node("Display").ConnectCardSignal(newCard)
+		#get_node("Dock").PlaceCard(newCard)
+		GameState.AddPlayerTwoStrategyCard(newCard)
 	
 func list_files_in_directory(path):
 	var files = []
