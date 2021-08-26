@@ -196,6 +196,27 @@ func _physics_process(_delta):
 				
 				#in the meantime the card itself should hide, it will reappear only if it is not allowed to be played
 				#and the user should be told this
+		if cardHoveredOverArea.GetClickAndDraggedOn() == false and cardHoveredOverArea.GetCardIsDocked() == false and cardHoveredOverArea.GetCardType() == "Strategy":
+			cardHoveredOverArea.hide()
+			cardHoveredOverArea.SetCardIsDocked(true)	#if the card is used successfully, this will be used to signal that the card is in the used pile
+			var effectOutcome = cardHoveredOverArea.ActivateEffect()
+			
+			if effectOutcome == "Success":
+				#the card has done it's effect, move it to the used pile
+				GameState.MoveAllDockedStrategyCardsToUsedPile(cardHoveredOverArea.GetCardOwner())
+				
+			elif effectOutcome == "Fail":
+				#show card again, unset the card being docked and return it to the card dock
+				#also notify the user that it could not be played
+				cardHoveredOverArea.show()
+				cardHoveredOverArea.SetCardIsDocked(false)	#if the card is used successfully, this will be used to signal that the card is in the used pile
+				get_parent().PutCardBackInDock(cardHoveredOverArea)
+				
+			else:
+				print("ERROR: strategy card effect returned something other than Success or Fail")
+			#hide card
+			#set card docked
+			#try to activate effect, if failed put card back in dock
 				
 		
 
@@ -213,6 +234,9 @@ func RootShowMonsterAttackOptions():
 	
 	get_parent().ShowMonsterAttackOptions(monsterAttackInformation)
 
+
+func HandleStrategyCardMenuForGameState(text):
+	return get_parent().HandleStrategyCardMenu(text)
 
 func GetPlayerMonsterData(player):
 	if player == "PlayerOne":

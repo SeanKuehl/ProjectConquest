@@ -53,7 +53,7 @@ var playerBattleTurn = ""	#regular turns are seperate from battle turns, because
 var playerWhoLandedlast = ""
 var battleState = ""	#depending on the battle state the player's actions may be restricted. They can only select monster attacks in "monster attack" phase for instance
 
-
+var turnState = ""	#this can be "setup", "location card placement phase", "monster card phase" or "strategy card phase"
 
 
 
@@ -62,6 +62,26 @@ func GetThereIsACardBeingDragged():
 
 func SetThereIsACardBeingDragged(newValue):
 	thereIsACardBeingDragged = newValue
+
+
+func MoveAllDockedStrategyCardsToUsedPile(player):
+	#a strategy card's cardIsDocked is only set if it is used
+	#and this function only called if it is used successfully
+	
+	if player == "PlayerOne":
+		#remember that if I wanted to use this card again, I would
+		#have to set it's cardIsDocked to false again
+		for x in playerOneUnusedStrategyCards:
+			if x.GetCardIsDocked():
+				playerOneUnusedStrategyCards.erase(x)
+				playerOneUsedStrategyCards.append(x)
+	else:
+		for x in playerTwoUnusedStrategyCards:
+			if x.GetCardIsDocked():
+				playerTwoUnusedStrategyCards.erase(x)
+				playerTwoUsedStrategyCards.append(x)
+	
+
 
 func AwardBattleVictoryPoint(player):
 	if player == "PlayerOne":
@@ -82,6 +102,10 @@ func RegisterBattleStarted(index, lastPlayerToLand):
 	indexOfActiveLocationCardDock = index
 	playerWhoLandedlast = lastPlayerToLand
 	#playerBattleTurn will be decided by the location card
+
+func HandleStrategyCardMenuForCustomScript(text):
+	var dock = locationDocks[0]	#doesn't matter which dock calls the func
+	return dock.HandleStrategyCardMenuForGameState(text)
 
 func SetCurrentTurn(root):
 	

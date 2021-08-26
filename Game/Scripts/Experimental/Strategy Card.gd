@@ -73,7 +73,7 @@ func _ready():
 
 	
 func ActivateEffect():
-	customScript.Effect()
+	return customScript.Effect()
 	
 
 

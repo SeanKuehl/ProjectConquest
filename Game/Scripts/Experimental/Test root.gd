@@ -32,10 +32,29 @@ onready var listOfLocationDocks = [locationDockOne, locationDockTwo, locationDoc
 var monsterAttackMenuWidth = 1024
 var monsterAttackMenuHieght = 600
 
+var timer = -1
+var wait_time = -1	#-1 indicates not set
+var timerFinished = false
+
+func _process(delta):
+	if timer == -1:
+		#timer and wait_time are not set
+		pass
+	else:
+		
+		
+		timer+=delta
+		if timer>wait_time:
+			#call_function()
+			timerFinished = true
+			timer = -1
+			wait_time = -1
+
 
 func _ready():
 	get_node("AttackMenu").hide()
 	get_node("SkipBattleCardPhase").hide()
+	get_node("StrategyCardMenu").hide()
 	
 	GameState.SetLocationDocks(listOfLocationDocks)
 	#load_base_card_class(GetFilePathsInDirectory(experimentalCardDirectory))
@@ -315,6 +334,8 @@ func load_monster_cards(files):
 		GameState.AddPlayerOneMonsterCard(newCard)
 		#more signal connections will be needed for location cards
 		
+func ConnectSignalToHere():
+	pass
 	
 func load_playerone_cards(locationCards, monsterCards, battleCards, strategyCards):
 	for x in locationCards:
@@ -452,6 +473,36 @@ func list_files_in_directory(path):
 	dir.list_dir_end()
 
 	return files
+
+func PutCardBackInDock(card):
+	get_node("Dock").PlaceCard(card)
+
+func HandleStrategyCardMenu(text):
+	#this function will be called from the Effect function in strategy card
+	var menuLocation = GameState.GetCenterOfLocationCardDockAtIndex(5)
+	
+	#get_node("StrategyCardMenu").connect("userMadeSelection", self, "ConnectSignalToHere")
+	get_node("StrategyCardMenu").SetTextToShowUser(text)
+	get_node("StrategyCardMenu").rect_global_position = menuLocation
+	get_node("StrategyCardMenu").show()
+	
+	#stall until a selection is made
+	var toReturn = -1
+	
+	yield(get_node("StrategyCardMenu"), "userMadeSelection")	#yield until strategy card menu's signal "userMadeSelection" happens
+	print("signal sent")
+	toReturn = get_node("StrategyCardMenu").GetLocationDockToReturn()
+	#I can wait until something happens
+	#yield(self, "exploded") this will stall this until a signal happens
+	#yield(countdown(), "completed")
+	#yield seems to be what I want, I just have to figure out the best way to use it
+	
+	#now that selection has been made, close the menu
+	get_node("StrategyCardMenu").SetTextToShowUser("")
+	get_node("StrategyCardMenu").hide()
+		
+	return toReturn
+	
 
 
 func _on_End_Turn_pressed():

@@ -255,8 +255,12 @@ func LoadPlayerCards(listOfCards):
 			PlaceCard(x)
 		
 	for x in strategyCards:
-		x.SetCardIsDocked(false)	#otherwise this will enter the Place function but will not be placed and just not do anything
-		PlaceCard(x)
+		if x.GetCardIsDocked():
+			#then it's in the used pile
+			pass
+		else:
+			x.SetCardIsDocked(false)	#otherwise this will enter the Place function but will not be placed and just not do anything
+			PlaceCard(x)
 		
 
 func _on_Dock_body_entered(body):
