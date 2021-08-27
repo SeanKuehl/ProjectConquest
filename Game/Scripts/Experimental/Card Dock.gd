@@ -234,7 +234,7 @@ func LoadPlayerCards(listOfCards):
 	#GetCardIsDocked(), but for location it's GetIsDocked()
 	for x in monsterCards:
 		
-		if x.GetCardIsDocked():
+		if x.GetCardInvolvedInBattle():
 			
 			#it's a part of a battle
 			pass
@@ -255,10 +255,14 @@ func LoadPlayerCards(listOfCards):
 			PlaceCard(x)
 		
 	for x in strategyCards:
-		if x.GetCardIsDocked():
-			#then it's in the used pile
+		
+		if x.GetCardInvolvedInBattle():
+			#it will never really be involved in battle, but this will
+			#be set true when it is used
+			
 			pass
 		else:
+			
 			x.SetCardIsDocked(false)	#otherwise this will enter the Place function but will not be placed and just not do anything
 			PlaceCard(x)
 		

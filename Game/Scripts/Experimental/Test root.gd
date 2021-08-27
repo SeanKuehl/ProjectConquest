@@ -66,6 +66,8 @@ func _ready():
 	#get_tree().change_scene("res://Game/Scenes/Experimental/InGameMenus/MonsterAttackMenu.tscn")
 	#get_tree().reload_current_scene()
 	
+	GameState.SetTurnState("Setup")
+	
 	
 	GameState.ClearPlayerCards("PlayerTwo")	#it's player one's turn first
 	get_node("Dock").LoadPlayerCards(GameState.GetPlayerOneUnusedCards())
@@ -334,8 +336,7 @@ func load_monster_cards(files):
 		GameState.AddPlayerOneMonsterCard(newCard)
 		#more signal connections will be needed for location cards
 		
-func ConnectSignalToHere():
-	pass
+
 	
 func load_playerone_cards(locationCards, monsterCards, battleCards, strategyCards):
 	for x in locationCards:
@@ -489,8 +490,8 @@ func HandleStrategyCardMenu(text):
 	#stall until a selection is made
 	var toReturn = -1
 	
-	yield(get_node("StrategyCardMenu"), "userMadeSelection")	#yield until strategy card menu's signal "userMadeSelection" happens
-	print("signal sent")
+	#yield(get_node("StrategyCardMenu"), "userMadeSelection")	#yield until strategy card menu's signal "userMadeSelection" happens
+	#print("signal sent")
 	toReturn = get_node("StrategyCardMenu").GetLocationDockToReturn()
 	#I can wait until something happens
 	#yield(self, "exploded") this will stall this until a signal happens
@@ -503,7 +504,17 @@ func HandleStrategyCardMenu(text):
 		
 	return toReturn
 	
-
+func EndCurrentPlayerTurn():
+	get_node("Dock").ClearAll()	#wipe the data in card dock
+	#in card dock, it seems the values from dicts and the actual values are not the same, this could/will be the source of future problems
+	GameState.ClearPlayerCards(GameState.GetCurrentTurn())	#make the unused cards of playerone(the ones that would be in the dock) invisible and unusable
+	GameState.ChangeCurrentTurn()
+	
+	if GameState.GetCurrentTurn() == "PlayerOne":
+		get_node("Dock").LoadPlayerCards(GameState.GetPlayerOneUnusedCards())
+	else:
+		get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
+	
 
 func _on_End_Turn_pressed():
 	

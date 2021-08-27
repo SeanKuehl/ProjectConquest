@@ -57,12 +57,34 @@ var turnState = ""	#this can be "setup", "location card placement phase", "monst
 
 
 
-func GetThereIsACardBeingDragged():
-	return thereIsACardBeingDragged
-
-func SetThereIsACardBeingDragged(newValue):
-	thereIsACardBeingDragged = newValue
-
+func GetTurnState():
+	return turnState
+	
+func SetTurnState(newState):
+	turnState = newState
+	
+func ChangeTurnState():
+	
+	var alreadyChanged = false
+	
+	if turnState == "Setup" and alreadyChanged == false:
+		turnState = "LocationCardPhase"
+		alreadyChanged = true
+	if turnState == "LocationCardPhase" and alreadyChanged == false:
+		turnState = "MonsterCardPhase"
+		alreadyChanged = true
+	if turnState == "MonsterCardPhase" and alreadyChanged == false:
+		turnState = "StrategyCardPhase"
+		alreadyChanged = true
+	if turnState == "StrategyCardPhase" and alreadyChanged == false:
+		turnState = "LocationCardPhase"	#setup only happens once at the start of the game
+		alreadyChanged = true
+		
+	#sanity check to catch a possible typo with turnState
+	#if it got here without using one of the ifs above and alreadyChanged is still false, send a print statement error message
+	if alreadyChanged == false:
+		print("ERROR: there was a typo with turn state")
+	
 
 func MoveAllDockedStrategyCardsToUsedPile(player):
 	#a strategy card's cardIsDocked is only set if it is used
@@ -73,11 +95,13 @@ func MoveAllDockedStrategyCardsToUsedPile(player):
 		#have to set it's cardIsDocked to false again
 		for x in playerOneUnusedStrategyCards:
 			if x.GetCardIsDocked():
+				x.SetCardInvolvedInBattle(true)	#this way the card will not be placed back in the dock
 				playerOneUnusedStrategyCards.erase(x)
 				playerOneUsedStrategyCards.append(x)
 	else:
 		for x in playerTwoUnusedStrategyCards:
 			if x.GetCardIsDocked():
+				x.SetCardInvolvedInBattle(true)	#this way the card will not be placed back in the dock
 				playerTwoUnusedStrategyCards.erase(x)
 				playerTwoUsedStrategyCards.append(x)
 	
@@ -104,6 +128,7 @@ func RegisterBattleStarted(index, lastPlayerToLand):
 	#playerBattleTurn will be decided by the location card
 
 func HandleStrategyCardMenuForCustomScript(text):
+	
 	var dock = locationDocks[0]	#doesn't matter which dock calls the func
 	return dock.HandleStrategyCardMenuForGameState(text)
 
@@ -231,7 +256,8 @@ func ClearPlayerCards(player):
 		for x in range(len(monsterCards)):
 			#max  is exclusive
 			#there will be a special check for monster cards, but not right now
-			if monsterCards[x].GetCardIsDocked() == true:
+			if monsterCards[x].GetCardInvolvedInBattle() == true:
+				
 				#don't hide it, it's docked in a monster card dock waiting for a battle
 				pass
 			else:
@@ -253,10 +279,14 @@ func ClearPlayerCards(player):
 				battleCards[x].set_process_input(false)
 			
 		for x in range(len(strategyCards)):
-			strategyCards[x].hide()
-			strategyCards[x].set_process(false)
-			strategyCards[x].set_physics_process(false)
-			strategyCards[x].set_process_input(false)
+			if strategyCards[x].GetCardInvolvedInBattle() == true:
+				#it's in the used pile
+				pass
+			else:
+				strategyCards[x].hide()
+				strategyCards[x].set_process(false)
+				strategyCards[x].set_physics_process(false)
+				strategyCards[x].set_process_input(false)
 			
 		
 			
@@ -287,7 +317,7 @@ func ClearPlayerCards(player):
 		for x in range(len(monsterCards)):
 			#max  is exclusive
 			#there will be a special check for monster cards, but not right now
-			if monsterCards[x].GetCardIsDocked() == true:
+			if monsterCards[x].GetCardInvolvedInBattle() == true:
 				#don't hide it, it's docked in a monster card dock waiting for a battle
 				pass
 			else:
@@ -309,10 +339,14 @@ func ClearPlayerCards(player):
 				battleCards[x].set_process_input(false)
 			
 		for x in range(len(strategyCards)):
-			strategyCards[x].hide()
-			strategyCards[x].set_process(false)
-			strategyCards[x].set_physics_process(false)
-			strategyCards[x].set_process_input(false)
+			if strategyCards[x].GetCardInvolvedInBattle() == true:
+				#it's in the used pile, don't mess with it
+				pass
+			else:
+				strategyCards[x].hide()
+				strategyCards[x].set_process(false)
+				strategyCards[x].set_physics_process(false)
+				strategyCards[x].set_process_input(false)
 	
 func SetLocationDocks(listOfLocationDocks):
 	locationDocks = listOfLocationDocks

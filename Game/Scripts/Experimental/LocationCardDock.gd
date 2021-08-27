@@ -36,57 +36,22 @@ func _ready():
 	pass
 	
 
-	
-func _physics_process(_delta):
-	
-	
-	
-	if typeof(storedCard) == TYPE_OBJECT and GameState.GetBattleState() != "MonsterAttackPhase":
-		#then it hasn't been assigned yet and is still an int
-	
-		if Input.is_action_pressed("CLICK") and mouseIsInTile and dockedCardShown == false and timeHasPassedSinceLastClickEvent and GameState.GetCurrentTurn() == storedCard.GetCardOwner():
-			
-			#show the docked card, show  the card and change the background sprite to grey and send signal to show card
-			$Sprite/Grey.texture = defaultImage
-			storedCard.show()
-			#storedCard.set_process(true)
-			#storedCard.set_physics_process(true)
-			#storedCard.set_process_input(true)
-			var valuesToDisplay = storedCard.GetDisplayStuff()
-			dockedCardShown = true
-			timeHasPassedSinceLastClickEvent = false
-			$ClickCooldown.start()
-			
-			
-			storedCard.emit_signal("userWantsToDisplayCard", valuesToDisplay[0], valuesToDisplay[1], valuesToDisplay[2])
-			#userWantsToDisplayCard(cardName, cardPicture, cardDescription)
-		if Input.is_action_just_pressed("CLICK") and mouseIsInTile and dockedCardShown == true and timeHasPassedSinceLastClickEvent and GameState.GetCurrentTurn() == storedCard.GetCardOwner():
-			
-			#hide the docked card, hide and disable the card and change the background sprite to the card back
-			$Sprite/Grey.texture = cardBackImage
-			storedCard.hide()
-			storedCard.set_process(false)
-			storedCard.set_physics_process(false)
-			storedCard.set_process_input(false)
-			dockedCardShown = false
-			timeHasPassedSinceLastClickEvent = false
-			$ClickCooldown.start()
-		
-	if cardIsBeingHoveredOver == true:
-			
-		#if click and dragged on = true
-			
+func LocationCardPhysicsProcessCode():
+	#eventually this will have a check for if there's a battle going on or not,
+	#if it's a battle(normally) follow the battle state stuff
+	if GameState.GetTurnState() == "Setup":
+		#then end the player's turn after they dock the location card
 		if cardHoveredOverArea.GetClickAndDraggedOn() == false and cardHoveredOverArea.GetCardIsDocked() == false and cardHoveredOverArea.GetCardType() == "Location":
 			#dock it, this is location card
 			cardHoveredOverArea.global_position = $Centre.global_position
 			#connect the signals for "battle start" etc. from here to card upon docking
 			cardHoveredOverArea.ConnectCustomScriptToLocationDockSignal(thisNode)
-			
+				
 			cardHoveredOverArea.hide()
 			cardHoveredOverArea.set_process(false)
 			cardHoveredOverArea.set_physics_process(false)
 			cardHoveredOverArea.set_process_input(false)
-				
+					
 			cardHoveredOverArea.SetCardIsDocked(true)
 			storedCard = cardHoveredOverArea
 			storedCard.SetIsDocked(true)
@@ -94,10 +59,75 @@ func _physics_process(_delta):
 			#set the cards position to Centre and disable/hide it
 			#show it later if they mouse over or something
 			#instead change the sprite to the card back image
+			
+			
+			#if this is player two ending their turn due to it being the setup phase, 
+			#then the setup phase is now over and the phase is changed to the next one
+			if GameState.GetCurrentTurn() == "PlayerTwo":
+				GameState.ChangeTurnState()	#from setup phase, it will change to location card phase
+			
+			
+			#end the current player's turn, they've placed down their location card as their part of the setup phase
+			get_parent().EndCurrentPlayerTurn()
+			
+	elif GameState.GetTurnState() == "LocationCardPhase":
+		
+		if cardHoveredOverArea.GetClickAndDraggedOn() == false and cardHoveredOverArea.GetCardIsDocked() == false and cardHoveredOverArea.GetCardType() == "Location":
+			#dock it, this is location card
+			cardHoveredOverArea.global_position = $Centre.global_position
+			#connect the signals for "battle start" etc. from here to card upon docking
+			cardHoveredOverArea.ConnectCustomScriptToLocationDockSignal(thisNode)
 				
+			cardHoveredOverArea.hide()
+			cardHoveredOverArea.set_process(false)
+			cardHoveredOverArea.set_physics_process(false)
+			cardHoveredOverArea.set_process_input(false)
+					
+			cardHoveredOverArea.SetCardIsDocked(true)
+			storedCard = cardHoveredOverArea
+			storedCard.SetIsDocked(true)
+			$Sprite/Grey.texture = cardBackImage
+			#set the cards position to Centre and disable/hide it
+			#show it later if they mouse over or something
+			#instead change the sprite to the card back image
+			
+			#now that they have played a location card the location card phase is over
+			#switch to the next turn phase
+			GameState.ChangeTurnState()
+			print(GameState.GetTurnState())
+			
+	else:
+		if cardHoveredOverArea.GetClickAndDraggedOn() == false and cardHoveredOverArea.GetCardIsDocked() == false and cardHoveredOverArea.GetCardType() == "Location":
+			#dock it, this is location card
+			cardHoveredOverArea.global_position = $Centre.global_position
+			#connect the signals for "battle start" etc. from here to card upon docking
+			cardHoveredOverArea.ConnectCustomScriptToLocationDockSignal(thisNode)
 				
-				
-		if cardHoveredOverArea.GetClickAndDraggedOn() == false and cardHoveredOverArea.GetCardIsDocked() == false and cardHoveredOverArea.GetCardType() == "Monster" and cardHoveredOverArea.GetInUsedPile() == false:
+			cardHoveredOverArea.hide()
+			cardHoveredOverArea.set_process(false)
+			cardHoveredOverArea.set_physics_process(false)
+			cardHoveredOverArea.set_process_input(false)
+					
+			cardHoveredOverArea.SetCardIsDocked(true)
+			storedCard = cardHoveredOverArea
+			storedCard.SetIsDocked(true)
+			$Sprite/Grey.texture = cardBackImage
+			#set the cards position to Centre and disable/hide it
+			#show it later if they mouse over or something
+			#instead change the sprite to the card back image
+	
+func MonsterCardPhysicsProcessCode():
+	
+	if GameState.GetTurnState() == "MonsterCardPhase":
+		MonsterCardPhaseHelperCode()
+		
+	else:
+		MonsterCardPhysicsProcessHelperCode()
+	
+	
+func MonsterCardPhaseHelperCode():
+	if cardHoveredOverArea.GetClickAndDraggedOn() == false and cardHoveredOverArea.GetCardIsDocked() == false:
+		if cardHoveredOverArea.GetCardType() == "Monster" and cardHoveredOverArea.GetInUsedPile() == false:
 			#dock it, this is monster card
 			if cardHoveredOverArea.GetCardOwner() == "PlayerOne" and thereIsPlayerOneMonster == false:
 				playerOneDock.LoadMonsterCardInformation(cardHoveredOverArea)
@@ -109,7 +139,83 @@ func _physics_process(_delta):
 				cardHoveredOverArea.set_physics_process(false)
 				cardHoveredOverArea.set_process_input(false)
 				cardHoveredOverArea.SetCardIsDocked(true)
+				cardHoveredOverArea.SetCardInvolvedInBattle(true)
 				
+				
+				playerOneMonster = cardHoveredOverArea
+				thereIsPlayerOneMonster = true
+				#now that the player has placed a monster, change the turn to the next phase
+				GameState.ChangeTurnState()
+				print(GameState.GetTurnState())
+				
+				#check if this is the second of two opposing monsters placed
+				if thereIsPlayerTwoMonster:
+					SetLocationDockToRevealed()
+					
+					#get the index of the location card dock
+					var stringIndex = name[-1]
+					var intIndex = int(stringIndex) -1	#the list of location card docks starts at 0, so the -1 is to adjust for that
+					lastPlayerToLand = "PlayerOne"
+					
+					GameState.AddCardToActiveCardList(storedCard)
+					GameState.RegisterBattleStarted(intIndex, lastPlayerToLand)
+					
+					emit_signal("BattleStarted")
+					
+					
+				
+			elif cardHoveredOverArea.GetCardOwner() == "PlayerTwo" and thereIsPlayerTwoMonster == false:
+				playerTwoDock.LoadMonsterCardInformation(cardHoveredOverArea)
+				#still need to connect signal to display
+				get_parent().get_node("Display").ConnectMonsterDockSignal(playerTwoDock)
+				#print(get_parent().get_node("Display").name)
+				cardHoveredOverArea.hide()
+				cardHoveredOverArea.set_process(false)
+				cardHoveredOverArea.set_physics_process(false)
+				cardHoveredOverArea.set_process_input(false)
+				cardHoveredOverArea.SetCardIsDocked(true)
+				cardHoveredOverArea.SetCardInvolvedInBattle(true)
+				
+				
+				
+				playerTwoMonster = cardHoveredOverArea
+				thereIsPlayerTwoMonster = true
+				#now that the player has placed a monster, change the turn to the next phase
+				GameState.ChangeTurnState()
+				print(GameState.GetTurnState())
+				
+				#check if this is the second of two opposing monsters placed
+				if thereIsPlayerOneMonster:
+					SetLocationDockToRevealed()
+					
+					#get the index of the location card dock
+					var stringIndex = name[-1]
+					var intIndex = int(stringIndex) -1	#the list of location card docks starts at 0, so the -1 is to adjust for that
+					lastPlayerToLand = "PlayerTwo"
+					
+					GameState.AddCardToActiveCardList(storedCard)
+					
+					
+					GameState.RegisterBattleStarted(intIndex, lastPlayerToLand)
+					
+					emit_signal("BattleStarted")
+	
+	
+func MonsterCardPhysicsProcessHelperCode():
+	if cardHoveredOverArea.GetClickAndDraggedOn() == false and cardHoveredOverArea.GetCardIsDocked() == false:
+		if cardHoveredOverArea.GetCardType() == "Monster" and cardHoveredOverArea.GetInUsedPile() == false:
+			#dock it, this is monster card
+			if cardHoveredOverArea.GetCardOwner() == "PlayerOne" and thereIsPlayerOneMonster == false:
+				playerOneDock.LoadMonsterCardInformation(cardHoveredOverArea)
+				#still need to connect signal to display
+				get_parent().get_node("Display").ConnectMonsterDockSignal(playerOneDock)
+				#print(get_parent().get_node("Display").name)
+				cardHoveredOverArea.hide()
+				cardHoveredOverArea.set_process(false)
+				cardHoveredOverArea.set_physics_process(false)
+				cardHoveredOverArea.set_process_input(false)
+				cardHoveredOverArea.SetCardIsDocked(true)
+				cardHoveredOverArea.SetCardInvolvedInBattle(true)
 				
 				
 				playerOneMonster = cardHoveredOverArea
@@ -141,6 +247,7 @@ func _physics_process(_delta):
 				cardHoveredOverArea.set_physics_process(false)
 				cardHoveredOverArea.set_process_input(false)
 				cardHoveredOverArea.SetCardIsDocked(true)
+				cardHoveredOverArea.SetCardInvolvedInBattle(true)
 				
 				
 				
@@ -162,10 +269,41 @@ func _physics_process(_delta):
 					GameState.RegisterBattleStarted(intIndex, lastPlayerToLand)
 					
 					emit_signal("BattleStarted")
-					
-					
-					
-		if cardHoveredOverArea.GetClickAndDraggedOn() == false and cardHoveredOverArea.GetCardIsDocked() == false and cardHoveredOverArea.GetCardType() == "Battle":
+	
+func ShowingOrHidingStoredCardPhysicsProcessCode():
+	if typeof(storedCard) == TYPE_OBJECT and GameState.GetBattleState() != "MonsterAttackPhase":
+		#then it hasn't been assigned yet and is still an int
+	
+		if Input.is_action_pressed("CLICK") and mouseIsInTile and dockedCardShown == false and timeHasPassedSinceLastClickEvent and GameState.GetCurrentTurn() == storedCard.GetCardOwner():
+			
+			#show the docked card, show  the card and change the background sprite to grey and send signal to show card
+			$Sprite/Grey.texture = defaultImage
+			storedCard.show()
+			#storedCard.set_process(true)
+			#storedCard.set_physics_process(true)
+			#storedCard.set_process_input(true)
+			var valuesToDisplay = storedCard.GetDisplayStuff()
+			dockedCardShown = true
+			timeHasPassedSinceLastClickEvent = false
+			$ClickCooldown.start()
+			
+			
+			storedCard.emit_signal("userWantsToDisplayCard", valuesToDisplay[0], valuesToDisplay[1], valuesToDisplay[2])
+			#userWantsToDisplayCard(cardName, cardPicture, cardDescription)
+		if Input.is_action_just_pressed("CLICK") and mouseIsInTile and dockedCardShown == true and timeHasPassedSinceLastClickEvent and GameState.GetCurrentTurn() == storedCard.GetCardOwner():
+			
+			#hide the docked card, hide and disable the card and change the background sprite to the card back
+			$Sprite/Grey.texture = cardBackImage
+			storedCard.hide()
+			storedCard.set_process(false)
+			storedCard.set_physics_process(false)
+			storedCard.set_process_input(false)
+			dockedCardShown = false
+			timeHasPassedSinceLastClickEvent = false
+			$ClickCooldown.start()
+	
+func BattleCardPhysicsProcessCode():
+	if cardHoveredOverArea.GetClickAndDraggedOn() == false and cardHoveredOverArea.GetCardIsDocked() == false and cardHoveredOverArea.GetCardType() == "Battle":
 			#check if a battle is happening
 			if thereIsPlayerOneMonster and thereIsPlayerTwoMonster and GameState.GetBattleState() == "BattleCardPhase":
 				#take card, filter card, do card
@@ -193,14 +331,56 @@ func _physics_process(_delta):
 					cardIsBeingHoveredOver = false
 					get_parent().get_node("Dock").PlaceCard(cardHoveredOverArea)
 					print("this card cannot be played")
-				
-				#in the meantime the card itself should hide, it will reappear only if it is not allowed to be played
+	
+func StrategyCardPhysicsProcessCode():
+	
+	if GameState.GetTurnState() == "StrategyCardPhase":
+		StrategyCardPhaseHelperCode()
+	else:
+		StrategyCardPhysicsProcessHelperCode()
+	
+
+func StrategyCardPhaseHelperCode():
+	#in the meantime the card itself should hide, it will reappear only if it is not allowed to be played
 				#and the user should be told this
 		if cardHoveredOverArea.GetClickAndDraggedOn() == false and cardHoveredOverArea.GetCardIsDocked() == false and cardHoveredOverArea.GetCardType() == "Strategy":
 			cardHoveredOverArea.hide()
 			cardHoveredOverArea.SetCardIsDocked(true)	#if the card is used successfully, this will be used to signal that the card is in the used pile
 			var effectOutcome = cardHoveredOverArea.ActivateEffect()
+			print(effectOutcome)
+			effectOutcome  = "Success"	#this is temp until I get around to deleting the yields etc.
+			if effectOutcome == "Success":
+				#the card has done it's effect, move it to the used pile
+				GameState.MoveAllDockedStrategyCardsToUsedPile(cardHoveredOverArea.GetCardOwner())
+				
+				#they played the card and it was successfully played, end the phase
+				#now that the player has played a strategy card, their turn is over
+				#change the turn state and change the player turn
+				GameState.ChangeTurnState()
+				print(GameState.GetTurnState())
+				get_parent().EndCurrentPlayerTurn()
+				
+			elif effectOutcome == "Fail":
+				#show card again, unset the card being docked and return it to the card dock
+				#also notify the user that it could not be played
+				cardHoveredOverArea.show()
+				cardHoveredOverArea.SetCardIsDocked(false)	#if the card is used successfully, this will be used to signal that the card is in the used pile
+				get_parent().PutCardBackInDock(cardHoveredOverArea)
+				
+			else:
+				print("ERROR: strategy card effect returned something other than Success or Fail")
 			
+	
+func StrategyCardPhysicsProcessHelperCode():
+	#in the meantime the card itself should hide, it will reappear only if it is not allowed to be played
+				#and the user should be told this
+		if cardHoveredOverArea.GetClickAndDraggedOn() == false and cardHoveredOverArea.GetCardIsDocked() == false and cardHoveredOverArea.GetCardType() == "Strategy":
+			cardHoveredOverArea.hide()
+			cardHoveredOverArea.SetCardIsDocked(true)	#if the card is used successfully, this will be used to signal that the card is in the used pile
+			var effectOutcome = cardHoveredOverArea.ActivateEffect()
+			print(effectOutcome)
+			
+			effectOutcome  = "Success"	#this is temp until I get around to deleting the yields etc.
 			if effectOutcome == "Success":
 				#the card has done it's effect, move it to the used pile
 				GameState.MoveAllDockedStrategyCardsToUsedPile(cardHoveredOverArea.GetCardOwner())
@@ -214,10 +394,30 @@ func _physics_process(_delta):
 				
 			else:
 				print("ERROR: strategy card effect returned something other than Success or Fail")
-			#hide card
-			#set card docked
-			#try to activate effect, if failed put card back in dock
+			
+	
+	
+func _physics_process(_delta):
+	
+	
+	
+	ShowingOrHidingStoredCardPhysicsProcessCode()
+		
+	if cardIsBeingHoveredOver == true:
+			
+		
+			
+		LocationCardPhysicsProcessCode()
 				
+				
+				
+		MonsterCardPhysicsProcessCode()
+					
+					
+					
+		BattleCardPhysicsProcessCode()
+				
+		StrategyCardPhysicsProcessCode()
 		
 
 
