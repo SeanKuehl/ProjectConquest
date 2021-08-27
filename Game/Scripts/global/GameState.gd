@@ -112,6 +112,14 @@ func AwardBattleVictoryPoint(player):
 		playerOnePoints += 1
 	else:
 		playerTwoPoints += 1
+		
+	#for now, victory is achieved after two battles are won
+	if playerOnePoints == 2:
+		print("player one wins the game")
+		
+	elif playerTwoPoints == 2:
+		print("player two wins the game")
+		
 
 func _ready():
 	pass

@@ -1,0 +1,6 @@
+Darrel
+thirdSample.png
+this is Darrel's description
+1
+move any monster from any card to any card of your choice
+teststrategycardscript.gd
