@@ -144,6 +144,10 @@ func RegisterBattleStarted(index, lastPlayerToLand):
 	playerWhoLandedlast = lastPlayerToLand
 	#playerBattleTurn will be decided by the location card
 
+func GetThereIsActiveBattle():
+	return thereIsActiveBattle
+
+
 func HandleStrategyCardMenuForCustomScript(text):
 	
 	var dock = locationDocks[0]	#doesn't matter which dock calls the func

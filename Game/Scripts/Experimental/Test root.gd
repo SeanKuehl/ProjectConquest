@@ -539,18 +539,7 @@ func EndCurrentPlayerTurn():
 		get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
 	
 
-func _on_End_Turn_pressed():
-	
-	get_node("Dock").ClearAll()	#wipe the data in card dock
-	#in card dock, it seems the values from dicts and the actual values are not the same, this could/will be the source of future problems
-	GameState.ClearPlayerCards(GameState.GetCurrentTurn())	#make the unused cards of playerone(the ones that would be in the dock) invisible and unusable
-	GameState.ChangeCurrentTurn()
-	
-	if GameState.GetCurrentTurn() == "PlayerOne":
-		get_node("Dock").LoadPlayerCards(GameState.GetPlayerOneUnusedCards())
-	else:
-		get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
-	
+
 
 
 func _on_SkipBattleCardPhase_pressed():
@@ -559,3 +548,18 @@ func _on_SkipBattleCardPhase_pressed():
 	#now hide the button
 	
 	get_node("SkipBattleCardPhase").hide()
+
+
+func _on_End_Phase_pressed():
+	if GameState.GetTurnState() == "Setup":
+		#you can't get out of setup
+		pass
+	elif GameState.GetThereIsActiveBattle():
+		#you can't change turn phase during a battle
+		pass
+	else:
+		GameState.ChangeTurnState()	#this acts as a 'skip' in case you don't want to play any cards of that type
+		print(GameState.GetTurnState())
+		if GameState.GetTurnState() == "LocationCardPhase":
+			#change to other player's turn
+			EndCurrentPlayerTurn()

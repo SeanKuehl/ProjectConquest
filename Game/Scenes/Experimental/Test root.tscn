@@ -50,12 +50,12 @@ position = Vector2( 144.744, -645.006 )
 [node name="LocationDock9" parent="." instance=ExtResource( 5 )]
 position = Vector2( 549.434, -643.672 )
 
-[node name="End Turn" type="Button" parent="."]
+[node name="End Phase" type="Button" parent="."]
 margin_left = 561.0
 margin_top = 110.0
 margin_right = 774.0
 margin_bottom = 270.0
-text = "End Turn"
+text = "End Phase"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -77,5 +77,6 @@ margin_left = 979.913
 margin_top = -92.9901
 margin_right = 979.913
 margin_bottom = -92.9901
-[connection signal="pressed" from="End Turn" to="." method="_on_End_Turn_pressed"]
+[connection signal="pressed" from="End Phase" to="." method="_on_End_Turn_pressed"]
+[connection signal="pressed" from="End Phase" to="." method="_on_End_Phase_pressed"]
 [connection signal="pressed" from="SkipBattleCardPhase" to="." method="_on_SkipBattleCardPhase_pressed"]
