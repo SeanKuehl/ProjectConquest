@@ -41,7 +41,8 @@ func LocationCardPhysicsProcessCode():
 	#if it's a battle(normally) follow the battle state stuff
 	if GameState.GetTurnState() == "Setup":
 		#then end the player's turn after they dock the location card
-		if cardHoveredOverArea.GetClickAndDraggedOn() == false and cardHoveredOverArea.GetCardIsDocked() == false and cardHoveredOverArea.GetCardType() == "Location":
+		#typeof(storedCard) != TYPE_OBJECT checks if there is a stored card and it's not an integer, this will allow me to prevent the stacking of multiple location cards in a single location card dock
+		if cardHoveredOverArea.GetClickAndDraggedOn() == false and cardHoveredOverArea.GetCardIsDocked() == false and cardHoveredOverArea.GetCardType() == "Location" and typeof(storedCard) != TYPE_OBJECT:
 			#dock it, this is location card
 			cardHoveredOverArea.global_position = $Centre.global_position
 			#connect the signals for "battle start" etc. from here to card upon docking
@@ -72,7 +73,7 @@ func LocationCardPhysicsProcessCode():
 			
 	elif GameState.GetTurnState() == "LocationCardPhase":
 		
-		if cardHoveredOverArea.GetClickAndDraggedOn() == false and cardHoveredOverArea.GetCardIsDocked() == false and cardHoveredOverArea.GetCardType() == "Location":
+		if cardHoveredOverArea.GetClickAndDraggedOn() == false and cardHoveredOverArea.GetCardIsDocked() == false and cardHoveredOverArea.GetCardType() == "Location" and typeof(storedCard) != TYPE_OBJECT:
 			#dock it, this is location card
 			cardHoveredOverArea.global_position = $Centre.global_position
 			#connect the signals for "battle start" etc. from here to card upon docking
@@ -97,7 +98,7 @@ func LocationCardPhysicsProcessCode():
 			print(GameState.GetTurnState())
 			
 	else:
-		if cardHoveredOverArea.GetClickAndDraggedOn() == false and cardHoveredOverArea.GetCardIsDocked() == false and cardHoveredOverArea.GetCardType() == "Location":
+		if cardHoveredOverArea.GetClickAndDraggedOn() == false and cardHoveredOverArea.GetCardIsDocked() == false and cardHoveredOverArea.GetCardType() == "Location" and typeof(storedCard) != TYPE_OBJECT:
 			#dock it, this is location card
 			cardHoveredOverArea.global_position = $Centre.global_position
 			#connect the signals for "battle start" etc. from here to card upon docking
