@@ -96,12 +96,14 @@ func MoveAllDockedStrategyCardsToUsedPile(player):
 		for x in playerOneUnusedStrategyCards:
 			if x.GetCardIsDocked():
 				x.SetCardInvolvedInBattle(true)	#this way the card will not be placed back in the dock
+				x.hide()	#hide them, otherwise they will show up overtop of the cards in the card dock
 				playerOneUnusedStrategyCards.erase(x)
 				playerOneUsedStrategyCards.append(x)
 	else:
 		for x in playerTwoUnusedStrategyCards:
 			if x.GetCardIsDocked():
 				x.SetCardInvolvedInBattle(true)	#this way the card will not be placed back in the dock
+				x.hide()	#hide them, otherwise they will show up overtop of the cards in the card dock
 				playerTwoUnusedStrategyCards.erase(x)
 				playerTwoUsedStrategyCards.append(x)
 	
@@ -288,8 +290,11 @@ func ClearPlayerCards(player):
 			
 		for x in range(len(strategyCards)):
 			if strategyCards[x].GetCardInvolvedInBattle() == true:
-				#it's in the used pile
-				pass
+				#it's in the used pile, still should be hidden
+				strategyCards[x].hide()
+				strategyCards[x].set_process(false)
+				strategyCards[x].set_physics_process(false)
+				strategyCards[x].set_process_input(false)
 			else:
 				strategyCards[x].hide()
 				strategyCards[x].set_process(false)
@@ -348,8 +353,11 @@ func ClearPlayerCards(player):
 			
 		for x in range(len(strategyCards)):
 			if strategyCards[x].GetCardInvolvedInBattle() == true:
-				#it's in the used pile, don't mess with it
-				pass
+				#it's in the used pile, it should be hidden
+				strategyCards[x].hide()
+				strategyCards[x].set_process(false)
+				strategyCards[x].set_physics_process(false)
+				strategyCards[x].set_process_input(false)
 			else:
 				strategyCards[x].hide()
 				strategyCards[x].set_process(false)

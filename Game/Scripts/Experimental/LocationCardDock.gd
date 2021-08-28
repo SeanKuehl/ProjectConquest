@@ -343,7 +343,7 @@ func StrategyCardPhysicsProcessCode():
 func StrategyCardPhaseHelperCode():
 	#in the meantime the card itself should hide, it will reappear only if it is not allowed to be played
 				#and the user should be told this
-		if cardHoveredOverArea.GetClickAndDraggedOn() == false and cardHoveredOverArea.GetCardIsDocked() == false and cardHoveredOverArea.GetCardType() == "Strategy":
+		if cardHoveredOverArea.GetClickAndDraggedOn() == false and cardHoveredOverArea.GetCardIsDocked() == false and cardHoveredOverArea.GetCardType() == "Strategy" and cardHoveredOverArea.GetCardInvolvedInBattle() == false:
 			cardHoveredOverArea.hide()
 			cardHoveredOverArea.SetCardIsDocked(true)	#if the card is used successfully, this will be used to signal that the card is in the used pile
 			var effectOutcome = cardHoveredOverArea.ActivateEffect()
@@ -374,7 +374,7 @@ func StrategyCardPhaseHelperCode():
 func StrategyCardPhysicsProcessHelperCode():
 	#in the meantime the card itself should hide, it will reappear only if it is not allowed to be played
 				#and the user should be told this
-		if cardHoveredOverArea.GetClickAndDraggedOn() == false and cardHoveredOverArea.GetCardIsDocked() == false and cardHoveredOverArea.GetCardType() == "Strategy":
+		if cardHoveredOverArea.GetClickAndDraggedOn() == false and cardHoveredOverArea.GetCardIsDocked() == false and cardHoveredOverArea.GetCardType() == "Strategy" and cardHoveredOverArea.GetCardInvolvedInBattle() == false:
 			cardHoveredOverArea.hide()
 			cardHoveredOverArea.SetCardIsDocked(true)	#if the card is used successfully, this will be used to signal that the card is in the used pile
 			var effectOutcome = cardHoveredOverArea.ActivateEffect()

@@ -113,7 +113,6 @@ func PlaceCard(card):
 		referenceSlots = strategyCardReferenceSlots
 	
 	
-	
 	#there is something wrong with the use of the dictionaries above
 	if card.GetCardType() == slotState:
 		#regular place
