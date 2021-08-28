@@ -347,29 +347,60 @@ func StrategyCardPhaseHelperCode():
 		if cardHoveredOverArea.GetClickAndDraggedOn() == false and cardHoveredOverArea.GetCardIsDocked() == false and cardHoveredOverArea.GetCardType() == "Strategy" and cardHoveredOverArea.GetCardInvolvedInBattle() == false:
 			cardHoveredOverArea.hide()
 			cardHoveredOverArea.SetCardIsDocked(true)	#if the card is used successfully, this will be used to signal that the card is in the used pile
-			var effectOutcome = cardHoveredOverArea.ActivateEffect()
-			print(effectOutcome)
-			effectOutcome  = "Success"	#this is temp until I get around to deleting the yields etc.
-			if effectOutcome == "Success":
+			
+			get_parent().SetStrategyCardBeingHandled(cardHoveredOverArea)
+			get_parent().UserSelectedFromStrategyCardMenu("first time")
+			#cardHoveredOverArea.ActivateEffect()
+			
+		#	var effectOutcome  = "Success"	#this is temp until I get around to deleting the yields etc.
+		#	if effectOutcome == "Success":
 				#the card has done it's effect, move it to the used pile
-				GameState.MoveAllDockedStrategyCardsToUsedPile(cardHoveredOverArea.GetCardOwner())
+		#		GameState.MoveAllDockedStrategyCardsToUsedPile(cardHoveredOverArea.GetCardOwner())
 				
 				#they played the card and it was successfully played, end the phase
 				#now that the player has played a strategy card, their turn is over
 				#change the turn state and change the player turn
-				GameState.ChangeTurnState()
-				print(GameState.GetTurnState())
-				get_parent().EndCurrentPlayerTurn()
+		#		GameState.ChangeTurnState()
+		#		print(GameState.GetTurnState())
+		#		get_parent().EndCurrentPlayerTurn()
 				
-			elif effectOutcome == "Fail":
+		#	elif effectOutcome == "Fail":
 				#show card again, unset the card being docked and return it to the card dock
 				#also notify the user that it could not be played
-				cardHoveredOverArea.show()
-				cardHoveredOverArea.SetCardIsDocked(false)	#if the card is used successfully, this will be used to signal that the card is in the used pile
-				get_parent().PutCardBackInDock(cardHoveredOverArea)
+		#		cardHoveredOverArea.show()
+		#		cardHoveredOverArea.SetCardIsDocked(false)	#if the card is used successfully, this will be used to signal that the card is in the used pile
+		#		get_parent().PutCardBackInDock(cardHoveredOverArea)
 				
-			else:
-				print("ERROR: strategy card effect returned something other than Success or Fail")
+		#	else:
+		#		print("ERROR: strategy card effect returned something other than Success or Fail")
+			
+	
+func StrategyCardActivateEffectHelperCode(card):
+	var effectOutcome = ""
+	
+	effectOutcome = card.ActivateEffect()
+			
+	
+	if effectOutcome == "Success":
+		#the card has done it's effect, move it to the used pile
+		GameState.MoveAllDockedStrategyCardsToUsedPile(card.GetCardOwner())
+				
+		#they played the card and it was successfully played, end the phase
+		#now that the player has played a strategy card, their turn is over
+		#change the turn state and change the player turn
+		GameState.ChangeTurnState()
+		print(GameState.GetTurnState())
+		get_parent().EndCurrentPlayerTurn()
+				
+	elif effectOutcome == "Fail":
+		#show card again, unset the card being docked and return it to the card dock
+		#also notify the user that it could not be played
+		card.show()
+		card.SetCardIsDocked(false)	#if the card is used successfully, this will be used to signal that the card is in the used pile
+		get_parent().PutCardBackInDock(card)
+				
+	else:
+		print("ERROR: strategy card effect returned something other than Success or Fail")
 			
 	
 func StrategyCardPhysicsProcessHelperCode():
@@ -437,7 +468,7 @@ func RootShowMonsterAttackOptions():
 
 
 func HandleStrategyCardMenuForGameState(text):
-	return get_parent().HandleStrategyCardMenu(text)
+	get_parent().HandleStrategyCardMenu(text)
 
 func GetPlayerMonsterData(player):
 	if player == "PlayerOne":

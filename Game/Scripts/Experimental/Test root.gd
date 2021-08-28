@@ -32,29 +32,15 @@ onready var listOfLocationDocks = [locationDockOne, locationDockTwo, locationDoc
 var monsterAttackMenuWidth = 1024
 var monsterAttackMenuHieght = 600
 
-var timer = -1
-var wait_time = -1	#-1 indicates not set
-var timerFinished = false
-
-func _process(delta):
-	if timer == -1:
-		#timer and wait_time are not set
-		pass
-	else:
-		
-		
-		timer+=delta
-		if timer>wait_time:
-			#call_function()
-			timerFinished = true
-			timer = -1
-			wait_time = -1
+var strategyCardBeingHandled = 0
+var locationDockNumbersList = []
 
 
 func _ready():
 	get_node("AttackMenu").hide()
 	get_node("SkipBattleCardPhase").hide()
 	get_node("StrategyCardMenu").hide()
+	get_node("StrategyCardMenu").connect("userMadeSelection", self, "UserSelectedFromStrategyCardMenu")
 	
 	GameState.SetLocationDocks(listOfLocationDocks)
 	#load_base_card_class(GetFilePathsInDirectory(experimentalCardDirectory))
@@ -123,6 +109,43 @@ func HandleVictory(player):
 	#end the battle and set indexes in gamestate
 	GameState.RegisterBattleEnded()
 	
+func UserSelectedFromStrategyCardMenu(caller):
+	#this could either be called for the first time, or from the signal
+	
+	if caller == "first time":
+		strategyCardBeingHandled.ActivatePreparation()
+		locationDockNumbersList = []	#clear it incase this is no the first strategy card played
+	elif caller == "signal":
+		#close the last menu
+		get_node("StrategyCardMenu").SetTextToShowUser("")
+		get_node("StrategyCardMenu").hide()
+		
+		var dockNum = get_node("StrategyCardMenu").GetLocationDockToReturn()
+		get_node("StrategyCardMenu").SetLocationDockToReturn(-1)	#reset it for next time
+		
+		locationDockNumbersList.append(dockNum)
+		#keep calling preparation until we get "done"
+		var possibleDone = strategyCardBeingHandled.ActivatePreparation()
+		
+		
+		#things to do:
+		#make a list and add dockNums to it, which will be passed to effect
+		#setup activating the card's effect(maybe call the card's effect func in location dock)
+		#setup trigger for switching to next phase after card's effect happens
+		
+		
+		if possibleDone == "Done":
+			GameState.SetStrategyPreparationValues(locationDockNumbersList)
+			
+			get_node("LocationDock1").StrategyCardActivateEffectHelperCode(strategyCardBeingHandled)	#it doesn't matter which dock executes this function since nothing is stored in location dock
+	
+	
+	
+func SetStrategyCardBeingHandled(card):
+	strategyCardBeingHandled = card
+	
+func GetStrategyCardBeingHandled():
+	return strategyCardBeingHandled
 	
 func ShowMonsterAttackOptions(monsterAttackInformation):
 	
@@ -488,21 +511,21 @@ func HandleStrategyCardMenu(text):
 	get_node("StrategyCardMenu").show()
 	
 	#stall until a selection is made
-	var toReturn = -1
+	#var toReturn = -1
 	
 	#yield(get_node("StrategyCardMenu"), "userMadeSelection")	#yield until strategy card menu's signal "userMadeSelection" happens
 	#print("signal sent")
-	toReturn = get_node("StrategyCardMenu").GetLocationDockToReturn()
+	#toReturn = get_node("StrategyCardMenu").GetLocationDockToReturn()
 	#I can wait until something happens
 	#yield(self, "exploded") this will stall this until a signal happens
 	#yield(countdown(), "completed")
 	#yield seems to be what I want, I just have to figure out the best way to use it
 	
 	#now that selection has been made, close the menu
-	get_node("StrategyCardMenu").SetTextToShowUser("")
-	get_node("StrategyCardMenu").hide()
+	#get_node("StrategyCardMenu").SetTextToShowUser("")
+	#get_node("StrategyCardMenu").hide()
 		
-	return toReturn
+	#return toReturn
 	
 func EndCurrentPlayerTurn():
 	get_node("Dock").ClearAll()	#wipe the data in card dock

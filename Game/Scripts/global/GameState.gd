@@ -55,7 +55,14 @@ var battleState = ""	#depending on the battle state the player's actions may be 
 
 var turnState = ""	#this can be "setup", "location card placement phase", "monster card phase" or "strategy card phase"
 
+var strategyPreparationValues = []
 
+
+func GetStrategyPreparationValues():
+	return strategyPreparationValues
+	
+func SetStrategyPreparationValues(values):
+	strategyPreparationValues = values
 
 func GetTurnState():
 	return turnState
@@ -140,7 +147,7 @@ func RegisterBattleStarted(index, lastPlayerToLand):
 func HandleStrategyCardMenuForCustomScript(text):
 	
 	var dock = locationDocks[0]	#doesn't matter which dock calls the func
-	return dock.HandleStrategyCardMenuForGameState(text)
+	dock.HandleStrategyCardMenuForGameState(text)
 
 func SetCurrentTurn(root):
 	

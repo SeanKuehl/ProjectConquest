@@ -75,7 +75,8 @@ func _ready():
 func ActivateEffect():
 	return customScript.Effect()
 	
-
+func ActivatePreparation():
+	return customScript.Preparation()
 
 	
 func init(passedFile, passedOwner):
