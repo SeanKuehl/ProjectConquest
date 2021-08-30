@@ -25,7 +25,6 @@ var healthLabel = ""
 var damageTaken = 0
 
 
-
 func _ready():
 	cardType = "Monster"	#this would be 'location' or 'battle'
 
@@ -233,11 +232,22 @@ func GetAnimation():
 	return animation
 
 func get_input():
+	
+	
+	
 	if Input.is_action_pressed("CLICK") and mouseIsInTile:
-		clickedAndDraggedOn = true
+		if GameState.GetTest() == false:
+			clickedAndDraggedOn = true
+			GameState.SetTest(true)
+		else:
+			#don't let the card be dragged
+			pass
+		
 	
 	if Input.is_action_just_released("CLICK"):
 		clickedAndDraggedOn = false
+		GameState.SetTest(false)
+		
 		
 	if Input.is_action_just_pressed("RIGHT_CLICK"):
 		emit_signal("userWantsToDisplayMonsterCard", cardName, cardPicture, cardDescription, health, attribute)

@@ -12,6 +12,7 @@ var sceneRoot = load("res://Game/Scripts/Experimental/Test root.gd")
 #player one stuff
 var playerOnePoints = 0	#you get points by winning battles, if you win enough battles you win the game
 
+var tempForTest = false
 
 #player one cards
 onready var playerOneUnusedMonsterCards = []
@@ -56,6 +57,14 @@ var battleState = ""	#depending on the battle state the player's actions may be 
 var turnState = ""	#this can be "setup", "location card placement phase", "monster card phase" or "strategy card phase"
 
 var strategyPreparationValues = []
+
+
+
+func GetTest():
+	return tempForTest
+	
+func SetTest(newVal):
+	tempForTest = newVal
 
 
 func GetStrategyPreparationValues():

@@ -161,10 +161,17 @@ func init(passedFile, passedOwner):
 	
 func get_input():
 	if Input.is_action_pressed("CLICK") and mouseIsInTile:
-		clickedAndDraggedOn = true
+		if GameState.GetTest() == false:
+			clickedAndDraggedOn = true
+			GameState.SetTest(true)
+		else:
+			#don't let the card be dragged
+			pass
+		
 	
 	if Input.is_action_just_released("CLICK"):
 		clickedAndDraggedOn = false
+		GameState.SetTest(false)
 		
 	if Input.is_action_just_pressed("RIGHT_CLICK"):
 		emit_signal("userWantsToDisplayBattleCard", cardName, cardPicture, cardDescription, attribute)
