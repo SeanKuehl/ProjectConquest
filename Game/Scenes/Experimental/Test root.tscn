@@ -77,6 +77,6 @@ margin_left = 979.913
 margin_top = -92.9901
 margin_right = 979.913
 margin_bottom = -92.9901
-[connection signal="pressed" from="End Phase" to="." method="_on_End_Turn_pressed"]
 [connection signal="pressed" from="End Phase" to="." method="_on_End_Phase_pressed"]
+[connection signal="pressed" from="End Phase" to="." method="_on_End_Turn_pressed"]
 [connection signal="pressed" from="SkipBattleCardPhase" to="." method="_on_SkipBattleCardPhase_pressed"]

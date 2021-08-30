@@ -8,6 +8,8 @@ var temp = false
 
 
 signal userWantsToDisplayCard(cardName, cardPicture, cardDescription)
+signal userWantsToDisplayMonsterCard(cardName, cardPicture, cardDescription, cardHealth, cardAttribute)
+signal userWantsToDisplayBattleCard(cardName, cardPicture, cardDescription, cardAttribute)
 
 var cardIsDocked = false
 var dockNumber = 0 
@@ -181,8 +183,8 @@ func get_input():
 		emit_signal("userWantsToDisplayCard", cardName, cardPicture, cardDescription)
 	
 	
-	if Input.is_action_just_pressed("SPACE"):
-		scale = Vector2(1.5, 1.5)	#this scales the kinematic body2d and all of it's children
+	#if Input.is_action_just_pressed("SPACE"):
+		#scale = Vector2(1.5, 1.5)	#this scales the kinematic body2d and all of it's children
 		#if it's a property of kinematic body 2d you can use it like this and it should effect everything
 		
 		

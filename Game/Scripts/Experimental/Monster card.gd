@@ -232,6 +232,18 @@ func TakeDamage(monsterAttack):
 func GetAnimation():
 	return animation
 
+func get_input():
+	if Input.is_action_pressed("CLICK") and mouseIsInTile:
+		clickedAndDraggedOn = true
+	
+	if Input.is_action_just_released("CLICK"):
+		clickedAndDraggedOn = false
+		
+	if Input.is_action_just_pressed("RIGHT_CLICK"):
+		emit_signal("userWantsToDisplayMonsterCard", cardName, cardPicture, cardDescription, health, attribute)
+	
+	
+	
 	
 func _physics_process(_delta):
 	#I'm only putting it in here so it constantly checks

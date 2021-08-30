@@ -159,7 +159,16 @@ func init(passedFile, passedOwner):
 	#var new_position = get_global_mouse_position()
 	#movement = new_position - position;
 	
-
+func get_input():
+	if Input.is_action_pressed("CLICK") and mouseIsInTile:
+		clickedAndDraggedOn = true
+	
+	if Input.is_action_just_released("CLICK"):
+		clickedAndDraggedOn = false
+		
+	if Input.is_action_just_pressed("RIGHT_CLICK"):
+		emit_signal("userWantsToDisplayBattleCard", cardName, cardPicture, cardDescription, attribute)
+	
 	
 
 	
