@@ -59,6 +59,39 @@ var turnState = ""	#this can be "setup", "location card placement phase", "monst
 var strategyPreparationValues = []
 
 
+func HudGetAdvice():
+	#if there is a battle, return advice based on battle phase
+	#otherwise return advice based on turn phase
+	var advice = ""
+	
+	if battleState == "":
+		#there is no battle, return advice based on turn phase
+		#the turn phases are Setup, LocationCardPhase
+		#MonsterCardPhase, StrategyCardPhase
+		
+		if turnState == "Setup":
+			advice = "Place down a location card and end your turn"
+			
+		if turnState == "LocationCardPhase":
+			advice = "Place down a location card on a location card dock(grey squares)"
+		
+		if turnState == "MonsterCardPhase":
+			advice = "Place down a monster card on a location card dock(grey squares).\n If your opponent already has one there, you'll start a battle."
+		
+		if turnState == "StrategyCardPhase":
+			advice = "Place a strategy you want to play on a \nlocation card dock(grey squares) to activate it's effect if possible."
+		
+	else:
+		#there is a battle, return advice based on battle phase
+		#the battle phases are MonsterAttackPhase, BattleCardPhase
+		if battleState == "MonsterAttackPhase":
+			advice = "right click on your monster and select an action for it to take from the attack menu"
+			
+		if battleState == "BattleCardPhase":
+			advice == "Place a battle card you want to play onto the location card dock\n the battle is happening on to activate it"
+	
+	return advice
+
 
 func GetTest():
 	return tempForTest
