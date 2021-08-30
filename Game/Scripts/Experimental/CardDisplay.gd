@@ -60,6 +60,8 @@ func DisplayBattleCard(cardName, cardPicture, cardDescription, cardAttribute):
 	descriptionText += "Attribute: "+cardAttribute
 	descriptionText += "\n"
 	
+	
+	
 	#add the rest of the description
 	descriptionText += cardDescription
 	

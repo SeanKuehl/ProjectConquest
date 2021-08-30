@@ -124,7 +124,23 @@ func init(passedFile, passedOwner):
 	
 	if numberOfEffectLines == 0:
 		#there is no effect, show description
-		descriptionOrEffectLabel.text = cardDescription
+		
+		
+		var tempDescription = cardDescription
+		
+		#max amount of chars in effect/description before overflow is 225(len of the string)
+		#this only applied visually on the card, it can be as long as it wants in card display because it can scroll
+		var maxAmountOfCharsInDesc = 225
+		if len(tempDescription) > maxAmountOfCharsInDesc:
+			tempDescription.erase(maxAmountOfCharsInDesc, len(tempDescription)-maxAmountOfCharsInDesc)	#from the max chars points, erase as many chars as needed to cut the string down to max size
+			tempDescription[-3] = '.'
+			tempDescription[-2] = '.'
+			tempDescription[-1] = '.'	#make the last three characters '...'
+		
+		
+		
+		
+		descriptionOrEffectLabel.text = tempDescription
 		customScript = content[4]
 	else:
 		
@@ -141,8 +157,20 @@ func init(passedFile, passedOwner):
 		
 		
 		cardDescription = effect	#this is required because the signal to the display sends cardDescription and not effect
-		descriptionOrEffectLabel.text = effect
 		cardEffect = effect
+		
+		#max amount of chars in effect/description before overflow is 225(len of the string)
+		#this only applied visually on the card, it can be as long as it wants in card display because it can scroll
+		var maxAmountOfCharsInEffect = 225
+		if len(effect) > maxAmountOfCharsInEffect:
+			effect.erase(maxAmountOfCharsInEffect, len(effect)-maxAmountOfCharsInEffect)	#from the max chars points, erase as many chars as needed to cut the string down to max size
+			effect[-3] = '.'
+			effect[-2] = '.'
+			effect[-1] = '.'	#make the last three characters '...'
+			
+		
+		descriptionOrEffectLabel.text = effect
+		
 		customScript = load(customScriptDirectory+customScript)
 		customScript = customScript.new()
 		#customScript.ConnectSignalsFromRoot(parent)

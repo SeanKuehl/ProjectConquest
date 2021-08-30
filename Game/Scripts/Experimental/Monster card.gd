@@ -179,6 +179,17 @@ func init(passedFile, passedOwner):
 	for x in attacks:
 		attacksAsTextToDisplay += x
 	cardDescription = attacksAsTextToDisplay
+	
+	
+	#max amount of chars in effect/description before overflow is 225(len of the string)
+	#this only applied visually on the card, it can be as long as it wants in card display because it can scroll
+	var maxAmountOfCharsInAttacks = 225
+	if len(attacksAsTextToDisplay) > maxAmountOfCharsInAttacks:
+		attacksAsTextToDisplay.erase(maxAmountOfCharsInAttacks, len(attacksAsTextToDisplay)-maxAmountOfCharsInAttacks)	#from the max chars points, erase as many chars as needed to cut the string down to max size
+		attacksAsTextToDisplay[-3] = '.'
+		attacksAsTextToDisplay[-2] = '.'
+		attacksAsTextToDisplay[-1] = '.'	#make the last three characters '...'
+	
 	descriptionOrEffectLabel.text = attacksAsTextToDisplay
 	
 	#res://Game/Scripts/card scripts/location card scripts/testlocationscript.gd
