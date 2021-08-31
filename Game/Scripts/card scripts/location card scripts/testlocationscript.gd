@@ -4,10 +4,11 @@ extends Node
 func _ready():
 	pass
 	
+#dock is reference to a location card dock object
 func ConnectSignalsFromLocationDock(dock):
 	dock.connect("BattleStarted", self, "OnBattleStart")
-	#node.connect("battleCardUsed", self, "OnBattleCardUsed")	#this signal might not be needed
-	dock.connect("BattleEnded", self, "OnBattleEnd")
+	
+	dock.connect("BattleEnded", self, "OnBattleEnd")	#I don't believe this signal is ever emmitted
 
 
 
@@ -38,6 +39,7 @@ func FilterBattleCard(battleCardToFilter):
 	return battleCardToFilter
 	
 func FilterMonsterData(monsterData):
+	#must return some version of the data, otherwise it's not filtering
 	return monsterData
 	
 func OnBattleEnd():

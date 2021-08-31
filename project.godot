@@ -681,7 +681,7 @@ _global_script_class_icons={
 [application]
 
 config/name="ProjectConquest"
-run/main_scene="res://Game/Scenes/Experimental/Test root.tscn"
+run/main_scene="res://Game/Scenes/Main/Root.tscn"
 
 [autoload]
 

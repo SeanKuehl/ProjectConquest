@@ -26,7 +26,7 @@ func Preparation():
 func Effect():
 
 	var values = GameState.GetStrategyPreparationValues()
-	print(values)
+	
 	print("strategy card effect worked")
 	
 	

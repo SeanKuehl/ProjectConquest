@@ -29,7 +29,7 @@ func GetAttacksForDisplay():
 
 func FirstAttack(filteredAttack):
 	#one in eight chance this attack does 100 damage, check if effect and attack are enabled and damage isn't already that strong
-	
+	#make sure to check if the attack is enabled!
 	#this could also be used for a different effect besides filtering/changing the attack
 	
 	#if both the attack and effect are enabled
@@ -53,4 +53,4 @@ func ThirdAttack(filteredAttack):
 
 
 	
-   # var my_random_number = rng.randi_range(1, 8)	#inclusive
+

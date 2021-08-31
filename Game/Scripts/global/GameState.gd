@@ -5,14 +5,14 @@ onready var turn = "PlayerOne"	#start the game on the first player's turn
 onready var locationDocks = []	#location docks are numbered 1-9 from bottom left to top right
 #don't keep stuff other than references, manip values in the docks to check/edit things
 
-var thereIsACardBeingDragged = false
 
-var sceneRoot = load("res://Game/Scripts/Experimental/Test root.gd")
+
+var sceneRoot = load("res://Game/Scripts/Main/Root.gd")
 
 #player one stuff
 var playerOnePoints = 0	#you get points by winning battles, if you win enough battles you win the game
 
-var tempForTest = false
+var cardWasSelected = false
 
 #player one cards
 onready var playerOneUnusedMonsterCards = []
@@ -88,16 +88,16 @@ func HudGetAdvice():
 			advice = "right click on your monster and select an action for it to take from the attack menu"
 			
 		if battleState == "BattleCardPhase":
-			advice == "Place a battle card you want to play onto the location card dock\n the battle is happening on to activate it"
+			advice = "Place a battle card you want to play onto the location card dock\n the battle is happening on to activate it"
 	
 	return advice
 
 
-func GetTest():
-	return tempForTest
+func GetCardWasSelected():
+	return cardWasSelected
 	
-func SetTest(newVal):
-	tempForTest = newVal
+func SetCardWasSelected(newVal):
+	cardWasSelected = newVal
 
 
 func GetStrategyPreparationValues():
@@ -134,7 +134,7 @@ func ChangeTurnState():
 	if alreadyChanged == false:
 		print("ERROR: there was a typo with turn state")
 	
-
+#player is either "PlayerOne" or "PlayerTwo"
 func MoveAllDockedStrategyCardsToUsedPile(player):
 	#a strategy card's cardIsDocked is only set if it is used
 	#and this function only called if it is used successfully
@@ -157,7 +157,7 @@ func MoveAllDockedStrategyCardsToUsedPile(player):
 				playerTwoUsedStrategyCards.append(x)
 	
 
-
+#player is either "PlayerOne" or "PlayerTwo"
 func AwardBattleVictoryPoint(player):
 	if player == "PlayerOne":
 		playerOnePoints += 1
@@ -177,9 +177,11 @@ func _ready():
 	
 func RegisterBattleEnded():
 	thereIsActiveBattle = false
-	indexOfActiveLocationCardDock = -1
+	indexOfActiveLocationCardDock = -1	#-1 is not a valid location dock number, so if it was used when it wasn't supposed to be it would cause an error
 	playerWhoLandedlast = ""
 	
+#index is a number 1-9, represents a location dock
+#lastPlayerToLand is either "PlayerOne" or "PlayerTwo"
 func RegisterBattleStarted(index, lastPlayerToLand):
 	thereIsActiveBattle = true
 	indexOfActiveLocationCardDock = index
@@ -189,7 +191,7 @@ func RegisterBattleStarted(index, lastPlayerToLand):
 func GetThereIsActiveBattle():
 	return thereIsActiveBattle
 
-
+#text is the text prompt the strategy card menu will show to the user
 func HandleStrategyCardMenuForCustomScript(text):
 	
 	var dock = locationDocks[0]	#doesn't matter which dock calls the func
@@ -224,27 +226,40 @@ func ChangeCurrentTurn():
 	else:
 		turn = "PlayerOne"
 
+#index is a number 1-9, represents a location dock
+#monsterAttack is a monster attack in the form: [1, "flaming Sting", 60, "Inferno", "there is a one in eight chance this attack does 100 damage", true, true]
+#where the the information is: the index of the attack(first attack), name of the attack, damage of the attack, attribute of the attack, text effect of the attack, whether the effect is enabled, whether the attack is allowed
+#this function does the monster card's effect at the location dock where the battle is happening
 func DoMonsterEffectAtCurrentBattleIndex(index, monsterAttack):
 	var dock = locationDocks[index]
 	return dock.UseMonsterCardEffect(monsterAttack)
 	#returns monster attack
 	
-
+#index is a number 1-9, represents a location dock
+#monsterAttack is a monster attack in the form: [1, "flaming Sting", 60, "Inferno", "there is a one in eight chance this attack does 100 damage", true, true]
+#where the the information is: the index of the attack(first attack), name of the attack, damage of the attack, attribute of the attack, text effect of the attack, whether the effect is enabled, whether the attack is allowed
+#this function deals damage to the monster opposing the one the attack originated from at the location dock where the battle is happening
 func DealDamageToOtherMonsterAtCurrentBattleIndex(index, monsterAttack):
 	var dock = locationDocks[index]
 	dock.DealDamageToMonster(monsterAttack)
 	
+#index is a number 1-9, represents a location dock
 func CheckForVictoryAtCurrentBattleIndex(index):
 	var dock = locationDocks[index]
 	return dock.GetVictory()
 	
-
+#card is a reference to a card node/object
 func AddCardToActiveCardList(card):
 	#add the card and give it a priority, the more recent it is the higher the priority
 	card.SetPriority(activeCardPriority)
 	activeCardPriority += 1	
 	activeCardsList.append(card)
 	
+	
+#attacksToFilter is a list of monster attacks, each of which is in the form: 
+# [1, "flaming Sting", 60, "Inferno", "there is a one in eight chance this attack does 100 damage", true, true]
+#where the the information is: the index of the attack(first attack), name of the attack, damage of the attack, attribute of the attack, text effect of the attack, whether the effect is enabled, whether the attack is allowed
+#this function filters all monster attacks through all active cards
 func FilterMonsterCardAttacks(attacksToFilter):
 	#for in range through active cards, call the filter func of that active thing
 	var filteredAttacks = []
@@ -256,13 +271,15 @@ func FilterMonsterCardAttacks(attacksToFilter):
 	return filteredAttacks
 	#this function returns the list of attacks
 	
+#battleCardToFilter is in the form: [attribute, true] where attribute is the attribute of the card and true is whether or not the card is allowed to be played
+#this function filters the battle card through all active cards
 func FilterBattleCard(battleCardToFilter):
 	for activeCard in activeCardsList:
 		battleCardToFilter = activeCard.BattleCardFilter(battleCardToFilter)
 		
 	return battleCardToFilter
 
-
+#dataToFilter is in the form [attribute, health]
 func FilterMonsterData(dataToFilter):
 	#[attribute, health]
 	for activeCard in activeCardsList:
@@ -270,7 +287,7 @@ func FilterMonsterData(dataToFilter):
 		
 	return dataToFilter
 
-
+#root is a reference to the root scene
 func RestoreRegularTurnOrder(root):
 	#if the player battle turn is different from current turn, set turn to current turn
 	if GetCurrentTurn() != GetPlayerBattleTurn():
@@ -286,9 +303,9 @@ func RestoreRegularTurnOrder(root):
 	
 	
 
-
+#player is either "PlayerOne" or "PlayerTwo"
 func ClearPlayerCards(player):
-	#this func will eventually become "end turn"
+	
 	if player == "PlayerOne":
 		
 		#set all location docks to hidden mode
@@ -516,13 +533,14 @@ func GetCenterOfLocationCardDockAtIndex(index):
 	var dock = locationDocks[index]
 	return dock.GetCenter()
 	
-	
+#index is a number 1-9, represents a location dock
 func SetLocationCardAtIndexToHidden(index):
 	#I need this function otherwise the shown location card will draw over
 	#the attack selection dialogue, which looks terrible
 	var dock = locationDocks[index]
 	dock.SetLocationDockToHidden()
 	
+#index is a number 1-9, represents a location dock
 func SetLocationCardAtIndexToRevealed(index):
 	#I need this function otherwise the shown location card will draw over
 	#the attack selection dialogue, which looks terrible
@@ -547,6 +565,9 @@ func GetPlayerMonsterDataAtCurrentBattleIndex(player):
 	var dock = locationDocks[GetindexOfActiveLocationCardDock()]
 	return dock.GetPlayerMonsterData(player)
 	
+	
+#player is either "PlayerOne" or "PlayerTwo"
+#data is in the form [attribute, health]
 func SetPlayerMonsterDataAtCurrentBattleIndex(player, data):
 	#player is either "PlayerOne" or "PlayerTwo"
 	var dock = locationDocks[GetindexOfActiveLocationCardDock()]
@@ -573,27 +594,33 @@ func StartBattle():
 		else:
 			sceneRoot.get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
 	
-	#[attribute, health]
+	
 	#filter the current player's monster that's involved in the battle!
 	GameState.FilterMonsterData(GetPlayerMonsterDataAtCurrentBattleIndex(GameState.GetPlayerBattleTurn()))
 	
+#newLocationDock is a reference to a location dock object
 func AddLocationDock(newLocationDock):
 	locationDocks.append(newLocationDock)
 	
 #add cards for player one
+#newLocationCard is a reference to a location card object
 func AddPlayerOneLocationCard(newLocationCard):
 	playerOneUnusedLocationCards.append(newLocationCard)
 	
+#newMonsterCard is a reference to a monster card object
 func AddPlayerOneMonsterCard(newMonsterCard):
 	playerOneUnusedMonsterCards.append(newMonsterCard)
 	
+	
+#newBattleCard is a reference to a battle card object
 func AddPlayerOneBattleCard(newBattleCard):
 	playerOneUnusedBattleCards.append(newBattleCard)
 	
+#newStrategyCard is a reference to a strategy card object
 func AddPlayerOneStrategyCard(newStrategyCard):
 	playerOneUnusedStrategyCards.append(newStrategyCard)
 	
-	
+#get unused cards
 func GetPlayerOneUnusedCards():
 	
 	return [playerOneUnusedLocationCards, playerOneUnusedMonsterCards, playerOneUnusedBattleCards, playerOneUnusedStrategyCards]
@@ -604,14 +631,19 @@ func GetPlayerTwoUnusedCards():
 	
 	
 #add cards for player two
+#newLocationCard is a reference to a location card object
 func AddPlayerTwoLocationCard(newLocationCard):
 	playerTwoUnusedLocationCards.append(newLocationCard)
 	
+#newMonsterCard is a reference to a monster card object
 func AddPlayerTwoMonsterCard(newMonsterCard):
 	playerTwoUnusedMonsterCards.append(newMonsterCard)
 	
+	
+#newBattleCard is a reference to a battle card object
 func AddPlayerTwoBattleCard(newBattleCard):
 	playerTwoUnusedBattleCards.append(newBattleCard)
 	
+#newStrategyCard is a reference to a strategy card object
 func AddPlayerTwoStrategyCard(newStrategyCard):
 	playerTwoUnusedStrategyCards.append(newStrategyCard)
