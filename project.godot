@@ -484,6 +484,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/core/LocalTime.gd"
 }, {
+"base": "GdUnitTestSuite",
+"class": "LocationCardDockTest",
+"language": "GDScript",
+"path": "res://test/Game/Scripts/Main/Docks/LocationCardDockTest.gd"
+}, {
 "base": "GdUnitMonitor",
 "class": "PushErrorMonitor",
 "language": "GDScript",
@@ -660,6 +665,7 @@ _global_script_class_icons={
 "GdUnitVector3AssertImpl": "",
 "IntFuzzer": "",
 "LocalTime": "",
+"LocationCardDockTest": "",
 "PushErrorMonitor": "",
 "RPC": "",
 "RPCClientConnect": "",
@@ -694,6 +700,8 @@ enabled=PoolStringArray( "gdUnit3" )
 [gdunit3]
 
 settings/update_notification_enabled=false
+report/error_notification=true
+report/verbose_orphans=false
 
 [input]
 
