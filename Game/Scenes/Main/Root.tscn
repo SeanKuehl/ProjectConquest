@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Game/Scripts/Main/Root.gd" type="Script" id=1]
 [ext_resource path="res://Game/Scenes/Main/Docks/Card Dock.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Game/Scenes/Main/InGameMenus/GetLocationDockFromUserMenu.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Game/Scenes/Main/Docks/LocationCardDock.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Game/Scenes/Main/Other/CameraController.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Game/Scenes/Main/InGameMenus/VictoryMenu.tscn" type="PackedScene" id=10]
 
 [node name="Root" type="Node2D"]
 script = ExtResource( 1 )
@@ -77,5 +78,11 @@ margin_right = 979.913
 margin_bottom = -92.9901
 
 [node name="TurnGuide" parent="." instance=ExtResource( 3 )]
+
+[node name="VictoryScreen" parent="." instance=ExtResource( 10 )]
+margin_left = 1032.56
+margin_top = 636.565
+margin_right = 1032.56
+margin_bottom = 636.565
 [connection signal="pressed" from="End Phase" to="." method="_on_End_Phase_pressed"]
 [connection signal="pressed" from="SkipBattleCardPhase" to="." method="_on_SkipBattleCardPhase_pressed"]

@@ -34,6 +34,10 @@ var monsterAttackMenuHieght = 600
 var strategyCardMenuWidth = 1024
 var strategyCardMenuHieght = 600
 
+#victory screen menu is the same size as the other two
+var victoryMenuWidth = 1024
+var victoryMenuHieght = 600
+
 var strategyCardBeingHandled = 0
 var locationDockNumbersList = []	#this temporarily stores the values of location dock indexes that will be handed off to game state for use in the strategy card's script
 
@@ -43,6 +47,7 @@ func _ready():
 	get_node("AttackMenu").hide()
 	get_node("SkipBattleCardPhase").hide()
 	get_node("StrategyCardMenu").hide()
+	get_node("VictoryScreen").hide()
 	
 	get_node("StrategyCardMenu").connect("userMadeSelection", self, "UserSelectedFromStrategyCardMenu")
 	
@@ -90,7 +95,7 @@ func HandleVictory(player):
 	GameState.RestoreRegularTurnOrder(thisNode)
 			
 	#award point for winning the battle
-	GameState.AwardBattleVictoryPoint(player)
+	GameState.AwardBattleVictoryPoint(player, thisNode)
 			
 	
 			
@@ -137,6 +142,27 @@ func SetStrategyCardBeingHandled(card):
 	
 func GetStrategyCardBeingHandled():
 	return strategyCardBeingHandled
+	
+	
+func HandleVictoryMenu(victoriousPlayer):
+	var menuLocation = GameState.GetCenterOfLocationCardDockAtIndex(5)	#the 5th location dock is the one in the middle
+	
+	
+	#I don't know why this doesn't get the right thing(centered) but I think
+	#monster attack menu had something additional for it's position in ready()
+	menuLocation.x -= victoryMenuWidth
+	menuLocation.y -= victoryMenuHieght/2
+	
+	#this is a big menu that goes over most if not all location card docks
+	#if the location docks are revealed they will go over th menu, hide them to avoid this
+	#there are nine location card docks stored in a list(starts at 0)
+	for x in range(0,9):
+		#max is exclusive
+		GameState.SetLocationCardAtIndexToHidden(x)
+	
+	get_node("VictoryScreen").SetWhoWon(victoriousPlayer)
+	get_node("VictoryScreen").rect_global_position = menuLocation
+	get_node("VictoryScreen").show()
 	
 	
 #monsterAttackInformation is a list of monster attacks, each monster attack is in this format:

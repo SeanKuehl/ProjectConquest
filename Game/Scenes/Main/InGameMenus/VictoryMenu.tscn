@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Game/Scripts/Main/InGameMenus/VictoryMenu.gd" type="Script" id=1]
+
+[node name="VictoryScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+margin_right = 1026.0
+margin_bottom = 600.0
+
+[node name="VictoryMessage" type="Label" parent="."]
+margin_left = 168.0
+margin_top = 72.0
+margin_right = 883.0
+margin_bottom = 210.0
+text = "player wins"
+
+[node name="QuitButton" type="Button" parent="."]
+margin_left = 413.41
+margin_top = 336.227
+margin_right = 583.41
+margin_bottom = 440.227
+text = "Quit"
+[connection signal="pressed" from="QuitButton" to="." method="_on_QuitButton_pressed"]

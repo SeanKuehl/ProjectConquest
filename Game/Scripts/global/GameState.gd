@@ -165,7 +165,7 @@ func MoveAllDockedStrategyCardsToUsedPile(player):
 	
 
 #player is either "PlayerOne" or "PlayerTwo"
-func AwardBattleVictoryPoint(player):
+func AwardBattleVictoryPoint(player, root):
 	if player == "PlayerOne":
 		playerOnePoints += 1
 	else:
@@ -173,10 +173,10 @@ func AwardBattleVictoryPoint(player):
 		
 	#for now, victory is achieved after two battles are won
 	if playerOnePoints == 2:
-		print("player one wins the game")
+		root.HandleVictoryMenu(player)
 		
 	elif playerTwoPoints == 2:
-		print("player two wins the game")
+		root.HandleVictoryMenu(player)
 		
 
 func _ready():
