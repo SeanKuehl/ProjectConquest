@@ -20,6 +20,7 @@ margin_right = -389.163
 margin_bottom = 114.346
 
 [node name="Controller" parent="." instance=ExtResource( 9 )]
+position = Vector2( 7.44879, 3.39661 )
 
 [node name="Dock" parent="." instance=ExtResource( 2 )]
 position = Vector2( -219.768, 81.4991 )

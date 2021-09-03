@@ -4,6 +4,12 @@ var cameraMoveAmount = 25
 var zoomX = 1
 var zoomY = 1
 
+#these are arbitrary coordinates 
+var maxX = 930
+var minX = -530
+var maxY = 300
+var minY = -770
+
 func _ready():
 	pass
 
@@ -42,7 +48,9 @@ func _physics_process(_delta):
 	#it has zoom property, setting to a vector2(1,1)
 	#values larger than 1,1 zoom out and smaller zoom in
 	
-	
+	#this will keep the camera within a certain range
+	position.x = clamp(position.x, minX, maxX)
+	position.y = clamp(position.y, minY, maxY)
 	
 	
 	get_input()
