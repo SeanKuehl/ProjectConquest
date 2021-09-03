@@ -26,6 +26,18 @@ func _ready():
 func SetPlayerOwnershipText(text):
 	ownership.text = text
 
+
+func OwnerSameAsClicker():
+	#if the current battle turn(you can only do monster attacks during a battle)
+	#is the same as the owner, show the attacks otherwise it's the wrong player
+	if ownership.text == "Player One" and GameState.GetPlayerBattleTurn() == "PlayerOne":
+		return true
+	elif ownership.text == "Player Two" and GameState.GetPlayerBattleTurn() == "PlayerTwo":
+		return true
+	else:
+		return false
+
+
 func get_input():
 	
 	#the left click to display docked monster isn't needed because the right click
@@ -36,7 +48,7 @@ func get_input():
 	#is only possible because the card is invisible on the location of the animation and still checking for input
 	#(has a running physics process)
 	
-	if Input.is_action_pressed("RIGHT_CLICK") and mouseIsInTile and thereIsAMonsterDocked and GameState.GetBattleState() == "MonsterAttackPhase":
+	if Input.is_action_pressed("RIGHT_CLICK") and mouseIsInTile and thereIsAMonsterDocked and GameState.GetBattleState() == "MonsterAttackPhase" and OwnerSameAsClicker():
 		get_parent().RootShowMonsterAttackOptions()
 		#get parent, call one of it's funcs with params to do stuff
 	#if monster is right clicked on during the "MonsterAttackPhase" you can select it's attacks
