@@ -9,6 +9,7 @@ onready var animation = thisNode.get_node("Animation")
 onready var centre = thisNode.get_node("Centre")
 onready var ownership = thisNode.get_node("PlayerOwnershipIndicator")
 onready var healthLabel = thisNode.get_node("HealthIndicator")
+onready var attributeLabel = thisNode.get_node("AttributeIndicator")
 
 signal displayDockedMonster(cardName, cardPicture, cardDescription)
 
@@ -78,15 +79,20 @@ func LoadMonsterCardInformation(card):
 	show()
 
 	
-func _physics_process(_delta):
-	
+func SetHealthAndAttributeIndicators():
 	if ownership.text == "Player One":
 		healthLabel.text = "Health: "+ str(get_parent().GetMonsterHealth("PlayerOne"))
+		attributeLabel.text = "Attribute: " + str(get_parent().GetMonsterAttribute("PlayerOne"))
 	elif ownership.text == "Player Two":
 		healthLabel.text = "Health: "+ str(get_parent().GetMonsterHealth("PlayerTwo"))
+		attributeLabel.text = "Attribute: " + str(get_parent().GetMonsterAttribute("PlayerTwo"))
 	else:
 		#ownership isn't set yet
 		pass
+	
+func _physics_process(_delta):
+	
+	SetHealthAndAttributeIndicators()
 	
 	get_input()
 

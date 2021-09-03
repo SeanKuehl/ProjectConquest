@@ -49,6 +49,15 @@ func GetMonsterHealth(player):
 		if typeof(playerTwoMonster) == TYPE_OBJECT:
 			return playerTwoMonster.GetBattleHealth()
 
+func GetMonsterAttribute(player):
+	if player == "PlayerOne":
+		#if the monster is set (not it's default value of 0)
+		if typeof(playerOneMonster) == TYPE_OBJECT:
+			return playerOneMonster.GetBattleAttribute()
+	else:
+		if typeof(playerTwoMonster) == TYPE_OBJECT:
+			return playerTwoMonster.GetBattleAttribute()
+
 func LocationCardPhysicsProcessCode():
 	#you can only play a location card during setup, or during location card phase
 	if GameState.GetTurnState() == "Setup":

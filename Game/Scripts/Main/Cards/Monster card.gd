@@ -264,6 +264,8 @@ func GetBattleHealth():
 	#this is the health stored inside the label that reflects changes due to things from battle like attacks
 	return int(healthLabel.text)
 
+func GetBattleAttribute():
+	return attributeLabel.text
 
 func GetData():
 	#this is the original attribute and health, they will be filtered
