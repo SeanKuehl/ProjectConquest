@@ -5,7 +5,7 @@ func _ready():
 	pass
 	
 	
-func Filter(attack):
+func FilterMonsterAttack(attack):
 	#rename this to FilterMonsterCardAttack()
 	return attack
 

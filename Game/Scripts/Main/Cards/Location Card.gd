@@ -53,7 +53,7 @@ func SetPriority(newPriority):
 #attack is a monster attack in the form: [1, "flaming Sting", 60, "Inferno", "there is a one in eight chance this attack does 100 damage", true, true]
 #where the the information is: the index of the attack(first attack), name of the attack, damage of the attack, attribute of the attack, text effect of the attack, whether the effect is enabled, whether the attack is allowed
 func FilterAttack(attack):
-	return customScript.Filter(attack)
+	return customScript.FilterMonsterAttack(attack)
 
 #battleCardToFilter is [attribute, true] where the first is the attribute of the card(string) and the second is whether the card is allowed to be played
 func BattleCardFilter(battleCardToFilter):

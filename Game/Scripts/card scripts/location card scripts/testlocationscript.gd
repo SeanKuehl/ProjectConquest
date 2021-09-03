@@ -24,7 +24,7 @@ func OnBattleStart():
 	
 	#cutom scripts can access GameState, great!
 	
-func Filter(attack):
+func FilterMonsterAttack(attack):
 	#[1, "flaming Sting", 60, "Inferno", "there is a one in eight chance this attack does 100 damage", true, true]
 	#if attack[2] == 40:
 		#this filtering works!
