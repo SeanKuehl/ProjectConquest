@@ -251,17 +251,7 @@ func HandleFilteredBattleCard(filteredBattleCard, card):
 			#the normal turn order after
 			
 			
-			get_node("Dock").ClearAll()	#wipe the data in card dock
-			
-			
-			GameState.ClearPlayerCards(GameState.GetPlayerBattleTurn())	#make the unused cards of playerone(the ones that would be in the dock) invisible and unusable
-			GameState.ChangePlayerBattleTurn()
-			
-			if GameState.GetPlayerBattleTurn() == "PlayerOne":
-				get_node("Dock").LoadPlayerCards(GameState.GetPlayerOneUnusedCards())
-			else:
-				get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
-			
+			EndCurrentPlayerBattleTurn()
 			
 			
 			#set the battle state for the next player
@@ -291,18 +281,7 @@ func HandleFilteredBattleCard(filteredBattleCard, card):
 			#this is basically the same as normally switching turns, just using the battle turn instead so I can restore
 			#the normal turn order after
 			
-			#use player battle turn not current turn
-			get_node("Dock").ClearAll()	#wipe the data in card dock
-			
-			
-			GameState.ClearPlayerCards(GameState.GetPlayerBattleTurn())	#make the unused cards of playerone(the ones that would be in the dock) invisible and unusable
-			GameState.ChangePlayerBattleTurn()
-			
-			if GameState.GetPlayerBattleTurn() == "PlayerOne":
-				get_node("Dock").LoadPlayerCards(GameState.GetPlayerOneUnusedCards())
-			else:
-				get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
-			
+			EndCurrentPlayerBattleTurn()
 			
 			
 			#set the battle state for the next player
@@ -519,11 +498,31 @@ func EndCurrentPlayerTurn():
 	GameState.ClearPlayerCards(GameState.GetCurrentTurn())	#make the unused cards of the current player(the ones that would be in the dock) invisible and unusable
 	GameState.ChangeCurrentTurn()
 	
+	get_node("TurnTransitionMenu").SetWhoseTurnNext(GameState.GetCurrentTurn())
+	get_node("TurnTransitionMenu").ShowMyStuff()
+	
 	if GameState.GetCurrentTurn() == "PlayerOne":
 		get_node("Dock").LoadPlayerCards(GameState.GetPlayerOneUnusedCards())
 	else:
 		get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
 	
+	
+func EndCurrentPlayerBattleTurn():
+	#use player battle turn not current turn
+	get_node("Dock").ClearAll()	#wipe the data in card dock
+			
+			
+	GameState.ClearPlayerCards(GameState.GetPlayerBattleTurn())	#make the unused cards of playerone(the ones that would be in the dock) invisible and unusable
+	GameState.ChangePlayerBattleTurn()
+	
+	get_node("TurnTransitionMenu").SetWhoseTurnNext(GameState.GetPlayerBattleTurn())
+	get_node("TurnTransitionMenu").ShowMyStuff()
+			
+	if GameState.GetPlayerBattleTurn() == "PlayerOne":
+		get_node("Dock").LoadPlayerCards(GameState.GetPlayerOneUnusedCards())
+	else:
+		get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
+			
 
 
 
