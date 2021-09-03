@@ -1,14 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Game/Scripts/Main/Docks/Card Dock.gd" type="Script" id=1]
 
-
-
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 332.142, 90.5178 )
-
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.337255, 0.6, 0.156863, 1 )
 
 [node name="Dock" type="Area2D"]
 input_pickable = false
@@ -32,7 +27,6 @@ shape = SubResource( 1 )
 [node name="LocationCardButton" type="Button" parent="."]
 margin_right = 92.0
 margin_bottom = 20.0
-custom_styles/normal = SubResource( 2 )
 text = "Location Cards"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -71,10 +65,10 @@ __meta__ = {
 }
 
 [node name="StrategyCardButton" type="Button" parent="."]
-margin_left = 388.12
-margin_top = 1.5874
-margin_right = 400.12
-margin_bottom = 21.5874
+margin_left = 388.0
+margin_top = 2.0
+margin_right = 490.0
+margin_bottom = 22.0
 text = "Strategy Cards"
 __meta__ = {
 "_edit_use_anchors_": false

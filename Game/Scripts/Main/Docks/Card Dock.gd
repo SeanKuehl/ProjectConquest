@@ -37,13 +37,28 @@ onready var thirdSlot = $ThirdSpot
 onready var fourthSlot = $FourthSpot
 onready var fifthSlot = $FifthSpot
 
+onready var locationCardButton = $LocationCardButton
+onready var monsterCardButton = $MonsterCardButton
+onready var battleCardButton = $BattleCardButton
+onready var strategyCardButton = $StrategyCardButton
+
+
+var styleThing = 0
+var defaultStyle = 0
+
 
 var cardHoveredOverArea = 0
 var cardIsBeingHoveredOver = false
 
 func _ready():
-	pass
+	styleThing = StyleBoxFlat.new()
+	styleThing.bg_color = Color(0.062745, 0.415686, 0.25098)
 	
+	defaultStyle = StyleBoxEmpty.new()
+	
+	#the slotState is location cards by default, so make the location card 
+	#button highlighted with the style to show that that's the dock it's on
+	locationCardButton.set("custom_styles/normal", styleThing)
 
 
 func ClearAll():
@@ -283,30 +298,41 @@ func _on_Dock_body_exited(body):
 
 
 
-
-
-
+func GiveLastButtonPressedStyle(lastButtonPressed):
+	#set all buttons to blank
+	locationCardButton.set("custom_styles/normal", defaultStyle)
+	monsterCardButton.set("custom_styles/normal", defaultStyle)
+	battleCardButton.set("custom_styles/normal", defaultStyle)
+	strategyCardButton.set("custom_styles/normal", defaultStyle)
+	
+	#set the last button pressed to the highlight style
+	lastButtonPressed.set("custom_styles/normal", styleThing)
 
 
 func _on_LocationCardButton_pressed():
+	
+	GiveLastButtonPressedStyle(locationCardButton)
 	slotState = "Location"
 	HideAllCards()
 	ShowCardSlot("Location")
 
 
 func _on_MonsterCardButton_pressed():
+	GiveLastButtonPressedStyle(monsterCardButton)
 	slotState = "Monster"
 	HideAllCards()
 	ShowCardSlot("Monster")
 
 
 func _on_BattleCardButton_pressed():
+	GiveLastButtonPressedStyle(battleCardButton)
 	slotState = "Battle"
 	HideAllCards()
 	ShowCardSlot("Battle")
 
 
 func _on_StrategyCardButton_pressed():
+	GiveLastButtonPressedStyle(strategyCardButton)
 	slotState = "Strategy"
 	HideAllCards()
 	ShowCardSlot("Strategy")
