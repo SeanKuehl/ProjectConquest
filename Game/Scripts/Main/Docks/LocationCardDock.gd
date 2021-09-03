@@ -40,6 +40,15 @@ func _ready():
 	playerTwoDock.hide()
 	
 
+func GetMonsterHealth(player):
+	if player == "PlayerOne":
+		#if the monster is set (not it's default value of 0)
+		if typeof(playerOneMonster) == TYPE_OBJECT:
+			return playerOneMonster.GetBattleHealth()
+	else:
+		if typeof(playerTwoMonster) == TYPE_OBJECT:
+			return playerTwoMonster.GetBattleHealth()
+
 func LocationCardPhysicsProcessCode():
 	#you can only play a location card during setup, or during location card phase
 	if GameState.GetTurnState() == "Setup":

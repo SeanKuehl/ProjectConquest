@@ -3,10 +3,6 @@
 [ext_resource path="res://Game/Scenes/Main/Cards/Location Card.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Game/Scripts/Main/Cards/Monster card.gd" type="Script" id=2]
 
-
-
-
-
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [  ],

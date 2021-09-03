@@ -26,5 +26,15 @@ text = "sample"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="HealthIndicator" type="Label" parent="."]
+margin_left = -44.0
+margin_top = 35.0
+margin_right = 45.0
+margin_bottom = 49.0
+text = "health"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="mouse_entered" from="." to="." method="_on_MonsterCardDock_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_MonsterCardDock_mouse_exited"]
