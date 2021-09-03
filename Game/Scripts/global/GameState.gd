@@ -461,18 +461,20 @@ func PutMonsterCardsIntoUsedPiles():
 	
 	
 	for card in playerOneUnusedMonsterCards:
-		playerOneUnusedMonsterCards.erase(card)
-		card.SetCardIsDocked(false)	#card is officially no longer a part of a battle
-		
-		playerOneUsedMonsterCards.append(card)
+		if card.GetCardInvolvedInBattle():
+			playerOneUnusedMonsterCards.erase(card)
+			card.SetCardIsDocked(false)	#card is officially no longer a part of a battle
+			card.SetCardInvolvedInBattle(false)	#if this stays true, load cards in card dock will show it and clear all here won't clear it
+			playerOneUsedMonsterCards.append(card)
 		
 		
 		
 	for card in playerTwoUnusedMonsterCards:
-		playerTwoUnusedMonsterCards.erase(card)
-		card.SetCardIsDocked(false)	#card is officially no longer a part of a battle
-		
-		playerTwoUsedMonsterCards.append(card)
+		if card.GetCardInvolvedInBattle():
+			playerTwoUnusedMonsterCards.erase(card)
+			card.SetCardIsDocked(false)	#card is officially no longer a part of a battle
+			card.SetCardInvolvedInBattle(false)
+			playerTwoUsedMonsterCards.append(card)
 		
 	
 func PutActiveCardsIntoUsedPiles():
