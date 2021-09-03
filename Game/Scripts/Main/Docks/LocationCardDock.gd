@@ -469,10 +469,11 @@ func StrategyCardPhysicsProcessCode():
 func StrategyCardPhaseHelperCode():
 	#in the meantime the card itself should hide, it will reappear only if it is not allowed to be played
 				#and the user should be told this
-		if cardHoveredOverArea.GetClickAndDraggedOn() == false and cardHoveredOverArea.GetCardIsDocked() == false and cardHoveredOverArea.GetCardType() == "Strategy" and cardHoveredOverArea.GetCardInvolvedInBattle() == false:
+		if cardHoveredOverArea.GetClickAndDraggedOn() == false and cardHoveredOverArea.GetCardIsDocked() == false and cardHoveredOverArea.GetCardType() == "Strategy" and cardHoveredOverArea.GetCardInvolvedInBattle() == false and GameState.GetStrategyCardBeingPlayed() == false:
 			cardHoveredOverArea.hide()
 			cardHoveredOverArea.SetCardIsDocked(true)	#if the card is used successfully, this will be used to signal that the card is in the used pile
 			
+			GameState.SetStrategyCardBeingPlayed(true)	#this var/getter and setter exists so that you can't play another strategy card while one is being handled with menus
 			get_parent().SetStrategyCardBeingHandled(cardHoveredOverArea)
 			get_parent().UserSelectedFromStrategyCardMenu("first time")
 			
@@ -487,13 +488,14 @@ func StrategyCardActivateEffectHelperCode(card):
 	if effectOutcome == "Success":
 		#the card has done it's effect, move it to the used pile
 		GameState.MoveAllDockedStrategyCardsToUsedPile(card.GetCardOwner())
-				
+			#enable the player to play a strategy card again
 		#they played the card and it was successfully played, end the phase
 		#now that the player has played a strategy card, their turn is over
 		#change the turn state and change the player turn
 		GameState.ChangeTurnState()
 		
 		get_parent().EndCurrentPlayerTurn()
+		GameState.SetStrategyCardBeingPlayed(false)
 				
 	elif effectOutcome == "Fail":
 		#show card again, unset the card being docked and return it to the card dock
@@ -501,6 +503,7 @@ func StrategyCardActivateEffectHelperCode(card):
 		card.show()
 		card.SetCardIsDocked(false)	#if the card is used successfully, this will be used to signal that the card is in the used pile
 		get_parent().PutCardBackInDock(card)
+		GameState.SetStrategyCardBeingPlayed(false)	#enable the player to play a strategy card again
 				
 	else:
 		print("ERROR: strategy card effect returned something other than Success or Fail")

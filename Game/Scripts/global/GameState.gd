@@ -58,6 +58,13 @@ var turnState = ""	#this can be "setup", "location card placement phase", "monst
 
 var strategyPreparationValues = []
 
+var strategyCardBeingPlayed = false
+
+func GetStrategyCardBeingPlayed():
+	return strategyCardBeingPlayed
+	
+func SetStrategyCardBeingPlayed(newVal):
+	strategyCardBeingPlayed = newVal
 
 func HudGetAdvice():
 	#if there is a battle, return advice based on battle phase
