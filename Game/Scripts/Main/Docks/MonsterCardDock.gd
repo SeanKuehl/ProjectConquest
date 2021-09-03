@@ -7,6 +7,7 @@ onready var thisNode = get_node("../"+name)	#this may not work as it will be the
 
 onready var animation = thisNode.get_node("Animation")
 onready var centre = thisNode.get_node("Centre")
+onready var ownership = thisNode.get_node("PlayerOwnershipIndicator")
 
 signal displayDockedMonster(cardName, cardPicture, cardDescription)
 
@@ -20,6 +21,8 @@ var thereIsAMonsterDocked = false
 func _ready():
 	animation.global_position = centre.global_position
 
+func SetPlayerOwnershipText(text):
+	ownership.text = text
 
 func get_input():
 	
@@ -47,6 +50,7 @@ func ClearMonsterCardData():
 	animation.stop()
 	animation.frames = SpriteFrames.new()
 	thereIsAMonsterDocked = false
+	hide()
 		
 		
 #card is a reference to a monster card
@@ -70,7 +74,7 @@ func LoadMonsterCardInformation(card):
 	animation.play("first")
 	
 	thereIsAMonsterDocked = true
-		
+	show()
 
 	
 func _physics_process(_delta):

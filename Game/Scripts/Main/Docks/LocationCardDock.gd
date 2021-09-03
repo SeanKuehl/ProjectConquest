@@ -33,7 +33,11 @@ signal BattleEnded()	#this is currently never emitted
 
 
 func _ready():
-	pass
+	playerOneDock.SetPlayerOwnershipText("Player One")
+	playerTwoDock.SetPlayerOwnershipText("Player Two")
+	
+	playerOneDock.hide()
+	playerTwoDock.hide()
 	
 
 func LocationCardPhysicsProcessCode():

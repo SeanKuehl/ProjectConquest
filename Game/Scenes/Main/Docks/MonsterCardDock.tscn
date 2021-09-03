@@ -2,8 +2,6 @@
 
 [ext_resource path="res://Game/Scripts/Main/Docks/MonsterCardDock.gd" type="Script" id=1]
 
-
-
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 33.4225, 31.0057 )
 
@@ -18,5 +16,15 @@ shape = SubResource( 1 )
 
 [node name="Centre" type="Position2D" parent="."]
 position = Vector2( -0.793701, -1.5874 )
+
+[node name="PlayerOwnershipIndicator" type="Label" parent="."]
+margin_left = -44.0
+margin_top = -66.0
+margin_right = 45.0
+margin_bottom = -52.0
+text = "sample"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="mouse_entered" from="." to="." method="_on_MonsterCardDock_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_MonsterCardDock_mouse_exited"]
