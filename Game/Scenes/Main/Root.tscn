@@ -14,10 +14,6 @@
 script = ExtResource( 1 )
 
 [node name="Display" parent="." instance=ExtResource( 6 )]
-margin_left = -389.163
-margin_top = 114.346
-margin_right = -389.163
-margin_bottom = 114.346
 
 [node name="Controller" parent="." instance=ExtResource( 9 )]
 position = Vector2( 7.44879, 3.39661 )
