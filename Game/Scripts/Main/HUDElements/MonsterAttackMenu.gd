@@ -1,4 +1,4 @@
-extends Control
+extends CanvasLayer
 
 onready var thisNode = get_node("../"+name)
 
@@ -33,14 +33,57 @@ var loadedAttacks = []	#keep this to check which are enabled/disabled for select
 func _ready():
 	#there may be 0,1,2 or three attacks with or without effects
 	#if there is less than 3 attacks, hide the unneeded attack assets/components
-	pass
+	HideMyStuff()
 	
 #monsterAttacks is a list of monster attacks, each monster attack is
 # in the form: [1, "flaming Sting", 60, "Inferno", "there is a one in eight chance this attack does 100 damage", true, true]
 #where the the information is: the index of the attack(first attack), name of the attack, damage of the attack, attribute of the attack, text effect of the attack, whether the effect is enabled, whether the attack is allowed
 
-func LoadMonsterAttacks(monsterAttacks):
+func HideMyStuff():
+	$Panel.hide()
+	$Panel/Skip.hide()
+	$Panel/CloseButton.hide()
 	
+	attackOneLabel.hide()
+	attackOneButton.hide()
+	attackOneEffectText.hide()
+	attackOneContainer.hide()
+	
+	attackTwoLabel.hide()
+	attackTwoButton.hide()
+	attackTwoEffectText.hide()
+	attackTwoContainer.hide()
+	
+	attackThreeLabel.hide()
+	attackThreeButton.hide()
+	attackThreeEffectText.hide()
+	attackThreeContainer.hide()
+
+func ShowMyStuff():
+	$Panel.show()
+	$Panel/Skip.show()
+	$Panel/CloseButton.show()
+	
+	attackOneLabel.show()
+	attackOneButton.show()
+	attackOneEffectText.show()
+	attackOneContainer.show()
+	
+	attackTwoLabel.show()
+	attackTwoButton.show()
+	attackTwoEffectText.show()
+	attackTwoContainer.show()
+	
+	attackThreeLabel.show()
+	attackThreeButton.show()
+	attackThreeEffectText.show()
+	attackThreeContainer.show()
+
+	
+
+
+func LoadMonsterAttacks(monsterAttacks):
+	ShowMyStuff()
 	HideAttackSpotsBasedOnAttacks(monsterAttacks)
 	#each attack is in the form [1, "flaming Sting", 60, "Inferno", "there is a one in eight chance this attack does 100 damage", true, true]
 	#there could be 1,2 or 3 attacks
@@ -136,7 +179,7 @@ func GetIfAttackSelectable(attackIndex):
 
 #when selecting an attack, ask the user if they want to confirm the attack
 func _on_CloseButton_pressed():
-	hide()
+	HideMyStuff()
 	set_process(false)
 	set_physics_process(false)
 	set_process_input(false)

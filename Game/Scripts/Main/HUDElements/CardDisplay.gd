@@ -3,6 +3,7 @@ extends CanvasLayer
 onready var nameLabel = $Name
 onready var descriptionOrEffectLabel = $ScrollContainer/DescriptionOrEffect
 onready var picture = $Picture/Red
+onready var defaultPicture = load("res://Game/Assets/Images/Experimental/Red.png")
 
 
 
@@ -20,6 +21,10 @@ func ConnectCardSignal(card):
 	card.connect("userWantsToDisplayBattleCard", self, "DisplayBattleCard")
 	
 	
+func ClearDisplay():
+	picture.texture = defaultPicture
+	nameLabel.text = ""
+	descriptionOrEffectLabel.text = ""
 
 
 func DisplayCard(cardName, cardPicture, cardDescription):

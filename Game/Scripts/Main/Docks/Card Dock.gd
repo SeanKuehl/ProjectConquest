@@ -61,6 +61,9 @@ func _ready():
 	locationCardButton.set("custom_styles/normal", styleThing)
 
 
+func SetButtonHighlightToDefault():
+	GiveLastButtonPressedStyle(locationCardButton)
+
 func ClearAll():
 	#this is used when switching from one player's turn to another
 	#the global gamestate has references for the cards, so no need to worry

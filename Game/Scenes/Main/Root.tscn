@@ -4,7 +4,7 @@
 [ext_resource path="res://Game/Scenes/Main/Docks/Card Dock.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Game/Scenes/Main/HUDElements/CurrentTurnGuide.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Game/Scenes/Main/InGameMenus/SkipBattleCardButton.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Game/Scenes/Main/InGameMenus/MonsterAttackMenu.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Game/Scenes/Main/HUDElements/MonsterAttackMenu.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Game/Scenes/Main/HUDElements/CardDisplay.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Game/Scenes/Main/InGameMenus/GetLocationDockFromUserMenu.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Game/Scenes/Main/Docks/LocationCardDock.tscn" type="PackedScene" id=8]
@@ -59,12 +59,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AttackMenu" parent="." instance=ExtResource( 5 )]
-margin_left = -214.96
-margin_top = 414.364
-margin_right = -214.96
-margin_bottom = 414.364
-
 [node name="SkipBattleCardPhase" parent="." instance=ExtResource( 4 )]
 margin_left = -547.716
 margin_top = 591.252
@@ -90,5 +84,7 @@ margin_bottom = 636.565
 [node name="TurnTransitionMenu" parent="." instance=ExtResource( 11 )]
 
 [node name="ActiveEffectsMenu" parent="." instance=ExtResource( 12 )]
+
+[node name="AttackMenu" parent="." instance=ExtResource( 5 )]
 [connection signal="pressed" from="End Phase" to="." method="_on_End_Phase_pressed"]
 [connection signal="pressed" from="SkipBattleCardPhase" to="." method="_on_SkipBattleCardPhase_pressed"]

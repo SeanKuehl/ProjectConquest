@@ -44,7 +44,7 @@ var locationDockNumbersList = []	#this temporarily stores the values of location
 
 func _ready():
 	#hide these menus, they'll be made visible only when the user needs to use them
-	get_node("AttackMenu").hide()
+	#get_node("AttackMenu").hide()
 	get_node("SkipBattleCardPhase").hide()
 	get_node("StrategyCardMenu").hide()
 	get_node("VictoryScreen").hide()
@@ -64,10 +64,10 @@ func _ready():
 	GameState.ClearPlayerCards("PlayerTwo")	#it's player one's turn first
 	get_node("Dock").LoadPlayerCards(GameState.GetPlayerOneUnusedCards())
 	
-	
-	var centerOfMiddleLocationDockX = 140
-	var centerOfMiddleLocationDockY = -350
-	get_node("AttackMenu").rect_global_position = Vector2(centerOfMiddleLocationDockX-(monsterAttackMenuWidth/2),centerOfMiddleLocationDockY-(monsterAttackMenuHieght/2))	#rect_global_position is apparently the positin of the top left corder
+	#it's now a canvas layer, position isn't needed
+	#var centerOfMiddleLocationDockX = 140
+	#var centerOfMiddleLocationDockY = -350
+	#get_node("AttackMenu").rect_global_position = Vector2(centerOfMiddleLocationDockX-(monsterAttackMenuWidth/2),centerOfMiddleLocationDockY-(monsterAttackMenuHieght/2))	#rect_global_position is apparently the positin of the top left corder
 	#1024, 600
 	#rect is just top left corner, and it's 1024 wide and 600 tall, so do the math
 
@@ -75,7 +75,7 @@ func _ready():
 #player is either "PlayerOne" or "PlayerTwo" and indicates which player won the battle
 #this function handles a player winning a battle, including shutting down the battle/putting away assets used in battle
 func HandleVictory(player):
-	get_node("AttackMenu").hide()
+	get_node("AttackMenu").HideMyStuff()
 	
 	var indexOfBattle = GameState.GetindexOfActiveLocationCardDock() + 1	#the usual index in meant for lists, so it starts at zero. But in the scene tree the LocationDock objects start at 1, hence the + 1
 	
@@ -191,14 +191,14 @@ func ShowMonsterAttackOptions(monsterAttackInformation):
 	#selection dialogue
 	GameState.SetLocationCardAtIndexToHidden(GameState.GetindexOfActiveLocationCardDock())
 	
-	get_node("AttackMenu").rect_global_position = attackMenuLocation
-	get_node("AttackMenu").show()
+	#get_node("AttackMenu").rect_global_position = attackMenuLocation
+	get_node("AttackMenu").ShowMyStuff()
 	
 #switch battle state phases to battle card phase and show the skip button in case they don't want
 #to play a battle card this battle turn
 func SwitchToBattleCardPhase():
 	GameState.SetLocationCardAtIndexToRevealed(GameState.GetindexOfActiveLocationCardDock())
-	get_node("AttackMenu").hide()
+	get_node("AttackMenu").HideMyStuff()
 	GameState.SetBattleState("BattleCardPhase")	#this phase allows battle cards to be dragged onto location card docks
 	
 	var buttonLocation = GameState.GetCenterOfLocationCardDockAtIndex(GameState.GetindexOfActiveLocationCardDock())
@@ -500,6 +500,9 @@ func EndCurrentPlayerTurn():
 	GameState.ClearPlayerCards(GameState.GetCurrentTurn())	#make the unused cards of the current player(the ones that would be in the dock) invisible and unusable
 	GameState.ChangeCurrentTurn()
 	
+	get_node("Dock").SetButtonHighlightToDefault()
+	get_node("Display").ClearDisplay()
+	
 	get_node("TurnTransitionMenu").SetWhoseTurnNext(GameState.GetCurrentTurn())
 	get_node("TurnTransitionMenu").ShowMyStuff()
 	
@@ -516,6 +519,9 @@ func EndCurrentPlayerBattleTurn():
 			
 	GameState.ClearPlayerCards(GameState.GetPlayerBattleTurn())	#make the unused cards of playerone(the ones that would be in the dock) invisible and unusable
 	GameState.ChangePlayerBattleTurn()
+	
+	get_node("Dock").SetButtonHighlightToDefault()
+	get_node("Display").ClearDisplay()
 	
 	get_node("TurnTransitionMenu").SetWhoseTurnNext(GameState.GetPlayerBattleTurn())
 	get_node("TurnTransitionMenu").ShowMyStuff()
