@@ -457,6 +457,20 @@ func GetindexOfActiveLocationCardDock():
 	return indexOfActiveLocationCardDock
 	
 	
+#this function is used by the active effects browser menu
+func GetActiveCardsInformation():
+	var toReturn = []
+	var toAppend = []
+	
+	for card in activeCardsList:
+		toAppend.append(card.GetCardName())
+		toAppend.append(card.GetCardType())
+		toAppend.append(card.GetCardEffect())
+		toReturn.append(toAppend)
+		toAppend = []
+	return toReturn
+	
+	
 func PutMonsterCardsIntoUsedPiles():
 	
 	

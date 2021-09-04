@@ -1,0 +1,70 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Game/Scripts/Main/HUDElements/ActiveEffectsBrowserMenu.gd" type="Script" id=1]
+
+[node name="ActiveEffectsMenu" type="CanvasLayer"]
+script = ExtResource( 1 )
+
+[node name="Panel" type="Panel" parent="."]
+margin_right = 1026.0
+margin_bottom = 601.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Previouse" type="Button" parent="."]
+margin_left = 61.0
+margin_top = 313.0
+margin_right = 181.0
+margin_bottom = 340.0
+text = "Previouse"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Next" type="Button" parent="."]
+margin_left = 884.636
+margin_top = 314.591
+margin_right = 973.636
+margin_bottom = 342.591
+text = "Next"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NameAndType" type="Label" parent="."]
+margin_left = 373.682
+margin_top = 74.3641
+margin_right = 618.682
+margin_bottom = 115.364
+text = "name"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+margin_left = 262.728
+margin_top = 150.91
+margin_right = 794.728
+margin_bottom = 507.91
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Effect" type="Label" parent="ScrollContainer"]
+margin_right = 520.0
+margin_bottom = 340.0
+rect_min_size = Vector2( 520, 340 )
+
+[node name="CloseButton" type="Button" parent="."]
+margin_left = 418.818
+margin_top = 540.0
+margin_right = 552.818
+margin_bottom = 573.0
+text = "Close"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="Previouse" to="." method="_on_Previouse_pressed"]
+[connection signal="pressed" from="Next" to="." method="_on_Next_pressed"]
+[connection signal="pressed" from="CloseButton" to="." method="_on_CloseButton_pressed"]

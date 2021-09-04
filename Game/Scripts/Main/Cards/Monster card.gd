@@ -246,6 +246,8 @@ func get_input():
 	
 	
 	
+func GetCardEffect():
+	return cardEffect
 	
 func _physics_process(_delta):
 	#I'm only putting it in here so it constantly checks

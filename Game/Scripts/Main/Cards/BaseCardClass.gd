@@ -113,7 +113,8 @@ func init(passedFile, passedOwner):
 	
 	
 	
-	
+func GetCardName():
+	return cardName
 	
 func GetCardIsDocked():
 	return cardIsDocked

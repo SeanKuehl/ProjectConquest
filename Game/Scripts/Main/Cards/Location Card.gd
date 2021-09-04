@@ -43,6 +43,10 @@ func _ready():
 	descriptionOrEffectBackgroundColor = load(colorSubDict["BLACK"])
 
 
+	
+func GetCardEffect():
+	return cardEffect
+
 func GetPriority():
 	return priority
 	

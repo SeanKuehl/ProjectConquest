@@ -143,6 +143,8 @@ func SetStrategyCardBeingHandled(card):
 func GetStrategyCardBeingHandled():
 	return strategyCardBeingHandled
 	
+func HandleActiveCardEffectsMenu():
+	get_node("ActiveEffectsMenu").ShowMyStuff()
 	
 func HandleVictoryMenu(victoriousPlayer):
 	var menuLocation = GameState.GetCenterOfLocationCardDockAtIndex(5)	#the 5th location dock is the one in the middle

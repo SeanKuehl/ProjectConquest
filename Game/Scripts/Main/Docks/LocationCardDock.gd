@@ -539,7 +539,11 @@ func StrategyCardActivateEffectHelperCodeTestingStub(effectOutcome):
 	else:
 		return ["typo"]
 		
-	
+func get_input():
+	if Input.is_action_just_pressed("RIGHT_CLICK") and mouseIsInTile and GameState.GetBattleState() != "":
+		#there must be a battle going on for there to be active cards
+		#call the root function to show the active card effects menu
+		get_parent().HandleActiveCardEffectsMenu()
 	
 func _physics_process(_delta):
 	
@@ -562,6 +566,8 @@ func _physics_process(_delta):
 		BattleCardPhysicsProcessCode()
 				
 		StrategyCardPhysicsProcessCode()
+		
+	get_input()
 		
 
 

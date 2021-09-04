@@ -42,7 +42,9 @@ func _ready():
 
 	
 
-
+	
+func GetCardEffect():
+	return cardEffect
 
 	
 
