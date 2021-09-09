@@ -60,6 +60,56 @@ var strategyPreparationValues = []
 
 var strategyCardBeingPlayed = false
 
+#for browse card menu
+var playerOneLocationCardDeck = []
+var playerOneMonsterCardDeck = []
+var playerOneBattleCardDeck = []
+var playerOneStrategyCardDeck = []
+
+var playerTwoLocationCardDeck = []
+var playerTwoMonsterCardDeck = []
+var playerTwoBattleCardDeck = []
+var playerTwoStrategyCardDeck = []
+
+var firstTimeCalled = true
+
+func SetADeck(locations, monsters, battles, strategys):
+	#if it's the first time called, this is player one's deck. Else, player two's
+	if firstTimeCalled:
+		firstTimeCalled = false
+		playerOneLocationCardDeck = locations
+		playerOneMonsterCardDeck = monsters
+		playerOneBattleCardDeck = battles
+		playerOneStrategyCardDeck = strategys
+		
+	else:
+		playerTwoLocationCardDeck = locations
+		playerTwoMonsterCardDeck = monsters
+		playerTwoBattleCardDeck = battles
+		playerTwoStrategyCardDeck = strategys
+
+func GetADeck(cardType, player):
+	if player == "PlayerOne":
+		if cardType == "Location":
+			return playerOneLocationCardDeck
+		elif cardType == "Monster":
+			return playerOneMonsterCardDeck
+		elif cardType == "Battle":
+			return playerOneBattleCardDeck
+		elif cardType == "Strategy":
+			return playerOneStrategyCardDeck
+	else:
+		if cardType == "Location":
+			return playerTwoLocationCardDeck
+		elif cardType == "Monster":
+			return playerTwoMonsterCardDeck
+		elif cardType == "Battle":
+			return playerTwoBattleCardDeck
+		elif cardType == "Strategy":
+			return playerTwoStrategyCardDeck
+
+#end of for browse card menu
+
 func GetStrategyCardBeingPlayed():
 	return strategyCardBeingPlayed
 	

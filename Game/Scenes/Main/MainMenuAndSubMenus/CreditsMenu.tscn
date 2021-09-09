@@ -1,0 +1,38 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Game/Scripts/Main/MainMenuAndSubMenus/CreditsMenu.gd" type="Script" id=1]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+margin_right = 1030.0
+margin_bottom = 610.0
+
+[node name="BackButton" type="Button" parent="."]
+margin_left = 432.0
+margin_top = 529.0
+margin_right = 622.0
+margin_bottom = 581.0
+text = "Back"
+
+[node name="MenuTitle" type="Label" parent="."]
+margin_left = 428.0
+margin_top = 69.0
+margin_right = 520.0
+margin_bottom = 106.0
+text = "Credits"
+
+[node name="CreditsText" type="Label" parent="."]
+margin_left = 129.0
+margin_top = 143.0
+margin_right = 970.0
+margin_bottom = 476.0
+text = "Programmer - Sean Kuehl
+Github user drwut and their repository tabletop-club for inspiring me to make my own project"
+[connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]

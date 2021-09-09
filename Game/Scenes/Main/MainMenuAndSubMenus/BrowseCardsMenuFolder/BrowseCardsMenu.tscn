@@ -1,0 +1,125 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Game/Scripts/Main/MainMenuAndSubMenus/BrowseCardsMenuFolder/BrowseCardsMenu.gd" type="Script" id=1]
+[ext_resource path="res://Game/Scenes/Main/MainMenuAndSubMenus/BrowseCardsMenuFolder/DisplayCard.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Game/Scenes/Main/MainMenuAndSubMenus/BrowseCardsMenuFolder/FullInfoPopup.tscn" type="PackedScene" id=3]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+margin_left = -1.33484
+margin_right = 1032.67
+margin_bottom = 610.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BackButton" type="Button" parent="."]
+margin_left = 51.1993
+margin_top = 519.434
+margin_right = 150.199
+margin_bottom = 564.434
+text = "Back"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NextButton" type="Button" parent="."]
+margin_left = 879.941
+margin_top = 284.656
+margin_right = 955.941
+margin_bottom = 328.656
+text = "Next"
+
+[node name="PreviouseButton" type="Button" parent="."]
+margin_left = 56.0
+margin_top = 294.0
+margin_right = 143.0
+margin_bottom = 331.0
+text = "Previouse"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LocationCardsButton" type="Button" parent="."]
+margin_left = 199.0
+margin_top = 68.0
+margin_right = 306.0
+margin_bottom = 103.0
+text = "Location Cards"
+
+[node name="MonsterCardsButton" type="Button" parent="."]
+margin_left = 352.0
+margin_top = 69.0
+margin_right = 455.0
+margin_bottom = 104.0
+text = "Monster Cards"
+
+[node name="BattleCardsButton" type="Button" parent="."]
+margin_left = 502.0
+margin_top = 73.0
+margin_right = 602.0
+margin_bottom = 104.0
+text = "Battle Cards"
+
+[node name="StrategyCardsButton" type="Button" parent="."]
+margin_left = 653.0
+margin_top = 77.0
+margin_right = 741.0
+margin_bottom = 106.0
+text = "Strategy Cards"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SaveDeckButton" type="Button" parent="."]
+margin_left = 846.0
+margin_top = 538.0
+margin_right = 946.0
+margin_bottom = 574.0
+text = "Save Deck"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DisplayCard1" parent="." instance=ExtResource( 2 )]
+position = Vector2( 257.27, 209.586 )
+
+[node name="DisplayCard2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 400.098, 210.921 )
+
+[node name="DisplayCard3" parent="." instance=ExtResource( 2 )]
+position = Vector2( 545.596, 213.591 )
+
+[node name="DisplayCard4" parent="." instance=ExtResource( 2 )]
+position = Vector2( 691.093, 214.925 )
+
+[node name="DisplayCard5" parent="." instance=ExtResource( 2 )]
+position = Vector2( 257.27, 351.079 )
+
+[node name="DisplayCard6" parent="." instance=ExtResource( 2 )]
+position = Vector2( 400.098, 351.079 )
+
+[node name="DisplayCard7" parent="." instance=ExtResource( 2 )]
+position = Vector2( 538.922, 351.079 )
+
+[node name="DisplayCard8" parent="." instance=ExtResource( 2 )]
+position = Vector2( 689.758, 353.749 )
+
+[node name="FullCardinfo" parent="." instance=ExtResource( 3 )]
+[connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]
+[connection signal="pressed" from="NextButton" to="." method="_on_NextButton_pressed"]
+[connection signal="pressed" from="PreviouseButton" to="." method="_on_PreviouseButton_pressed"]
+[connection signal="pressed" from="LocationCardsButton" to="." method="_on_LocationCardsButton_pressed"]
+[connection signal="pressed" from="MonsterCardsButton" to="." method="_on_MonsterCardsButton_pressed"]
+[connection signal="pressed" from="BattleCardsButton" to="." method="_on_BattleCardsButton_pressed"]
+[connection signal="pressed" from="StrategyCardsButton" to="." method="_on_StrategyCardsButton_pressed"]
+[connection signal="pressed" from="SaveDeckButton" to="." method="_on_SaveDeckButton_pressed"]

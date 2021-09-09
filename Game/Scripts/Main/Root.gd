@@ -53,9 +53,11 @@ func _ready():
 	
 	GameState.SetLocationDocks(listOfLocationDocks)	#set the game state reference lists to the location docks on the field of play
 	
-	load_playerone_cards(GetFilePathsInDirectory(locationCardDirectory), GetFilePathsInDirectory(monsterCardDirectory), GetFilePathsInDirectory(battleCardDirectory), GetFilePathsInDirectory(strategyCardDirectory))
-	load_playertwo_cards(GetFilePathsInDirectory(locationCardDirectory), GetFilePathsInDirectory(monsterCardDirectory), GetFilePathsInDirectory(battleCardDirectory), GetFilePathsInDirectory(strategyCardDirectory))
-	
+	#load_playerone_cards(GetFilePathsInDirectory(locationCardDirectory), GetFilePathsInDirectory(monsterCardDirectory), GetFilePathsInDirectory(battleCardDirectory), GetFilePathsInDirectory(strategyCardDirectory))
+	#load_playertwo_cards(GetFilePathsInDirectory(locationCardDirectory), GetFilePathsInDirectory(monsterCardDirectory), GetFilePathsInDirectory(battleCardDirectory), GetFilePathsInDirectory(strategyCardDirectory))
+	#GameState.GetADeck("Location", "PlayerOne")
+	load_playerone_cards(GameState.GetADeck("Location", "PlayerOne"), GameState.GetADeck("Monster", "PlayerOne"), GameState.GetADeck("Battle", "PlayerOne"), GameState.GetADeck("Strategy", "PlayerOne"))
+	load_playertwo_cards(GameState.GetADeck("Location", "PlayerTwo"), GameState.GetADeck("Monster", "PlayerTwo"), GameState.GetADeck("Battle", "PlayerTwo"), GameState.GetADeck("Strategy", "PlayerTwo"))
 	
 	
 	GameState.SetTurnState("Setup")
@@ -315,6 +317,7 @@ func GetFilePathsInDirectory(dir):
 #uses them to create nodes and loads them into the root scene as a child 
 #with the text file information. Load all cards for player one
 func load_playerone_cards(locationCards, monsterCards, battleCards, strategyCards):
+	
 	for x in locationCards:
 		
 		var newCard = locationCardClass.instance()
