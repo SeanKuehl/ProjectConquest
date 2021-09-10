@@ -309,10 +309,7 @@ func _on_StrategyCardsButton_pressed():
 	DisplayStrategyCards()
 
 
-func _on_SaveDeckButton_pressed():
-	GameState.SetADeck(locationCards, monsterCards, battleCards, strategyCards)
-	get_tree().change_scene("res://Game/Scenes/Main/MainMenuAndSubMenus/MainMenu.tscn")
 
 
 func _on_BackButton_pressed():
-	get_tree().change_scene("res://Game/Scenes/Main/MainMenuAndSubMenus/MainMenu.tscn")
+	get_tree().change_scene("res://Game/Scenes/Main/DeckMenus/EditDecksMenu.tscn")

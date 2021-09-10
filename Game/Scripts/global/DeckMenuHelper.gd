@@ -8,8 +8,18 @@ var strategyCards = []
 var browseMenuCardSelectedCardType = ""
 var browseMenuCardSelectedCardFile = ""
 
+var deckName = ""
+
 func _ready():
 	pass
+	
+	
+func SetDeckName(newName):
+	deckName = newName
+	
+func GetDeckName():
+	return deckName
+	
 	
 func SetCardSelected(cardType, cardFile):
 	browseMenuCardSelectedCardType = cardType

@@ -8,6 +8,8 @@ var strategyCards = []
 
 var showing = "Location"
 
+var savedDecksDirectory = "res://Game/Assets/SavedDecksFolder/"
+
 func _ready():
 	
 	MakeAllCardsBlank()
@@ -35,6 +37,10 @@ func RemoveCardFromDeck():
 func LoadDeckAndBrowseMenuSelected():
 	var maxCardsOfAType = 5
 	
+	var deckName = DeckMenuHelper.GetDeckName()
+	if deckName != "":
+		$TextEdit.text = deckName
+	
 	var cardSelectedReturn = DeckMenuHelper.GetCardSelected()	#returns a list: [cardtype, file]
 	var getDeckReturn = DeckMenuHelper.GetDeck()	#returns a list: [location cards, monstercards, battlecards, strategycards]
 	
@@ -49,6 +55,8 @@ func LoadDeckAndBrowseMenuSelected():
 	#if the list of that kind of card is full, do not add the card
 	#the user must delete a card of that type before adding another
 	#otherwise add the card to the list
+	
+	#if selected card is nothing, "", it will fail all of these
 	
 	if selectedCardType == "Location":
 		if len(locationCards) < maxCardsOfAType:
@@ -246,3 +254,55 @@ func _on_BattleCardButton_pressed():
 func _on_StrategyCardButton_pressed():
 	showing = "Strategy"
 	ShowStrategyCards()
+
+
+func _on_BackButton_pressed():
+	#clear the DeckMenuHelper deck stuff and go back to deck selection menu
+	DeckMenuHelper.SetDeckName("")	#clear the current deck name
+	DeckMenuHelper.SetDeck([], [], [], [])	#clear the working deck
+	DeckMenuHelper.SetCardSelected("", "")
+	get_tree().change_scene("res://Game/Scenes/Main/DeckMenus/DisplayDecksMenu.tscn")
+
+func saveDeck(fileName):
+	var file = File.new()
+	file.open(savedDecksDirectory+fileName, File.WRITE)
+	#file.store_string(content)	#appends data to file without line ends
+	#save the location cards to the file
+	for x in locationCards:
+		file.store_string(x + "\n")
+		
+	for x in monsterCards:
+		file.store_string(x + "\n")
+		
+	for x in battleCards:
+		file.store_string(x + "\n")
+		
+	for x in strategyCards:
+		file.store_string(x + "\n")
+	
+	file.close()
+
+func _on_SaveDeckButton_pressed():
+	var fullDeckAmount = 5
+	#save the deck only if it's full, if it has no name give it a name
+	var possibleDeckName = $TextEdit.text
+	var actualDeckName = ""
+	
+	if possibleDeckName == "" or possibleDeckName == " " or possibleDeckName == "\n":
+		#it's not a valid deck name
+		actualDeckName = "MyDeck.txt"
+		
+	else:
+		actualDeckName = possibleDeckName + ".txt"
+	
+	
+	if len(locationCards) == fullDeckAmount and len(monsterCards) == fullDeckAmount and len(battleCards) == fullDeckAmount and len(strategyCards) == fullDeckAmount:
+		#save
+		
+		saveDeck(actualDeckName)
+		get_tree().change_scene("res://Game/Scenes/Main/DeckMenus/DisplayDecksMenu.tscn")
+	else:
+		#not a full deck, don't save
+		get_tree().change_scene("res://Game/Scenes/Main/DeckMenus/DisplayDecksMenu.tscn")
+	
+	

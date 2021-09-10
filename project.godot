@@ -687,7 +687,7 @@ _global_script_class_icons={
 [application]
 
 config/name="ProjectConquest"
-run/main_scene="res://Game/Scenes/Main/DeckMenus/EditDecksMenu.tscn"
+run/main_scene="res://Game/Scenes/Main/MainMenuAndSubMenus/MainMenu.tscn"
 
 [autoload]
 

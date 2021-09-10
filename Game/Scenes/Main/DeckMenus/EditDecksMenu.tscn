@@ -57,6 +57,9 @@ margin_top = 512.578
 margin_right = 185.76
 margin_bottom = 551.578
 text = "Back"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="SaveDeckButton" type="Button" parent="."]
 margin_left = 828.935
@@ -82,7 +85,23 @@ position = Vector2( 696.158, 328.387 )
 
 [node name="DisplayCard5" parent="." instance=ExtResource( 1 )]
 position = Vector2( 876.361, 331.057 )
+
+[node name="NoteToUser" type="Label" parent="."]
+margin_left = 395.353
+margin_top = 469.0
+margin_right = 575.353
+margin_bottom = 506.0
+text = "Name of deck:"
+
+[node name="TextEdit" type="TextEdit" parent="."]
+margin_left = 364.0
+margin_top = 491.0
+margin_right = 523.0
+margin_bottom = 551.0
+text = "Enter name of deck"
 [connection signal="pressed" from="LocationCardButton" to="." method="_on_LocationCardButton_pressed"]
 [connection signal="pressed" from="MonsterCardButton" to="." method="_on_MonsterCardButton_pressed"]
 [connection signal="pressed" from="BattleCardButton" to="." method="_on_BattleCardButton_pressed"]
 [connection signal="pressed" from="StrategyCardButton" to="." method="_on_StrategyCardButton_pressed"]
+[connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]
+[connection signal="pressed" from="SaveDeckButton" to="." method="_on_SaveDeckButton_pressed"]

@@ -1,8 +1,11 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Game/Scripts/Main/DeckMenus/DisplayDecksMenu.gd" type="Script" id=1]
 
 [node name="DisplayDecks" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -28,29 +31,32 @@ margin_right = 989.356
 margin_bottom = 340.674
 text = "next"
 
-[node name="FirstDeckButton" type="Button" parent="."]
+[node name="DeckButton1" type="Button" parent="."]
 margin_left = 186.634
 margin_top = 250.005
 margin_right = 309.634
 margin_bottom = 370.005
 
-[node name="SecondDeckButton" type="Button" parent="."]
+[node name="DeckButton2" type="Button" parent="."]
 margin_left = 366.837
 margin_top = 252.674
 margin_right = 489.837
 margin_bottom = 372.674
 
-[node name="ThirdDeckButton" type="Button" parent="."]
+[node name="DeckButton3" type="Button" parent="."]
 margin_left = 556.384
 margin_top = 252.674
 margin_right = 679.384
 margin_bottom = 372.674
 
-[node name="FourthDeckButton" type="Button" parent="."]
+[node name="DeckButton4" type="Button" parent="."]
 margin_left = 733.918
 margin_top = 252.674
 margin_right = 856.918
 margin_bottom = 372.674
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="CreateNewDeckButton" type="Button" parent="."]
 margin_left = 781.0
@@ -65,3 +71,12 @@ margin_top = 521.922
 margin_right = 152.068
 margin_bottom = 558.922
 text = "Back"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="DeckButton1" to="." method="_on_DeckButton1_pressed"]
+[connection signal="pressed" from="DeckButton2" to="." method="_on_DeckButton2_pressed"]
+[connection signal="pressed" from="DeckButton3" to="." method="_on_DeckButton3_pressed"]
+[connection signal="pressed" from="DeckButton4" to="." method="_on_DeckButton4_pressed"]
+[connection signal="pressed" from="CreateNewDeckButton" to="." method="_on_CreateNewDeckButton_pressed"]
+[connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]

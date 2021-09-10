@@ -1,0 +1,20 @@
+res://Game/Assets/Card Files/location cards/testlocation - Copy (2).txt
+res://Game/Assets/Card Files/location cards/testlocation.txt
+res://Game/Assets/Card Files/location cards/testlocation.txt
+res://Game/Assets/Card Files/location cards/testlocation.txt
+res://Game/Assets/Card Files/location cards/testlocation.txt
+res://Game/Assets/Card Files/monster cards/testmonster - Copy (2).txt
+res://Game/Assets/Card Files/monster cards/testmonster - Copy (3).txt
+res://Game/Assets/Card Files/monster cards/testmonster - Copy (3).txt
+res://Game/Assets/Card Files/monster cards/testmonster - Copy (3).txt
+res://Game/Assets/Card Files/monster cards/testmonster - Copy (3).txt
+res://Game/Assets/Card Files/battle cards/testbattlecard - Copy (3).txt
+res://Game/Assets/Card Files/battle cards/testbattlecard - Copy (3).txt
+res://Game/Assets/Card Files/battle cards/testbattlecard - Copy (3).txt
+res://Game/Assets/Card Files/battle cards/testbattlecard - Copy (4).txt
+res://Game/Assets/Card Files/battle cards/testbattlecard - Copy (4).txt
+res://Game/Assets/Card Files/strategy cards/teststrategy - Copy.txt
+res://Game/Assets/Card Files/strategy cards/teststrategy - Copy (4).txt
+res://Game/Assets/Card Files/strategy cards/teststrategy - Copy (4).txt
+res://Game/Assets/Card Files/strategy cards/teststrategy - Copy (4).txt
+res://Game/Assets/Card Files/strategy cards/teststrategy - Copy.txt

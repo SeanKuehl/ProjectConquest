@@ -80,16 +80,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SaveDeckButton" type="Button" parent="."]
-margin_left = 846.0
-margin_top = 538.0
-margin_right = 946.0
-margin_bottom = 574.0
-text = "Save Deck"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="DisplayCard1" parent="." instance=ExtResource( 2 )]
 position = Vector2( 257.27, 209.586 )
 
@@ -122,4 +112,3 @@ position = Vector2( 689.758, 353.749 )
 [connection signal="pressed" from="MonsterCardsButton" to="." method="_on_MonsterCardsButton_pressed"]
 [connection signal="pressed" from="BattleCardsButton" to="." method="_on_BattleCardsButton_pressed"]
 [connection signal="pressed" from="StrategyCardsButton" to="." method="_on_StrategyCardsButton_pressed"]
-[connection signal="pressed" from="SaveDeckButton" to="." method="_on_SaveDeckButton_pressed"]

@@ -23,4 +23,4 @@ func _on_PlayButton_pressed():
 
 
 func _on_BrowseCardsButton_pressed():
-	get_tree().change_scene("res://Game/Scenes/Main/MainMenuAndSubMenus/BrowseCardsMenuFolder/BrowseCardsMenu.tscn")
+	get_tree().change_scene("res://Game/Scenes/Main/DeckMenus/DisplayDecksMenu.tscn")
