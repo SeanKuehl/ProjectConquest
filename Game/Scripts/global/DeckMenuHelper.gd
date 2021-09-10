@@ -9,10 +9,18 @@ var browseMenuCardSelectedCardType = ""
 var browseMenuCardSelectedCardFile = ""
 
 var deckName = ""
+var playersSelectingDecksForBattle = false
 
 func _ready():
 	pass
 	
+	
+	
+func GetPlayersSelectingDecksForBattle():
+	return playersSelectingDecksForBattle
+	
+func SetPlayersSelectingDecksForBattle(newVal):
+	playersSelectingDecksForBattle = newVal
 	
 func SetDeckName(newName):
 	deckName = newName

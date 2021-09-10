@@ -73,6 +73,10 @@ var playerTwoStrategyCardDeck = []
 
 var firstTimeCalled = true
 
+
+func GetSetADeckFirstTime():
+	return firstTimeCalled
+
 func SetADeck(locations, monsters, battles, strategys):
 	#if it's the first time called, this is player one's deck. Else, player two's
 	if firstTimeCalled:

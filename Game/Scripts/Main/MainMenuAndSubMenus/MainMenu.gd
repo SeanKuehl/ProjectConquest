@@ -19,7 +19,11 @@ func _on_SettingsButton_pressed():
 
 
 func _on_PlayButton_pressed():
-	get_tree().change_scene("res://Game/Scenes/Main/Root.tscn")
+	DeckMenuHelper.SetPlayersSelectingDecksForBattle(true)
+	
+	#get_tree().change_scene("res://Game/Scenes/Main/Root.tscn")
+	
+	get_tree().change_scene("res://Game/Scenes/Main/DeckMenus/DisplayDecksMenu.tscn")
 
 
 func _on_BrowseCardsButton_pressed():
