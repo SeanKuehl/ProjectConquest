@@ -687,12 +687,13 @@ _global_script_class_icons={
 [application]
 
 config/name="ProjectConquest"
-run/main_scene="res://Game/Scenes/Main/MainMenuAndSubMenus/MainMenu.tscn"
+run/main_scene="res://Game/Scenes/Main/DeckMenus/EditDecksMenu.tscn"
 
 [autoload]
 
 GameState="*res://Game/Scripts/global/GameState.gd"
 Settings="*res://Game/Scripts/global/Settings.gd"
+DeckMenuHelper="*res://Game/Scripts/global/DeckMenuHelper.gd"
 
 [editor_plugins]
 

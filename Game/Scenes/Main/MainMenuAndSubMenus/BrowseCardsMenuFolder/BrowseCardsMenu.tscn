@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Game/Scripts/Main/MainMenuAndSubMenus/BrowseCardsMenuFolder/BrowseCardsMenu.gd" type="Script" id=1]
-[ext_resource path="res://Game/Scenes/Main/MainMenuAndSubMenus/BrowseCardsMenuFolder/DisplayCard.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Game/Scenes/Main/DeckMenus/DisplayCard.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Game/Scenes/Main/MainMenuAndSubMenus/BrowseCardsMenuFolder/FullInfoPopup.tscn" type="PackedScene" id=3]
 
 [node name="Control" type="Control"]

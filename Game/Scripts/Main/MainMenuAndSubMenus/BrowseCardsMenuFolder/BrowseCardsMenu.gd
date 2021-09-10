@@ -24,6 +24,7 @@ var deckStrategyCards = []
 func _ready():
 	LoadAllCards(GetFilePathsInDirectory(locationCardDirectory), GetFilePathsInDirectory(monsterCardDirectory), GetFilePathsInDirectory(battleCardDirectory), GetFilePathsInDirectory(strategyCardDirectory))
 	ConnectAllCardSignals()
+	SetAllMenuStates()
 	DisplayLocationCards()
 	
 	#LoadCards(GetFilePathsInDirectory(monsterCardDirectory))
@@ -38,17 +39,10 @@ func LoadCards(Cards):
 		#maybe connect signals here
 		get_node("FullCardinfo").ConnectCardSignals(currentCard)
 
+#DeckMenuHelper.SetCardSelected(cardType, cardFile)
 func SaveCardToDeck(cardType, file):
-	var maxCardsInDeck = 5
-	#as long as deck isn't full, save it to the appropriate part of a deck
-	if cardType == "Location" and len(deckLocationCards) < maxCardsInDeck:
-		deckLocationCards.append(file)
-	elif cardType == "Monster" and len(deckMonsterCards) < maxCardsInDeck:
-		deckMonsterCards.append(file)
-	elif cardType == "Battle" and len(deckBattleCards) < maxCardsInDeck:
-		deckBattleCards.append(file)
-	elif cardType == "Strategy" and len(deckStrategyCards) < maxCardsInDeck:
-		deckStrategyCards.append(file)
+	DeckMenuHelper.SetCardSelected(cardType, file)
+	get_tree().change_scene("res://Game/Scenes/Main/DeckMenus/EditDecksMenu.tscn")
 
 func ConnectAllCardSignals():
 	#since we're not add_child() instancing the cards in, we can connect
@@ -61,6 +55,15 @@ func ConnectAllCardSignals():
 		var currentCard = get_node("DisplayCard"+str(x))
 		get_node("FullCardinfo").ConnectCardSignals(currentCard)
 	
+func SetAllMenuStates():
+	
+	var minIndex = 1
+	var maxIndex = 8
+	
+	for x in range(minIndex, maxIndex+1):
+		#max is exclusive
+		var currentCard = get_node("DisplayCard"+str(x))
+		currentCard.SetMenuState("BrowseMenu")
 	
 func LoadAllCards(locations, monsters, battles, strategys):
 	#loading cards and displaying them to the cards is different

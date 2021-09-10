@@ -1,0 +1,67 @@
+[gd_scene format=2]
+
+[node name="DisplayDecks" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+margin_right = 1034.0
+margin_bottom = 613.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LastButton" type="Button" parent="."]
+margin_left = 37.3755
+margin_top = 289.66
+margin_right = 138.375
+margin_bottom = 329.66
+text = "last"
+
+[node name="NextButton" type="Button" parent="."]
+margin_left = 906.356
+margin_top = 301.674
+margin_right = 989.356
+margin_bottom = 340.674
+text = "next"
+
+[node name="FirstDeckButton" type="Button" parent="."]
+margin_left = 186.634
+margin_top = 250.005
+margin_right = 309.634
+margin_bottom = 370.005
+
+[node name="SecondDeckButton" type="Button" parent="."]
+margin_left = 366.837
+margin_top = 252.674
+margin_right = 489.837
+margin_bottom = 372.674
+
+[node name="ThirdDeckButton" type="Button" parent="."]
+margin_left = 556.384
+margin_top = 252.674
+margin_right = 679.384
+margin_bottom = 372.674
+
+[node name="FourthDeckButton" type="Button" parent="."]
+margin_left = 733.918
+margin_top = 252.674
+margin_right = 856.918
+margin_bottom = 372.674
+
+[node name="CreateNewDeckButton" type="Button" parent="."]
+margin_left = 781.0
+margin_top = 515.0
+margin_right = 921.0
+margin_bottom = 559.0
+text = "Create New Deck"
+
+[node name="BackButton" type="Button" parent="."]
+margin_left = 60.0678
+margin_top = 521.922
+margin_right = 152.068
+margin_bottom = 558.922
+text = "Back"

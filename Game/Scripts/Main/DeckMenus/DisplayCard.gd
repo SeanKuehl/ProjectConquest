@@ -11,7 +11,8 @@ extends KinematicBody2D
 var colorSubDict = {"RED": "res://Game/Assets/Images/Experimental/Red.png",
 "BLUE": "res://Game/Assets/Images/Experimental/Blue.png",
 "BLACK": "res://Game/Assets/Images/Experimental/Black.png",
-"YELLOW": "res://Game/Assets/Images/Experimental/Yellow.png"}
+"YELLOW": "res://Game/Assets/Images/Experimental/Yellow.png",
+"GREY": "res://Game/Assets/Images/Experimental/Grey.png"}
 
 var mouseInTile = false
 var popupShowing = false
@@ -27,6 +28,8 @@ var cardType = ""	#decided by what type of card it initializes
 
 var file = ""	#used to pass back to menu to save this card to deck
 
+var menuState = ""
+
 #will need signals for communicating with the popup thing
 signal ShowStrategyOrLocationCard(cardName, cardDescription, cardPicture)
 signal ShowBattleCard(cardName, cardDescription, cardPicture, attribute)
@@ -38,7 +41,8 @@ func _ready():
 	pass
 
 
-
+func SetMenuState(newState):
+	menuState = newState
 
 func initAsLocationCard(passedFile):
 	cardType = "Location"
@@ -370,26 +374,48 @@ func initAsMonsterCard(passedFile):
 	
 	#descriptionOrEffectLabel.text = attacksAsTextToDisplay
 	
+#this func is used to show a blank in the edit decks menu
+func initAsBlank():
+	$BaseBackground/CardBack.texture = load(colorSubDict["GREY"])
+	$ColorBackground/Red.texture = load(colorSubDict["GREY"])
+	$PictureBackground/Yellow.texture = load(colorSubDict["GREY"])
+	
+	$Name.text = ""
+	$Picture/Blue.texture = load(colorSubDict["GREY"])
+	
 
 func get_input():
+	#use states to manage how it acts on a givin menu
+	
 	#use right click to see card info, use left click to save card to deck
-	
-	if Input.is_action_pressed("CLICK") and mouseInTile:
-		get_parent().SaveCardToDeck(cardType, file)
-	
-	if Input.is_action_pressed("RIGHT_CLICK"):
-		if popupShowing:
-			emit_signal("HideInfoDisplay")
-			popupShowing = false
-	
-	
-	if Input.is_action_pressed("RIGHT_CLICK") and mouseInTile:
-		if popupShowing:
-			emit_signal("HideInfoDisplay")
-			popupShowing = false
-		else:
-			SendInfoToPopup()
-			popupShowing = true
+	if menuState == "EditMenus":
+		#if they right click, it removes a card from the list!
+		if Input.is_action_pressed("CLICK") and mouseInTile:
+			#call parent and get parent to switch to browse cards menu
+			get_parent().CallBrowseCardsMenu()
+			
+		if Input.is_action_pressed("RIGHT_CLICK") and mouseInTile:
+			get_parent().RemoveCardFromDeck()
+		
+		
+	elif menuState == "BrowseMenu":
+		
+		if Input.is_action_pressed("CLICK") and mouseInTile:
+			get_parent().SaveCardToDeck(cardType, file)
+		
+		if Input.is_action_pressed("RIGHT_CLICK"):
+			if popupShowing:
+				emit_signal("HideInfoDisplay")
+				popupShowing = false
+		
+		
+		if Input.is_action_pressed("RIGHT_CLICK") and mouseInTile:
+			if popupShowing:
+				emit_signal("HideInfoDisplay")
+				popupShowing = false
+			else:
+				SendInfoToPopup()
+				popupShowing = true
 		
 		#call the popup thing
 	

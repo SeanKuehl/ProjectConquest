@@ -1,0 +1,88 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Game/Scenes/Main/DeckMenus/DisplayCard.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Game/Scripts/Main/DeckMenus/EditDecksMenu.gd" type="Script" id=2]
+
+[node name="EditDecks" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+margin_right = 1036.0
+margin_bottom = 609.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LocationCardButton" type="Button" parent="."]
+margin_left = 129.479
+margin_top = 66.742
+margin_right = 245.479
+margin_bottom = 117.742
+text = "Location"
+
+[node name="MonsterCardButton" type="Button" parent="."]
+margin_left = 309.683
+margin_top = 70.7465
+margin_right = 418.683
+margin_bottom = 113.746
+text = "Monster"
+
+[node name="BattleCardButton" type="Button" parent="."]
+margin_left = 487.216
+margin_top = 77.4207
+margin_right = 587.216
+margin_bottom = 117.421
+text = "Battle"
+
+[node name="StrategyCardButton" type="Button" parent="."]
+margin_left = 651.401
+margin_top = 81.4252
+margin_right = 767.401
+margin_bottom = 120.425
+text = "Strategy"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BackButton" type="Button" parent="."]
+margin_left = 82.76
+margin_top = 512.578
+margin_right = 185.76
+margin_bottom = 551.578
+text = "Back"
+
+[node name="SaveDeckButton" type="Button" parent="."]
+margin_left = 828.935
+margin_top = 513.913
+margin_right = 923.935
+margin_bottom = 553.913
+text = "Save Deck"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DisplayCard1" parent="." instance=ExtResource( 1 )]
+position = Vector2( 174.236, 324.382 )
+
+[node name="DisplayCard2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 338.421, 327.052 )
+
+[node name="DisplayCard3" parent="." instance=ExtResource( 1 )]
+position = Vector2( 518.624, 327.052 )
+
+[node name="DisplayCard4" parent="." instance=ExtResource( 1 )]
+position = Vector2( 696.158, 328.387 )
+
+[node name="DisplayCard5" parent="." instance=ExtResource( 1 )]
+position = Vector2( 876.361, 331.057 )
+[connection signal="pressed" from="LocationCardButton" to="." method="_on_LocationCardButton_pressed"]
+[connection signal="pressed" from="MonsterCardButton" to="." method="_on_MonsterCardButton_pressed"]
+[connection signal="pressed" from="BattleCardButton" to="." method="_on_BattleCardButton_pressed"]
+[connection signal="pressed" from="StrategyCardButton" to="." method="_on_StrategyCardButton_pressed"]
