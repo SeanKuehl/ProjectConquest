@@ -695,6 +695,10 @@ GameState="*res://Game/Scripts/global/GameState.gd"
 Settings="*res://Game/Scripts/global/Settings.gd"
 DeckMenuHelper="*res://Game/Scripts/global/DeckMenuHelper.gd"
 
+[display]
+
+window/stretch/mode="viewport"
+
 [editor_plugins]
 
 enabled=PoolStringArray( "gdUnit3" )

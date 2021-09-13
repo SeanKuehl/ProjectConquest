@@ -45,7 +45,7 @@ var locationDockNumbersList = []	#this temporarily stores the values of location
 func _ready():
 	#hide these menus, they'll be made visible only when the user needs to use them
 	#get_node("AttackMenu").hide()
-	get_node("SkipBattleCardPhase").hide()
+	
 	get_node("StrategyCardMenu").hide()
 	get_node("VictoryScreen").hide()
 	
@@ -203,10 +203,7 @@ func SwitchToBattleCardPhase():
 	get_node("AttackMenu").HideMyStuff()
 	GameState.SetBattleState("BattleCardPhase")	#this phase allows battle cards to be dragged onto location card docks
 	
-	var buttonLocation = GameState.GetCenterOfLocationCardDockAtIndex(GameState.GetindexOfActiveLocationCardDock())
-	get_node("SkipBattleCardPhase").rect_global_position.x = buttonLocation.x
-	get_node("SkipBattleCardPhase").rect_global_position.y = buttonLocation.y + 100
-	get_node("SkipBattleCardPhase").show()
+	
 	
 #chosenFilteredAttack is a monster attack that's been filtered by all active cards(see ShowMonsterAttackOptions(monsterAttackInformation))
 #it is in the form: [1, "flaming Sting", 60, "Inferno", "there is a one in eight chance this attack does 100 damage", true, true]
@@ -538,20 +535,19 @@ func EndCurrentPlayerBattleTurn():
 
 
 
-func _on_SkipBattleCardPhase_pressed():
-	HandleFilteredBattleCard([], [])	#the first argument having a length of 0 is what the function will use to determine that the user has pressed the skip button
-	
-	#now hide the button
-	get_node("SkipBattleCardPhase").hide()
-
 
 func _on_End_Phase_pressed():
 	if GameState.GetTurnState() == "Setup":
 		#you can't get out of setup
 		pass
 	elif GameState.GetThereIsActiveBattle():
-		#you can't change turn phase during a battle
-		pass
+		#you can't change turn phase during a battle, unless it's the battle card phase, the monster attack phase has a different skip button
+		
+		if GameState.GetBattleState() == "BattleCardPhase":
+			#the first argument having a length of 0 is what the function will use to determine that the user has pressed the skip button
+			HandleFilteredBattleCard([], [])	#this will trigger the turns to change
+			#this replaces the skip battle card phase button
+		
 	else:
 		GameState.ChangeTurnState()	#this acts as a 'skip' in case you don't want to play any cards of that type
 		

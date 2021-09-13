@@ -1,9 +1,8 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Game/Scripts/Main/Root.gd" type="Script" id=1]
 [ext_resource path="res://Game/Scenes/Main/Docks/Card Dock.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Game/Scenes/Main/HUDElements/CurrentTurnGuide.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Game/Scenes/Main/InGameMenus/SkipBattleCardButton.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Game/Scenes/Main/HUDElements/MonsterAttackMenu.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Game/Scenes/Main/HUDElements/CardDisplay.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Game/Scenes/Main/InGameMenus/GetLocationDockFromUserMenu.tscn" type="PackedScene" id=7]
@@ -59,12 +58,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SkipBattleCardPhase" parent="." instance=ExtResource( 4 )]
-margin_left = -547.716
-margin_top = 591.252
-margin_right = -387.716
-margin_bottom = 660.252
-
 [node name="StrategyCardMenu" parent="." instance=ExtResource( 7 )]
 margin_left = 979.913
 margin_top = -92.9901
@@ -87,4 +80,3 @@ margin_bottom = 636.565
 
 [node name="AttackMenu" parent="." instance=ExtResource( 5 )]
 [connection signal="pressed" from="End Phase" to="." method="_on_End_Phase_pressed"]
-[connection signal="pressed" from="SkipBattleCardPhase" to="." method="_on_SkipBattleCardPhase_pressed"]
