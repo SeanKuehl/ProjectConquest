@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Boss Battle 6 Metal V1.ogg-ddeb416abca42e9dd2b866232608b397.oggstr"
+
+[deps]
+
+source_file="res://Game/Assets/Sounds/Battle Music/Boss Battle 6 Metal V1.ogg"
+dest_files=[ "res://.import/Boss Battle 6 Metal V1.ogg-ddeb416abca42e9dd2b866232608b397.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

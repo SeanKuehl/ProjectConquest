@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Juhani Junkala - Epic Boss Battle [Seamlessly Looping].ogg-7480a0a27294c7dcbcf9ad26cf606e6c.oggstr"
+
+[deps]
+
+source_file="res://Game/Assets/Sounds/Battle Music/Juhani Junkala - Epic Boss Battle [Seamlessly Looping].ogg"
+dest_files=[ "res://.import/Juhani Junkala - Epic Boss Battle [Seamlessly Looping].ogg-7480a0a27294c7dcbcf9ad26cf606e6c.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

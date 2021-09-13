@@ -41,6 +41,8 @@ var victoryMenuHieght = 600
 var strategyCardBeingHandled = 0
 var locationDockNumbersList = []	#this temporarily stores the values of location dock indexes that will be handed off to game state for use in the strategy card's script
 
+var battleMusicOn = false
+
 
 func _ready():
 	#hide these menus, they'll be made visible only when the user needs to use them
@@ -73,6 +75,36 @@ func _ready():
 	#get_node("AttackMenu").rect_global_position = Vector2(centerOfMiddleLocationDockX-(monsterAttackMenuWidth/2),centerOfMiddleLocationDockY-(monsterAttackMenuHieght/2))	#rect_global_position is apparently the positin of the top left corder
 	#1024, 600
 	#rect is just top left corner, and it's 1024 wide and 600 tall, so do the math
+
+func StopBattleMusic():
+	$GameMusic.stop()
+	battleMusicOn = false
+
+	
+func _physics_process(_delta):
+	#there is a game state function that calls a func here to make the music stop
+	#playing once battle is done so this should work
+	if GameState.GetBattleState() == "" and $GameMusic.is_playing() == false:
+		#there is no battle going on and no music is playing
+		#stop the last music
+		$GameMusic.stop()
+		
+		#play a new game music
+		$GameMusic.stream = MusicManager.GetGameMusic()
+		$GameMusic.play()
+		
+
+	elif GameState.GetBattleState() != "" and $GameMusic.is_playing() == true and battleMusicOn == false:
+		#if there is a battle and the game music is still playing
+		#stop it and start some battle music
+		$GameMusic.stop()
+		
+		battleMusicOn = true
+		
+		#play a new battle music
+		$GameMusic.stream = MusicManager.GetBattleMusic()
+		$GameMusic.play()
+		
 
 	
 #player is either "PlayerOne" or "PlayerTwo" and indicates which player won the battle

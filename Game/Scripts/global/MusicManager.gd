@@ -1,12 +1,23 @@
 extends Node
 
 var menuMusicDirectory = "res://Game/Assets/Sounds/Menu Music/"
+var battleMusicDirectory = "res://Game/Assets/Sounds/Battle Music/"
+var gameMusicDirectory = "res://Game/Assets/Sounds/Game Music/"
+
+
 var menuMusic = []
+var battleMusic = []
+var gameMusic = []
 
 var menuMusicPlaying = false
 var menuMusicIndex = -1	#-1 so it can't accidentally play music when it should error
 var menuMusicPlayPosition = -1.0
 
+var gameMusicPlaying = false
+var gameMusicIndex = -1
+
+var battleMusicPlaying = false
+var battleMusicIndex = -1
 
 var rng = RandomNumberGenerator.new()
 
@@ -16,6 +27,28 @@ func _ready():
 func LoadMusic():
 	#other types of music will be "battle" and "game"
 	LoadMusicInDirectory("menu", menuMusicDirectory)
+	LoadMusicInDirectory("battle", battleMusicDirectory)
+	LoadMusicInDirectory("game", gameMusicDirectory)
+	
+#game music will work in this way, it will switch to a new song
+#after a battle, so each time it calls the func it can return a new song
+#it will never switch to a new menu and resume so yeah
+func GetGameMusic():
+	gameMusicIndex += 1
+	if gameMusicIndex > len(gameMusic)-1:
+		#game music index starts at zero, so the -1 adjustment is needed
+		gameMusicIndex = 0	#so it will be 0 next time around
+	
+	return load(gameMusic[gameMusicIndex])
+	
+func GetBattleMusic():
+	battleMusicIndex += 1
+	if battleMusicIndex > len(battleMusic)-1:
+		#game music index starts at zero, so the -1 adjustment is needed
+		battleMusicIndex = 0	#so it will be 0 next time around
+	
+	return load(battleMusic[battleMusicIndex])
+	
 	
 func GetCurrentMenuMusic():
 	if menuMusicPlaying:
@@ -50,6 +83,10 @@ func LoadMusicInDirectory(musicType, dir):
 	
 	if musicType == "menu":
 		menuMusic = musicFiles
+	elif musicType == "battle":
+		battleMusic = musicFiles
+	elif musicType == "game":
+		gameMusic = musicFiles
 	
 #make a way to resume music between menus(play() can take a time parameter)
 	

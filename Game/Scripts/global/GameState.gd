@@ -220,6 +220,9 @@ func MoveAllDockedStrategyCardsToUsedPile(player):
 
 #player is either "PlayerOne" or "PlayerTwo"
 func AwardBattleVictoryPoint(player, root):
+	root.StopBattleMusic()
+	#stop the battle music now that the battle is over
+	
 	if player == "PlayerOne":
 		playerOnePoints += 1
 	else:
