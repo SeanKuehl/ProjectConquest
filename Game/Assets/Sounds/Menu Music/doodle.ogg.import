@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/doodle.ogg-0deb7a0e1e171f5552a371370977a700.oggstr"
+
+[deps]
+
+source_file="res://Game/Assets/Sounds/Menu Music/doodle.ogg"
+dest_files=[ "res://.import/doodle.ogg-0deb7a0e1e171f5552a371370977a700.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

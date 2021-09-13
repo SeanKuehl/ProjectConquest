@@ -11,6 +11,11 @@ var showing = "Location"
 var savedDecksDirectory = "res://Game/Assets/SavedDecksFolder/"
 
 func _ready():
+	var returnedVals = MusicManager.GetCurrentMenuMusic()	#first is music, second is position in song
+	var song = returnedVals[0]
+	var songPos = returnedVals[1]
+	$MenuMusic.stream = song
+	$MenuMusic.play(songPos)
 	
 	MakeAllCardsBlank()
 	SetAllCardStates()
@@ -257,6 +262,7 @@ func _on_StrategyCardButton_pressed():
 
 
 func _on_BackButton_pressed():
+	MusicManager.SetMenuMusicPlaybackPosition($MenuMusic.get_playback_position())
 	#clear the DeckMenuHelper deck stuff and go back to deck selection menu
 	DeckMenuHelper.SetDeckName("")	#clear the current deck name
 	DeckMenuHelper.SetDeck([], [], [], [])	#clear the working deck
@@ -283,6 +289,8 @@ func saveDeck(fileName):
 	file.close()
 
 func _on_SaveDeckButton_pressed():
+	MusicManager.SetMenuMusicPlaybackPosition($MenuMusic.get_playback_position())
+	
 	var fullDeckAmount = 5
 	#save the deck only if it's full, if it has no name give it a name
 	var possibleDeckName = $TextEdit.text

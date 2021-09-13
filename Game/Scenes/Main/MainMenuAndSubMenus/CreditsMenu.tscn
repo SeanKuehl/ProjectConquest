@@ -35,4 +35,6 @@ margin_right = 970.0
 margin_bottom = 476.0
 text = "Programmer - Sean Kuehl
 Github user drwut and their repository tabletop-club for inspiring me to make my own project"
+
+[node name="MenuMusic" type="AudioStreamPlayer" parent="."]
 [connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]

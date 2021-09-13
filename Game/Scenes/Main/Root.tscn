@@ -79,4 +79,6 @@ margin_bottom = 636.565
 [node name="ActiveEffectsMenu" parent="." instance=ExtResource( 12 )]
 
 [node name="AttackMenu" parent="." instance=ExtResource( 5 )]
+
+[node name="GameMusic" type="AudioStreamPlayer" parent="."]
 [connection signal="pressed" from="End Phase" to="." method="_on_End_Phase_pressed"]

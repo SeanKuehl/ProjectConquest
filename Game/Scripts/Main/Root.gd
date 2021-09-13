@@ -46,6 +46,7 @@ func _ready():
 	#hide these menus, they'll be made visible only when the user needs to use them
 	#get_node("AttackMenu").hide()
 	
+	
 	get_node("StrategyCardMenu").hide()
 	get_node("VictoryScreen").hide()
 	

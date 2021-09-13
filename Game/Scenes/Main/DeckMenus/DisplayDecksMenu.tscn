@@ -74,6 +74,8 @@ text = "Back"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="MenuMusic" type="AudioStreamPlayer" parent="."]
 [connection signal="pressed" from="DeckButton1" to="." method="_on_DeckButton1_pressed"]
 [connection signal="pressed" from="DeckButton2" to="." method="_on_DeckButton2_pressed"]
 [connection signal="pressed" from="DeckButton3" to="." method="_on_DeckButton3_pressed"]

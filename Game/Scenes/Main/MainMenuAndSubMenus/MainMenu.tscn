@@ -62,6 +62,8 @@ text = "Browse Cards"
 position = Vector2( 540.905, 114.145 )
 scale = Vector2( 2.54841, 1.70747 )
 texture = ExtResource( 2 )
+
+[node name="MenuMusic" type="AudioStreamPlayer" parent="."]
 [connection signal="pressed" from="QuitButton" to="." method="_on_QuitButton_pressed"]
 [connection signal="pressed" from="CreditsButton" to="." method="_on_CreditsButton_pressed"]
 [connection signal="pressed" from="SettingsButton" to="." method="_on_SettingsButton_pressed"]

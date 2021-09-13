@@ -99,6 +99,8 @@ margin_top = 491.0
 margin_right = 523.0
 margin_bottom = 551.0
 text = "Enter name of deck"
+
+[node name="MenuMusic" type="AudioStreamPlayer" parent="."]
 [connection signal="pressed" from="LocationCardButton" to="." method="_on_LocationCardButton_pressed"]
 [connection signal="pressed" from="MonsterCardButton" to="." method="_on_MonsterCardButton_pressed"]
 [connection signal="pressed" from="BattleCardButton" to="." method="_on_BattleCardButton_pressed"]

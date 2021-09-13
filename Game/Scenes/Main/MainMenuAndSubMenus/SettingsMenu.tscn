@@ -20,6 +20,9 @@ margin_top = 517.0
 margin_right = 175.0
 margin_bottom = 566.0
 text = "Back"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="SaveChangesButton" type="Button" parent="."]
 margin_left = 806.0
@@ -30,5 +33,7 @@ text = "Save Changes"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="MenuMusic" type="AudioStreamPlayer" parent="."]
 [connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]
 [connection signal="pressed" from="SaveChangesButton" to="." method="_on_SaveChangesButton_pressed"]

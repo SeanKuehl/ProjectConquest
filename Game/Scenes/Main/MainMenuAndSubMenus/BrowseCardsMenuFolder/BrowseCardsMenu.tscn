@@ -105,6 +105,8 @@ position = Vector2( 538.922, 351.079 )
 position = Vector2( 689.758, 353.749 )
 
 [node name="FullCardinfo" parent="." instance=ExtResource( 3 )]
+
+[node name="MenuMusic" type="AudioStreamPlayer" parent="."]
 [connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]
 [connection signal="pressed" from="NextButton" to="." method="_on_NextButton_pressed"]
 [connection signal="pressed" from="PreviouseButton" to="." method="_on_PreviouseButton_pressed"]

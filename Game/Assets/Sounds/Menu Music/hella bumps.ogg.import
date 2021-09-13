@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/hella bumps.ogg-f3993d5d373b2270a76211641cf2b692.oggstr"
+
+[deps]
+
+source_file="res://Game/Assets/Sounds/Menu Music/hella bumps.ogg"
+dest_files=[ "res://.import/hella bumps.ogg-f3993d5d373b2270a76211641cf2b692.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

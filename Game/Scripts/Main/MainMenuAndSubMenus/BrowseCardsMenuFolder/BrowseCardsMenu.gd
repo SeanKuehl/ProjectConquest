@@ -22,6 +22,12 @@ var deckStrategyCards = []
 
 
 func _ready():
+	var returnedVals = MusicManager.GetCurrentMenuMusic()	#first is music, second is position in song
+	var song = returnedVals[0]
+	var songPos = returnedVals[1]
+	$MenuMusic.stream = song
+	$MenuMusic.play(songPos)
+	
 	LoadAllCards(GetFilePathsInDirectory(locationCardDirectory), GetFilePathsInDirectory(monsterCardDirectory), GetFilePathsInDirectory(battleCardDirectory), GetFilePathsInDirectory(strategyCardDirectory))
 	ConnectAllCardSignals()
 	SetAllMenuStates()
@@ -312,4 +318,5 @@ func _on_StrategyCardsButton_pressed():
 
 
 func _on_BackButton_pressed():
+	MusicManager.SetMenuMusicPlaybackPosition($MenuMusic.get_playback_position())
 	get_tree().change_scene("res://Game/Scenes/Main/DeckMenus/EditDecksMenu.tscn")

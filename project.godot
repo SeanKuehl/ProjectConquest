@@ -694,6 +694,7 @@ run/main_scene="res://Game/Scenes/Main/MainMenuAndSubMenus/MainMenu.tscn"
 GameState="*res://Game/Scripts/global/GameState.gd"
 Settings="*res://Game/Scripts/global/Settings.gd"
 DeckMenuHelper="*res://Game/Scripts/global/DeckMenuHelper.gd"
+MusicManager="*res://Game/Scripts/global/MusicManager.gd"
 
 [display]
 
