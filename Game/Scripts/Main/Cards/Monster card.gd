@@ -51,7 +51,7 @@ func _ready():
 
 
 	baseBackgroundColor = load(colorSubDict["BLACK"])
-	colorBackgroundColor = load(colorSubDict["YELLOW"])
+	colorBackgroundColor = load(colorSubDict["GREEN"])
 	pictureBackgroundColor = load(colorSubDict["BLACK"])
 	descriptionOrEffectBackgroundColor = load(colorSubDict["BLACK"])
 

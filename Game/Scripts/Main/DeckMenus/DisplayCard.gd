@@ -12,7 +12,8 @@ var colorSubDict = {"RED": "res://Game/Assets/Images/Experimental/Red.png",
 "BLUE": "res://Game/Assets/Images/Experimental/Blue.png",
 "BLACK": "res://Game/Assets/Images/Experimental/Black.png",
 "YELLOW": "res://Game/Assets/Images/Experimental/Yellow.png",
-"GREY": "res://Game/Assets/Images/Experimental/Grey.png"}
+"GREY": "res://Game/Assets/Images/Experimental/Grey.png",
+"GREEN": "res://Game/Assets/Images/Experimental/Green.png"}
 
 var mouseInTile = false
 var popupShowing = false
@@ -280,7 +281,7 @@ func initAsMonsterCard(passedFile):
 	var content = ReadLinesFromFile(passedFile)
 
 	$BaseBackground/CardBack.texture = load(colorSubDict["BLACK"])
-	$ColorBackground/Red.texture = load(colorSubDict["YELLOW"])
+	$ColorBackground/Red.texture = load(colorSubDict["GREEN"])
 	$PictureBackground/Yellow.texture = load(colorSubDict["BLACK"])
 	
 	
