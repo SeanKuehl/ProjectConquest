@@ -17,9 +17,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FirstSpot" type="Position2D" parent="."]
-position = Vector2( 76.593, 115.395 )
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 338.622, 114.277 )
 shape = SubResource( 1 )
@@ -32,17 +29,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="FirstSpot" type="Position2D" parent="."]
+position = Vector2( 75, 115 )
+
 [node name="SecondSpot" type="Position2D" parent="."]
-position = Vector2( 200.806, 116.674 )
+position = Vector2( 200, 115 )
 
 [node name="ThirdSpot" type="Position2D" parent="."]
-position = Vector2( 317.48, 119.055 )
+position = Vector2( 325, 115 )
 
 [node name="FourthSpot" type="Position2D" parent="."]
-position = Vector2( 428.598, 113.499 )
+position = Vector2( 450, 115 )
 
 [node name="FifthSpot" type="Position2D" parent="."]
-position = Vector2( 562.734, 116.674 )
+position = Vector2( 575, 115 )
 
 [node name="MonsterCardButton" type="Button" parent="."]
 margin_left = 117.654
