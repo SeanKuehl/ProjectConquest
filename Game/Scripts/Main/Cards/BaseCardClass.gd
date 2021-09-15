@@ -75,7 +75,9 @@ func _ready():
 	
 
 	
-	
+func GetColorBackgroundColor():
+	return colorBackgroundColor
+	#this is the value that a sprite's texture can be set to
 	
 	
 #passedFile is the path to a text file

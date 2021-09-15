@@ -80,6 +80,9 @@ func _ready():
 func ShowFullScreenInGameMenu():
 	get_node("FullScreenInGameMenu").ShowMyStuff()
 
+func ShowCardActivationScreen(cardColor, cardType, cardName):
+	get_node("CardActivationScreen").DisplayCard(cardColor, cardType, cardName)
+
 func StopBattleMusic():
 	$GameMusic.stop()
 	battleMusicOn = false
@@ -170,6 +173,7 @@ func UserSelectedFromStrategyCardMenu(caller):
 		
 		
 		if possibleDone == "Done":
+			ShowCardActivationScreen(strategyCardBeingHandled.GetColorBackgroundColor(), strategyCardBeingHandled.GetCardType(), strategyCardBeingHandled.GetCardName())
 			GameState.SetStrategyPreparationValues(locationDockNumbersList)
 			
 			get_node("LocationDock1").StrategyCardActivateEffectHelperCode(strategyCardBeingHandled)	#it doesn't matter which dock executes this function since nothing is stored in location dock
@@ -299,6 +303,7 @@ func HandleFilteredBattleCard(filteredBattleCard, card):
 			var newDataToSet = GameState.FilterMonsterData(GameState.GetPlayerMonsterDataAtCurrentBattleIndex(GameState.GetPlayerBattleTurn()))
 			GameState.SetPlayerMonsterDataAtCurrentBattleIndex(GameState.GetPlayerBattleTurn(), newDataToSet)
 	else:
+		ShowCardActivationScreen(card.GetColorBackgroundColor(), card.GetCardType(), card.GetCardName())
 		#they played a card, handle it's effect
 		card.ActivateEffect(filteredBattleCard)
 		

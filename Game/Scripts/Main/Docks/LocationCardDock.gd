@@ -82,7 +82,7 @@ func LocationCardPhysicsProcessCode():
 			#set the cards position to Centre and disable/hide it
 			#show it later if they mouse over or something
 			#instead change the sprite to the card back image
-			
+			get_parent().ShowCardActivationScreen(storedCard.GetColorBackgroundColor(), storedCard.GetCardType(), storedCard.GetCardName())
 			
 			#if this is player two ending their turn due to it being the setup phase, 
 			#then the setup phase is now over and the phase is changed to the next one
@@ -114,7 +114,7 @@ func LocationCardPhysicsProcessCode():
 			#set the cards position to Centre and disable/hide it
 			#show it later if they mouse over or something
 			#instead change the sprite to the card back image
-			
+			get_parent().ShowCardActivationScreen(storedCard.GetColorBackgroundColor(), storedCard.GetCardType(), storedCard.GetCardName())
 			#now that they have played a location card the location card phase is over
 			#switch to the next turn phase
 			GameState.ChangeTurnState()
@@ -217,6 +217,8 @@ func MonsterCardPhaseHelperCode():
 				cardHoveredOverArea.SetCardIsDocked(true)
 				cardHoveredOverArea.SetCardInvolvedInBattle(true)
 				
+				get_parent().ShowCardActivationScreen(cardHoveredOverArea.GetColorBackgroundColor(), cardHoveredOverArea.GetCardType(), cardHoveredOverArea.GetCardName())
+				
 				
 				playerOneMonster = cardHoveredOverArea
 				thereIsPlayerOneMonster = true
@@ -227,6 +229,8 @@ func MonsterCardPhaseHelperCode():
 				#check if this is the second of two opposing monsters placed
 				if thereIsPlayerTwoMonster:
 					SetLocationDockToRevealed()
+					
+					#get_parent().ShowCardActivationScreen(storedCard.GetColorBackgroundColor(), storedCard.GetCardType(), storedCard.GetCardName())
 					
 					#get the index of the location card dock
 					var stringIndex = name[-1]
@@ -251,7 +255,7 @@ func MonsterCardPhaseHelperCode():
 				cardHoveredOverArea.set_process_input(false)
 				cardHoveredOverArea.SetCardIsDocked(true)
 				cardHoveredOverArea.SetCardInvolvedInBattle(true)
-				
+				get_parent().ShowCardActivationScreen(cardHoveredOverArea.GetColorBackgroundColor(), cardHoveredOverArea.GetCardType(), cardHoveredOverArea.GetCardName())
 				
 				
 				playerTwoMonster = cardHoveredOverArea
