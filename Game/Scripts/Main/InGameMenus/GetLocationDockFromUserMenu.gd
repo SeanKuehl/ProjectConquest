@@ -9,7 +9,16 @@ onready var textToShowUser = $TextPrompt
 signal userMadeSelection()
 
 func _ready():
-	pass
+	Settings.SetButtonToTheme($LocationDockOneButton)
+	Settings.SetButtonToTheme($LocationDockTwoButton)
+	Settings.SetButtonToTheme($LocationDockThreeButton)
+	Settings.SetButtonToTheme($LocationDockFourButton)
+	Settings.SetButtonToTheme($LocationDockFiveButton)
+	Settings.SetButtonToTheme($LocationDockSixButton)
+	Settings.SetButtonToTheme($LocationDockSevenButton)
+	Settings.SetButtonToTheme($LocationDockEightButton)
+	Settings.SetButtonToTheme($LocationDockNineButton)
+	Settings.SetPanelToTheme($Panel)
 
 func SetTextToShowUser(newText):
 	textToShowUser.text = newText

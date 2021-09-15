@@ -3,6 +3,15 @@ extends Control
 var firstTimeCalled = true
 
 func _ready():
+	
+	Settings.SetButtonToTheme($QuitButton)
+	Settings.SetButtonToTheme($CreditsButton)
+	Settings.SetButtonToTheme($SettingsButton)
+	Settings.SetButtonToTheme($PlayButton)
+	Settings.SetButtonToTheme($BrowseCardsButton)
+	Settings.SetPanelToTheme($Panel)
+	
+	
 	if firstTimeCalled:
 		MusicManager.LoadMusic()	#only need to call this once
 		firstTimeCalled = false

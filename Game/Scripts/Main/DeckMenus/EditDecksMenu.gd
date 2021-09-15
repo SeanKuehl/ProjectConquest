@@ -11,6 +11,15 @@ var showing = "Location"
 var savedDecksDirectory = "res://Game/Assets/SavedDecksFolder/"
 
 func _ready():
+	
+	Settings.SetButtonToTheme($LocationCardButton)
+	Settings.SetButtonToTheme($MonsterCardButton)
+	Settings.SetButtonToTheme($BattleCardButton)
+	Settings.SetButtonToTheme($StrategyCardButton)
+	Settings.SetButtonToTheme($BackButton)
+	Settings.SetButtonToTheme($SaveDeckButton)
+	Settings.SetPanelToTheme($Panel)
+	
 	var returnedVals = MusicManager.GetCurrentMenuMusic()	#first is music, second is position in song
 	var song = returnedVals[0]
 	var songPos = returnedVals[1]

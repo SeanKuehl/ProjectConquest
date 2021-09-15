@@ -16,6 +16,11 @@ onready var effectContainer = $ScrollContainer
 var currentListIndex = 0
 
 func _ready():
+	Settings.SetButtonToTheme($Next)
+	Settings.SetButtonToTheme($Previouse)
+	Settings.SetButtonToTheme($CloseButton)
+	Settings.SetPanelToTheme($Panel)
+	
 	HideMyStuff()	#when first loaded into the scene, we don't want to block the screen
 	
 	

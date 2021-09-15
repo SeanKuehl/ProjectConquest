@@ -5,6 +5,11 @@ extends Control
 #set values in the settings singleton(global class values like GameSate)
 
 func _ready():
+	Settings.SetButtonToTheme($BackButton)
+	Settings.SetButtonToTheme($SaveChangesButton)
+	Settings.SetPanelToTheme($Panel)
+	
+	
 	var returnedVals = MusicManager.GetCurrentMenuMusic()	#first is music, second is position in song
 	var song = returnedVals[0]
 	var songPos = returnedVals[1]

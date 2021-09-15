@@ -48,6 +48,9 @@ margin_top = 249.353
 margin_right = 619.0
 margin_bottom = 293.353
 text = "Play"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="BrowseCardsButton" type="Button" parent="."]
 margin_left = 488.471

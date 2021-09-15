@@ -32,6 +32,9 @@ margin_left = 154.432
 margin_top = 460.514
 margin_right = 217.432
 margin_bottom = 535.514
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="LocationDockTwoButton" type="Button" parent="."]
 margin_left = 474.329

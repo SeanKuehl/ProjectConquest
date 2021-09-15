@@ -31,6 +31,14 @@ var attackSelected = 0	#this is either 1,2,3 or if skip then 4
 var loadedAttacks = []	#keep this to check which are enabled/disabled for selection
 
 func _ready():
+	Settings.SetButtonToTheme($Panel/AttackOneAccept)
+	Settings.SetButtonToTheme($Panel/AttackTwoAccept)
+	Settings.SetButtonToTheme($Panel/AttackThreeAccept)
+	Settings.SetButtonToTheme($Panel/Skip)
+	Settings.SetButtonToTheme($Panel/CloseButton)
+	Settings.SetPanelToTheme($Panel)
+	
+	
 	#there may be 0,1,2 or three attacks with or without effects
 	#if there is less than 3 attacks, hide the unneeded attack assets/components
 	HideMyStuff()

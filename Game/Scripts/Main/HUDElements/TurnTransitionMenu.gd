@@ -6,6 +6,10 @@ onready var myPanel = $Panel
 var nextPlayer = ""
 
 func _ready():
+	
+	
+	Settings.SetPanelToTheme($Panel)
+	
 	HideMyStuff()
 	
 

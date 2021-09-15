@@ -7,6 +7,17 @@ var savedDecksDirectory = "res://Game/Assets/SavedDecksFolder/"
 var listOfDecks = []
 
 func _ready():
+	Settings.SetButtonToTheme($LastButton)
+	Settings.SetButtonToTheme($NextButton)
+	Settings.SetButtonToTheme($DeckButton1)
+	Settings.SetButtonToTheme($DeckButton2)
+	Settings.SetButtonToTheme($DeckButton3)
+	Settings.SetButtonToTheme($DeckButton4)
+	Settings.SetButtonToTheme($CreateNewDeckButton)
+	Settings.SetButtonToTheme($BackButton)
+	Settings.SetPanelToTheme($Panel)
+	
+	
 	var returnedVals = MusicManager.GetCurrentMenuMusic()	#first is music, second is position in song
 	var song = returnedVals[0]
 	var songPos = returnedVals[1]

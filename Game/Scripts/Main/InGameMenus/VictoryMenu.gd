@@ -5,7 +5,8 @@ onready var victoryLabel = $VictoryMessage
 
 
 func _ready():
-	pass
+	Settings.SetButtonToTheme($QuitButton)
+	Settings.SetPanelToTheme($Panel)
 	
 func SetWhoWon(player):
 	victoryLabel.text = player + " has won the game! Congratulations!"

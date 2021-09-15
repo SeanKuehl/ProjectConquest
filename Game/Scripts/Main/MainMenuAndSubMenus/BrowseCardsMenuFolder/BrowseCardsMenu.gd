@@ -22,6 +22,16 @@ var deckStrategyCards = []
 
 
 func _ready():
+	
+	Settings.SetButtonToTheme($BackButton)
+	Settings.SetButtonToTheme($NextButton)
+	Settings.SetButtonToTheme($PreviouseButton)
+	Settings.SetButtonToTheme($LocationCardsButton)
+	Settings.SetButtonToTheme($MonsterCardsButton)
+	Settings.SetButtonToTheme($BattleCardsButton)
+	Settings.SetButtonToTheme($StrategyCardsButton)
+	Settings.SetPanelToTheme($Panel)
+	
 	var returnedVals = MusicManager.GetCurrentMenuMusic()	#first is music, second is position in song
 	var song = returnedVals[0]
 	var songPos = returnedVals[1]

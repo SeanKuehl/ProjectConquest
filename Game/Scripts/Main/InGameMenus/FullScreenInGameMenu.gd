@@ -2,6 +2,10 @@ extends CanvasLayer
 
 
 func _ready():
+	Settings.SetButtonToTheme($BackButton)
+	Settings.SetButtonToTheme($QuitButton)
+	Settings.SetPanelToTheme($Panel)
+	
 	HideMyStuff()
 
 

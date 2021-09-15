@@ -1,5 +1,28 @@
 extends Node
 
+var menuPanelTheme = 0
+var menuButtonTheme = 0
 
 func _ready():
-	pass
+	
+	
+	menuPanelTheme = StyleBoxFlat.new()
+	menuPanelTheme.bg_color = Color(0.162048, 0.381236, 0.691406)	#blue
+	
+	menuButtonTheme = StyleBoxFlat.new()
+	menuButtonTheme.bg_color = Color(0.792157, 0.505882, 0.062745)	#orange
+	
+	
+	
+	
+	
+	
+func SetButtonToTheme(button):
+	button.set("custom_styles/normal", menuButtonTheme)
+	button.set("custom_styles/hover", menuButtonTheme)
+	button.set("custom_styles/pressed", menuButtonTheme)
+	button.set("custom_styles/focus", menuButtonTheme)
+	button.set("custom_styles/disabled", menuButtonTheme)
+	
+func SetPanelToTheme(panel):
+	panel.set("custom_styles/panel", menuPanelTheme)
