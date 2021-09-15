@@ -628,9 +628,13 @@ func GetVictory():
 #[1, "flaming Sting", 60, "Inferno", "there is a one in eight chance this attack does 100 damage", true, true]
 #where the the information is: the index of the attack(first attack), name of the attack, damage of the attack, attribute of the attack, text effect of the attack, whether the effect is enabled, whether the attack is allowed
 func UseMonsterCardEffect(monsterAttack):
+	
+	#also call the monster card dock to do the animation!
 	if GameState.GetPlayerBattleTurn() == "PlayerOne":
+		playerOneDock.MoveForAttackAnimation()
 		monsterAttack = playerOneMonster.ActivateMonsterCardScriptEffect(monsterAttack)
 	else:
+		playerTwoDock.MoveForAttackAnimation()
 		monsterAttack = playerTwoMonster.ActivateMonsterCardScriptEffect(monsterAttack)
 
 	return monsterAttack

@@ -11,6 +11,15 @@ onready var ownership = thisNode.get_node("PlayerOwnershipIndicator")
 onready var healthLabel = thisNode.get_node("HealthIndicator")
 onready var attributeLabel = thisNode.get_node("AttributeIndicator")
 
+#this is for monster attack "animation"
+onready var speed = 10
+var attackAnimationHappening = false
+var goingBackFromAttackAnimation = false
+var stopPosition = 0
+var originalPosition = 0
+
+
+
 signal displayDockedMonster(cardName, cardPicture, cardDescription)
 
 var monsterCardName = ""
@@ -38,6 +47,28 @@ func OwnerSameAsClicker():
 		return false
 
 
+func MoveForAttackAnimation():
+	#hide the location card dock so it doesn't draw over the monster's attacking
+	get_parent().SetLocationDockToHidden()
+	#the animation will be a bit different depending on which player
+	#the dock belongs to, because of directions
+	#I will need a point for it to stop moving at
+	attackAnimationHappening = true
+	originalPosition = animation.position.x
+	var experimentallyDeterminedDistanceBetweenMonsters = 170	#I got this number by dragging a position 2d around to editor to figure out the distance
+	
+	if ownership.text == "Player One":
+		stopPosition = animation.position.x+experimentallyDeterminedDistanceBetweenMonsters
+		
+	elif ownership.text == "Player Two":
+		stopPosition = animation.position.x-experimentallyDeterminedDistanceBetweenMonsters
+		speed = speed * -1
+
+func GoingBackFromAttackAnimation():
+	#hide the location card dock so it doesn't draw over the monster's attacking
+	get_parent().SetLocationDockToHidden()
+	speed = speed * -1	#going back the other way now
+
 func get_input():
 	
 	#the left click to display docked monster isn't needed because the right click
@@ -53,6 +84,36 @@ func get_input():
 		#get parent, call one of it's funcs with params to do stuff
 	#if monster is right clicked on during the "MonsterAttackPhase" you can select it's attacks
 		
+	if attackAnimationHappening:
+		
+		animation.position.x += speed
+		
+		if ownership.text == "Player One":
+			
+			if animation.position.x >= stopPosition:
+				attackAnimationHappening = false
+				GoingBackFromAttackAnimation()
+				goingBackFromAttackAnimation = true
+		
+		else:
+				
+			if animation.position.x <= stopPosition:
+				attackAnimationHappening = false
+				GoingBackFromAttackAnimation()
+				goingBackFromAttackAnimation = true
+	
+	if goingBackFromAttackAnimation:
+		animation.position.x += speed
+		
+		if ownership.text == "Player One":
+			if animation.position.x <= originalPosition:
+				animation.position.x = originalPosition	#make it exactly where it started
+				goingBackFromAttackAnimation = false
+				
+		else:
+			if animation.position.x >= originalPosition:
+				animation.position.x = originalPosition	#make it exactly where it started
+				goingBackFromAttackAnimation = false
 	
 	
 func ClearMonsterCardData():
