@@ -76,6 +76,10 @@ func _ready():
 	#1024, 600
 	#rect is just top left corner, and it's 1024 wide and 600 tall, so do the math
 
+
+func ShowFullScreenInGameMenu():
+	get_node("FullScreenInGameMenu").ShowMyStuff()
+
 func StopBattleMusic():
 	$GameMusic.stop()
 	battleMusicOn = false
