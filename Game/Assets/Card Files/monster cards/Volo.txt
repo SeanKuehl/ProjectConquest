@@ -1,0 +1,15 @@
+Volo
+thirdSample.png
+this is Darrel's description
+Inferno
+150
+2
+1
+Fire Ball(Inferno) 40
+1
+Tackle(Normal) 30
+testmonstersound.ogg
+testmonsteranimation_01.png
+testmonsteranimation_02.png
+testmonsteranimation_03.png
+Volo.gd

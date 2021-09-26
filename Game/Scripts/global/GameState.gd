@@ -218,6 +218,188 @@ func MoveAllDockedStrategyCardsToUsedPile(player):
 				playerTwoUsedStrategyCards.append(x)
 	
 
+func GetOneCardBackFromUsedPile(cardType, player):
+	#make sure to check both here and elsewhere that there are cards in the lists!
+	
+	#move the cards of type "cardType" from the player's used pile to their
+	#unused pile
+	if player == "PlayerOne":
+		if cardType == "Location":
+			
+			
+			#add to unused,
+			playerOneUnusedLocationCards.append(playerOneUsedLocationCards[-1])
+				
+			#remove from used
+			playerOneUsedLocationCards.erase(playerOneUsedLocationCards[-1])
+			
+			
+		if cardType == "Monster":
+			
+			#add to unused,
+			playerOneUnusedMonsterCards.append(playerOneUsedMonsterCards[-1])
+				
+			#remove from used
+			playerOneUsedMonsterCards.erase(playerOneUsedMonsterCards[-1])
+			
+			
+		if cardType == "Battle":
+			
+			#add to unused,
+			playerOneUnusedBattleCards.append(playerOneUsedBattleCards[-1])
+				
+			#remove from used
+			playerOneUsedBattleCards.erase(playerOneUsedBattleCards[-1])
+			
+			
+		if cardType == "Strategy":
+			
+			#add to unused,
+			playerOneUnusedStrategyCards.append(playerOneUsedStrategyCards[-1])
+				
+			#remove from used
+			playerOneUsedStrategyCards.erase(playerOneUsedStrategyCards[-1])
+	
+	elif player == "PlayerTwo":
+		if cardType == "Location":
+			
+			#add to unused,
+			playerTwoUnusedLocationCards.append(playerTwoUsedLocationCards[-1])
+				
+			#remove from used
+			playerTwoUsedLocationCards.erase(playerTwoUsedLocationCards[-1])
+			
+			
+		if cardType == "Monster":
+			
+			#add to unused,
+			playerTwoUnusedMonsterCards.append(playerTwoUsedMonsterCards[-1])
+				
+			#remove from used
+			playerTwoUsedMonsterCards.erase(playerTwoUsedMonsterCards[-1])
+			
+			
+		if cardType == "Battle":
+			
+			#add to unused,
+			playerTwoUnusedBattleCards.append(playerTwoUsedBattleCards[-1])
+				
+			#remove from used
+			playerTwoUsedBattleCards.erase(playerTwoUsedBattleCards[-1])
+			
+			
+		if cardType == "Strategy":
+			
+			#add to unused,
+			playerTwoUnusedStrategyCards.append(playerTwoUsedStrategyCards[-1])
+				
+			#remove from used
+			playerTwoUsedStrategyCards.erase(playerTwoUsedStrategyCards[-1])
+
+func GiveLocationCardToDockAtIndex(index, card):
+	var dock = locationDocks[index]
+	dock.CardEffectPlaceLocationCard(card)
+
+func TakeLocationCardFromDockAtIndex(index):
+	var dock = locationDocks[index]
+	return dock.CardEffectRemoveLocationCard()
+
+func TakeMonsterFromDockAtIndex(index, player):
+	var dock = locationDocks[index]
+	return dock.CardEffectRemoveMonster(player)
+	
+func GiveMonsterToDockAtIndex(index, player, card):
+	var dock = locationDocks[index]
+	dock.CardEffectPlaceMonster(player, card)
+	
+
+
+func GetCardsBackFromUsedPile(cardType, player):
+	#move the cards of type "cardType" from the player's used pile to their
+	#unused pile
+	if player == "PlayerOne":
+		if cardType == "Location":
+			for x in playerOneUsedLocationCards:
+				#add to unused,
+				playerOneUnusedLocationCards.append(x)
+				
+				#remove from used
+				playerOneUsedLocationCards.erase(x)
+			
+			
+		if cardType == "Monster":
+			for x in playerOneUsedMonsterCards:
+				#add to unused,
+				playerOneUnusedMonsterCards.append(x)
+				
+				#remove from used
+				playerOneUsedMonsterCards.erase(x)
+			
+			
+		if cardType == "Battle":
+			for x in playerOneUsedBattleCards:
+				#add to unused,
+				playerOneUnusedBattleCards.append(x)
+				
+				#remove from used
+				playerOneUsedBattleCards.erase(x)
+			
+			
+		if cardType == "Strategy":
+			for x in playerOneUsedStrategyCards:
+				#add to unused,
+				playerOneUnusedStrategyCards.append(x)
+				
+				#remove from used
+				playerOneUsedStrategyCards.erase(x)
+	
+	elif player == "PlayerTwo":
+		if cardType == "Location":
+			for x in playerTwoUsedLocationCards:
+				#add to unused,
+				playerTwoUnusedLocationCards.append(x)
+				
+				#remove from used
+				playerTwoUsedLocationCards.erase(x)
+			
+			
+		if cardType == "Monster":
+			for x in playerTwoUsedMonsterCards:
+				#add to unused,
+				playerTwoUnusedMonsterCards.append(x)
+				
+				#remove from used
+				playerTwoUsedMonsterCards.erase(x)
+			
+			
+		if cardType == "Battle":
+			for x in playerTwoUsedBattleCards:
+				#add to unused,
+				playerTwoUnusedBattleCards.append(x)
+				
+				#remove from used
+				playerTwoUsedBattleCards.erase(x)
+			
+			
+		if cardType == "Strategy":
+			for x in playerTwoUsedStrategyCards:
+				#add to unused,
+				playerTwoUnusedStrategyCards.append(x)
+				
+				#remove from used
+				playerTwoUsedStrategyCards.erase(x)
+	
+
+func DisplayLocationCardAtIndex(index):
+	var dock = locationDocks[index]
+	dock.DisplayCurrentLocationCard()
+
+func GetPlayerVictoryPoints(player):
+	if player == "PlayerOne":
+		return playerOnePoints
+	else:
+		return playerTwoPoints
+
 #player is either "PlayerOne" or "PlayerTwo"
 func AwardBattleVictoryPoint(player, root):
 	root.StopBattleMusic()
@@ -278,7 +460,14 @@ func SetCurrentTurn(root):
 		
 		root.get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
 	
-
+#this is used by card effects that give players back used cards
+#during a battle
+func ReloadPlayerCards(player):
+	if player == "PlayerOne":
+		sceneRoot.get_node("Dock").LoadPlayerCards(GameState.GetPlayerOneUnusedCards())
+	elif player == "PlayerTwo":
+		sceneRoot.get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
+	
 
 func GetCurrentTurn():
 	return turn
@@ -306,6 +495,15 @@ func DoMonsterEffectAtCurrentBattleIndex(index, monsterAttack):
 func DealDamageToOtherMonsterAtCurrentBattleIndex(index, monsterAttack):
 	var dock = locationDocks[index]
 	dock.DealDamageToMonster(monsterAttack)
+	
+#this is made for card scripts who might not want to make a whole monster attack to hurt another
+func DealDamageToMonsterAtCurrentBattleIndex(player, damage):
+	var dock = locationDocks[indexOfActiveLocationCardDock]
+	dock.DealDamageToMonsterGivenPlayer(player, damage)
+	
+func GiveHealthToMonsterAtCurrentBattleIndex(player, health):
+	var dock = locationDocks[indexOfActiveLocationCardDock]
+	dock.GiveHealthToMonster(player, health)
 	
 #index is a number 1-9, represents a location dock
 func CheckForVictoryAtCurrentBattleIndex(index):
@@ -513,6 +711,17 @@ func GetPlayerWhoLandedlast():
 func GetindexOfActiveLocationCardDock():
 	return indexOfActiveLocationCardDock
 	
+#used by a location card's effect, "Tiko's Hut"
+func GetCurrentTurnMonsterNameAtCurrentBattleIndex():
+	#get the monster who is attacking(monster belonging to the player whose
+	#current battle turn it is)
+	var dock = locationDocks[indexOfActiveLocationCardDock]
+	
+	if playerBattleTurn == "PlayerOne":
+		return dock.GetMonsterName(playerBattleTurn)
+	else:
+		return dock.GetMonsterName(playerBattleTurn)
+	
 	
 #this function is used by the active effects browser menu
 func GetActiveCardsInformation():
@@ -708,6 +917,17 @@ func GetPlayerOneUnusedCards():
 func GetPlayerTwoUnusedCards():
 	
 	return [playerTwoUnusedLocationCards, playerTwoUnusedMonsterCards, playerTwoUnusedBattleCards, playerTwoUnusedStrategyCards]
+	
+	
+#get used cards(used in at least the battle card Strategists Demise)
+func GetPlayerOneUsedCards():
+	
+	return [playerOneUsedLocationCards, playerOneUsedMonsterCards, playerOneUsedBattleCards, playerOneUsedStrategyCards]
+	
+func GetPlayerTwoUsedCards():
+	
+	return [playerTwoUsedLocationCards, playerTwoUsedMonsterCards, playerTwoUsedBattleCards, playerTwoUsedStrategyCards]
+	
 	
 	
 #add cards for player two

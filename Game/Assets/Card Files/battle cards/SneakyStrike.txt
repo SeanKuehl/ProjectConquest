@@ -1,0 +1,7 @@
+Sneaky Strike
+thirdSample.png
+this is Darrel's description
+1
+Deal 60 damage to your opponents monster
+SneakyStrike.gd
+Normal

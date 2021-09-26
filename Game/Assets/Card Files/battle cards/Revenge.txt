@@ -1,0 +1,8 @@
+Revenge
+thirdSample.png
+this is Darrel's description
+2
+If you have less victory points than your opponent
+swap health with your opponent
+Revenge.gd
+Normal

@@ -1,0 +1,6 @@
+Second Chance
+thirdSample.png
+this is Darrel's description
+1
+Move your last used location card from your used pile to your unused pile
+SecondChance.gd

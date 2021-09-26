@@ -42,7 +42,9 @@ func _ready():
 	pictureBackgroundColor = load(colorSubDict["BLUE"])
 	descriptionOrEffectBackgroundColor = load(colorSubDict["BLACK"])
 
-
+#this is used by card effects that might not have easy access to signal
+func DisplayCardInformation():
+	emit_signal("userWantsToDisplayCard", cardName, cardPicture, cardDescription)
 	
 func GetCardEffect():
 	return cardEffect

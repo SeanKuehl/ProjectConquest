@@ -1,0 +1,8 @@
+Rising Hill
+thirdSample.png
+this is Darrel's description
+3
+the player with the least victory points
+get all of their used battle cards back
+at the start of the battle
+RisingHill.gd

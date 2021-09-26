@@ -219,6 +219,21 @@ func TakeDamage(monsterAttack):
 	
 	healthLabel.text = str(newHealth)
 	
+func IncreaseHealth(value):
+	
+	var newHealth = int(healthLabel.text)
+	
+	newHealth += value
+	
+	
+	damageTaken -= value
+	
+	if damageTaken < 0:
+		damageTaken = 0
+	
+	
+	
+	healthLabel.text = str(newHealth)
 
 func GetAnimation():
 	return animation

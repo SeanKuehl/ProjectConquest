@@ -1,0 +1,6 @@
+Dark Revival
+thirdSample.png
+this is Darrel's description
+1
+Move your last used monster card to the unused pile
+DarkRevival.gd

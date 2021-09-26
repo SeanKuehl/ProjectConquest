@@ -1,0 +1,8 @@
+True Colors
+thirdSample.png
+this is Darrel's description
+2
+If your monster's health is lower than the health of your opponent's
+then swap the attributes of the monsters in play
+TrueColors.gd
+Normal

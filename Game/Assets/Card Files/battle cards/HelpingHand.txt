@@ -1,0 +1,7 @@
+Helping Hand
+thirdSample.png
+this is Darrel's description
+1
+If your monster is of the same attribute as this card, it gains 100 health
+HelpingHand.gd
+Divine

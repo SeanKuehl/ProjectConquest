@@ -1,0 +1,9 @@
+Flat Falls
+thirdSample.png
+this is Darrel's description
+2
+The last player to land on this card gets +50 health
+at the start of the battle
+FlatFalls.gd
+
+

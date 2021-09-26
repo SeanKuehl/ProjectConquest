@@ -40,6 +40,13 @@ func _ready():
 	playerTwoDock.hide()
 	
 
+func DisplayCurrentLocationCard():
+	
+	if typeof(storedCard) == TYPE_OBJECT:
+		#if there is a valid card docked
+		storedCard.DisplayCardInformation()
+
+
 func GetMonsterHealth(player):
 	if player == "PlayerOne":
 		#if the monster is set (not it's default value of 0)
@@ -198,6 +205,106 @@ func MonsterCardPhysicsProcessCode():
 		#make sure there's no battle going on, and that it's the right phase
 		MonsterCardPhaseHelperCode()
 		
+func CardEffectRemoveLocationCard():
+	var toReturn = storedCard
+	storedCard.SetIsDocked(false)
+	storedCard = 0	#this is the reference to the location card
+	
+	
+	
+	dockedCardShown = false
+	$Sprite/Grey.texture = defaultImage
+	return toReturn
+	
+func CardEffectPlaceLocationCard(card):
+	card.global_position = $Centre.global_position
+	#connect the signals for "battle start" etc. from here to card upon docking
+	card.ConnectCustomScriptToLocationDockSignal(thisNode)
+				
+	card.hide()
+	card.set_process(false)
+	card.set_physics_process(false)
+	card.set_process_input(false)
+					
+	card.SetCardIsDocked(true)
+	storedCard = card
+	storedCard.SetIsDocked(true)
+	$Sprite/Grey.texture = cardBackImage
+	#set the cards position to Centre and disable/hide it
+	#show it later if they mouse over or something
+	#instead change the sprite to the card back image
+	get_parent().ShowCardActivationScreen(storedCard.GetColorBackgroundColor(), storedCard.GetCardType(), storedCard.GetCardName())
+			
+	
+func CardEffectRemoveMonster(player):
+	
+	var monsterToReturn = 0
+	
+	if player == "PlayerOne":
+		#remove player one's monster
+		
+		#set return value 
+		monsterToReturn = playerOneMonster
+		
+		#clear out monster
+		playerOneDock.ClearMonsterCardData()
+		
+		playerOneMonster.SetInUsedPile(true)
+		playerOneMonster = 0
+		thereIsPlayerOneMonster = false
+	
+	else:
+		#remove player one's monster
+		
+		#set return value 
+		monsterToReturn = playerTwoMonster
+		
+		#clear out monster
+		playerTwoDock.ClearMonsterCardData()
+		
+		playerTwoMonster.SetInUsedPile(true)
+		playerTwoMonster = 0
+		thereIsPlayerTwoMonster = false
+	
+	
+	
+	return monsterToReturn
+	
+func CardEffectPlaceMonster(player, monsterCard):
+	
+	if player == "PlayerOne":
+		#place the monster
+	
+		playerOneDock.LoadMonsterCardInformation(monsterCard)
+				
+		monsterCard.hide()
+		monsterCard.set_process(false)
+		monsterCard.set_physics_process(false)
+		monsterCard.set_process_input(false)
+		monsterCard.SetCardIsDocked(true)
+		monsterCard.SetCardInvolvedInBattle(true)
+				
+		get_parent().ShowCardActivationScreen(monsterCard.GetColorBackgroundColor(), monsterCard.GetCardType(), monsterCard.GetCardName())
+		playerOneMonster = monsterCard
+
+		thereIsPlayerOneMonster = true
+	
+	else:
+		#place the monster
+	
+		playerTwoDock.LoadMonsterCardInformation(monsterCard)
+				
+		monsterCard.hide()
+		monsterCard.set_process(false)
+		monsterCard.set_physics_process(false)
+		monsterCard.set_process_input(false)
+		monsterCard.SetCardIsDocked(true)
+		monsterCard.SetCardInvolvedInBattle(true)
+				
+		get_parent().ShowCardActivationScreen(monsterCard.GetColorBackgroundColor(), monsterCard.GetCardType(), monsterCard.GetCardName())
+		playerTwoMonster = monsterCard
+
+		thereIsPlayerTwoMonster = true
 	
 	
 	
@@ -659,6 +766,34 @@ func DealDamageToMonster(monsterAttack):
 		#to player one's monster
 		playerOneMonster.TakeDamage(monsterAttack)
 		
+		
+		
+func DealDamageToMonsterGivenPlayer(player, damage):
+	if player == "PlayerOne":
+		var fakeAttack = [0,0,damage]	#this is because TakeDamage takes a monsterAttack and takes the damage from the 3rd slot
+		playerOneMonster.TakeDamage(fakeAttack)
+		
+	else:
+		var fakeAttack = [0,0,damage]	#this is because TakeDamage takes a monsterAttack and takes the damage from the 3rd slot
+		playerTwoMonster.TakeDamage(fakeAttack)
+		
+		
+#this is used by a location card's effect, "FlatFalls"
+func GiveHealthToMonster(player, health):
+	
+	if player == "PlayerOne":
+		
+		playerOneMonster.IncreaseHealth(health)
+		
+	else:
+		
+		playerTwoMonster.IncreaseHealth(health)
+	
+func GetMonsterName(player):
+	if player == "PlayerOne":
+		return playerOneMonster.GetCardName()
+	else:
+		return playerTwoMonster.GetCardName()
 
 func ClearBattleData():
 	

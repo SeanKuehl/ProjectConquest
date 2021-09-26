@@ -1,0 +1,8 @@
+Strategiest's Demise
+thirdSample.png
+this is Darrel's description
+2
+Your monster gains 20 health for every used 
+strategy card in your opponents used pile
+StrategistsDemise.gd
+Normal

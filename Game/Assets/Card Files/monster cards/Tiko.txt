@@ -1,0 +1,16 @@
+Tiko
+thirdSample.png
+this is Darrel's description
+Divine
+75
+2
+1
+Righteous Strike(Divine) 50
+2
+Wild Lash(Normal) 20
+There's a one is four chance this attack does 80 damage
+testmonstersound.ogg
+testmonsteranimation_01.png
+testmonsteranimation_02.png
+testmonsteranimation_03.png
+Tiko.gd

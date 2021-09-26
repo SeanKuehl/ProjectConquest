@@ -1,0 +1,7 @@
+Awful Oasis
+thirdSample.png
+this is Darrel's description
+1
+No attack effects work here
+AwfulOasis.gd
+

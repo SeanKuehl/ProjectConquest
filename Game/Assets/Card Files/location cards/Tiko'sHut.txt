@@ -1,0 +1,9 @@
+Tiko's Hut
+thirdSample.png
+this is Darrel's description
+1
+The attacks of the monster named "Tiko" do +20 damage here
+Tiko'sHut.gd
+
+
+

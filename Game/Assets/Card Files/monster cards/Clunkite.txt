@@ -1,0 +1,16 @@
+Clunkite
+thirdSample.png
+this is Darrel's description
+Mechanical
+100
+2
+2
+Metal Mallace(Mechanical) 50
+this attack has a 1 in 3 chance to miss
+1
+Wallop(Normal) 30
+testmonstersound.ogg
+testmonsteranimation_01.png
+testmonsteranimation_02.png
+testmonsteranimation_03.png
+Clunkite.gd

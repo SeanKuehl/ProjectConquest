@@ -1,0 +1,6 @@
+Forbidden Vision
+thirdSample.png
+this is Darrel's description
+1
+Look at any docked location card of your choosing
+ForbiddenVision.gd

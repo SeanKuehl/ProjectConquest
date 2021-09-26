@@ -1,0 +1,7 @@
+Shifted Fate
+thirdSample.png
+this is Darrel's description
+2
+move one of your opponents docked monsters
+to a new location card dock of your choosing
+ShiftedFate.gd
