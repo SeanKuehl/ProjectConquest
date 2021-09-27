@@ -77,7 +77,23 @@ func init(passedFile, passedOwner):
 	
 	cardName = content[0]	
 	
-	nameLabel.text = cardName
+	var nameMaxCharLength = 12		#'strategist's' seems to be the max
+	
+	if len(cardName) > nameMaxCharLength:
+		var shortenedName = ""
+		var charIndex = 0
+		for x in cardName:
+			if charIndex < nameMaxCharLength:
+				shortenedName += x
+			charIndex += 1
+		#this will actually produce something one char less than the max,
+		#add a '.' on the end to show that it continues
+		shortenedName += "."
+			
+		nameLabel.text = shortenedName
+		
+	else:
+		nameLabel.text = cardName
 	
 	#this will change because there could actually be an effect
 	cardDescription = content[2]
