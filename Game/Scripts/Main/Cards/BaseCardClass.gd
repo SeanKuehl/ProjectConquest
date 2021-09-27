@@ -161,7 +161,10 @@ func get_input():
 		clickedAndDraggedOn = false
 		GameState.SetCardWasSelected(false)
 		
-	if Input.is_action_just_pressed("RIGHT_CLICK"):
+		
+		#mouseIsInTile must be present here otherwise it will call it on all the listening cards at that time
+		#effectively only showing the last card added to the field of play. 
+	if Input.is_action_just_pressed("RIGHT_CLICK") and mouseIsInTile:
 		emit_signal("userWantsToDisplayCard", cardName, cardPicture, cardDescription)
 	
 	

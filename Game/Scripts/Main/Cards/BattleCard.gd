@@ -202,7 +202,7 @@ func get_input():
 		clickedAndDraggedOn = false
 		GameState.SetCardWasSelected(false)
 		
-	if Input.is_action_just_pressed("RIGHT_CLICK"):
+	if Input.is_action_just_pressed("RIGHT_CLICK") and mouseIsInTile:
 		emit_signal("userWantsToDisplayBattleCard", cardName, cardPicture, cardDescription, attribute)
 	
 	

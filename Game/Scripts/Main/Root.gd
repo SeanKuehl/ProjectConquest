@@ -417,6 +417,12 @@ func load_playerone_cards(locationCards, monsterCards, battleCards, strategyCard
 		GameState.AddPlayerOneStrategyCard(newCard)
 		
 		
+		
+		
+
+		
+		
+		
 #locationCards, all the text files in the locationCardsDirectory
 #monsterCards, all the text files in the monsterCardsDirectory
 #battleCards, all the text files in the battleCardsDirectory

@@ -272,7 +272,8 @@ func get_input():
 		GameState.SetCardWasSelected(false)
 		
 		
-	if Input.is_action_just_pressed("RIGHT_CLICK"):
+	if Input.is_action_just_pressed("RIGHT_CLICK") and mouseIsInTile:
+		
 		emit_signal("userWantsToDisplayMonsterCard", cardName, cardPicture, cardDescription, health, attribute)
 	
 	
