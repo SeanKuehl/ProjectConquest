@@ -53,5 +53,8 @@ autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="CancelOutPreviouseMenuClickTimer" type="Timer" parent="."]
+one_shot = true
 [connection signal="mouse_entered" from="." to="." method="_on_DisplayCard_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_DisplayCard_mouse_exited"]

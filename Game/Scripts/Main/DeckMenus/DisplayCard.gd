@@ -39,7 +39,12 @@ signal HideInfoDisplay()
 
 
 func _ready():
-	pass
+	#there was an issue where if you clicked on a card spot in the edit decks menu
+	#that same click could select a card on this menu without you meaning it
+	#thus I added a timer so that that click cannot be the same one that selects
+	#a card
+	$CancelOutPreviouseMenuClickTimer.start()
+	
 
 
 func SetMenuState(newState):
@@ -389,7 +394,7 @@ func get_input():
 	#use states to manage how it acts on a givin menu
 	
 	#use right click to see card info, use left click to save card to deck
-	if menuState == "EditMenus":
+	if menuState == "EditMenus" and $CancelOutPreviouseMenuClickTimer.is_stopped():
 		#if they right click, it removes a card from the list!
 		if Input.is_action_pressed("CLICK") and mouseInTile:
 			#call parent and get parent to switch to browse cards menu
@@ -399,7 +404,7 @@ func get_input():
 			get_parent().RemoveCardFromDeck()
 		
 		
-	elif menuState == "BrowseMenu":
+	elif menuState == "BrowseMenu" and $CancelOutPreviouseMenuClickTimer.is_stopped():
 		
 		if Input.is_action_pressed("CLICK") and mouseInTile:
 			get_parent().SaveCardToDeck(cardType, file)
