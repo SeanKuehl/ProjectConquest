@@ -2,11 +2,11 @@ extends Node
 
 
 var rng = RandomNumberGenerator.new()
-var firstAttack = [1, "Violent Thrash", 80, "Beast", "this attack has a 1 in 3 chance to hit", true, true]
+var firstAttack = [1, "Metal Mallace", 50, "Mechanical", "this attack has a 1 in 3 chance to miss", true, true]
 
 
 
-var secondAttack = [2, "Savage Rage", 90, "Beast", "this attack has a 1 in 4 chance to hit", true, true]
+var secondAttack = [2, "Wallop", 30, "Normal", "", true, true]
 
 #effect enabled(bool), attack enabled(bool)
 #index, name string, damage, attribute, effect text, effect enabled(bool), attack enabled(bool)
@@ -23,31 +23,24 @@ func GetAttacksForDisplay():
 	return [firstAttack, secondAttack]
 
 func FirstAttack(filteredAttack):
+	#this attack has a 1 in 3 chance to miss
+	
 	#do random stuff and filter if it happens
 	var randomNum = rng.randi_range(1, 3) #according to docs this range is inclusive
 	
 	#1 in 3 chance
 	if randomNum == 3:
-		#the attack hit
-		pass
-	else:
-		#it missed 
+		#the attack missed
 		filteredAttack[2] = 0
+		
+	else:
+		#it hit, make no changes
+		pass
+		
 		
 	return filteredAttack
 	
 func SecondAttack(filteredAttack):
-	#do random stuff and filter if it happens
-	var randomNum = rng.randi_range(1, 4) #according to docs this range is inclusive
-	
-	#1 in 4 chance
-	if randomNum == 4:
-		#the attack hit
-		pass
-	else:
-		#it missed 
-		filteredAttack[2] = 0
-	
 	
 	
 	return filteredAttack

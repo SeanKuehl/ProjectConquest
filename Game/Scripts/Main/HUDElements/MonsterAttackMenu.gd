@@ -143,7 +143,7 @@ func HideAttack(attackAssets):
 	for x in range(len(attackAssets)):
 		#max is exclusive
 		#this might not work for buttons, since they have other stuff and might still detect the click on
-		attackAssets[x].hide()
+		attackAssets[x].hide()	#due to desynchronization, this may be the source of some problems
 		
 		
 #attacks is a list of monster attacks, each monster attack is
@@ -151,7 +151,7 @@ func HideAttack(attackAssets):
 #where the the information is: the index of the attack(first attack), name of the attack, damage of the attack, attribute of the attack, text effect of the attack, whether the effect is enabled, whether the attack is allowed
 
 func HideAttackSpotsBasedOnAttacks(attacks):
-	var numberOfAttacks = len(attacks)
+	var numberOfAttacks = len(attacks)	#this may be causing a problem
 	
 	if numberOfAttacks == 2:
 		HideAttack(attackThreeComponents)
