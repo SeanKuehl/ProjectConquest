@@ -400,8 +400,9 @@ func get_input():
 			#call parent and get parent to switch to browse cards menu
 			get_parent().CallBrowseCardsMenu()
 			
-		if Input.is_action_pressed("RIGHT_CLICK") and mouseInTile:
+		if Input.is_action_pressed("RIGHT_CLICK") and mouseInTile and $ControlRemoveCardFromDeckClicks.is_stopped():
 			get_parent().RemoveCardFromDeck()
+			$ControlRemoveCardFromDeckClicks.start()
 		
 		
 	elif menuState == "BrowseMenu" and $CancelOutPreviouseMenuClickTimer.is_stopped():

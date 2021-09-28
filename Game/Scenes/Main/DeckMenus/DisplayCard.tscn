@@ -55,6 +55,11 @@ __meta__ = {
 }
 
 [node name="CancelOutPreviouseMenuClickTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="ControlRemoveCardFromDeckClicks" type="Timer" parent="."]
+wait_time = 0.5
 one_shot = true
 [connection signal="mouse_entered" from="." to="." method="_on_DisplayCard_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_DisplayCard_mouse_exited"]
