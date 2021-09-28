@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Game/Scripts/Main/Docks/MonsterCardDock.gd" type="Script" id=1]
+[ext_resource path="res://Game/Assets/Images/Experimental/DamageIndicator.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 33.4225, 31.0057 )
@@ -15,7 +16,7 @@ shape = SubResource( 1 )
 [node name="Animation" type="AnimatedSprite" parent="."]
 
 [node name="Centre" type="Position2D" parent="."]
-position = Vector2( -0.793701, -1.5874 )
+position = Vector2( -1.02967, -1.35143 )
 
 [node name="PlayerOwnershipIndicator" type="Label" parent="."]
 margin_left = -44.0
@@ -46,5 +47,22 @@ text = "attribute"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="DamageIndicator" type="Sprite" parent="."]
+position = Vector2( 0.440308, 0.230885 )
+texture = ExtResource( 2 )
+
+[node name="DamageIndicatorLabel" type="Label" parent="."]
+margin_left = -21.4732
+margin_top = -8.49487
+margin_right = 18.5268
+margin_bottom = 5.50513
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DamageIndicatorLingerTime" type="Timer" parent="."]
+one_shot = true
 [connection signal="mouse_entered" from="." to="." method="_on_MonsterCardDock_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_MonsterCardDock_mouse_exited"]
+[connection signal="timeout" from="DamageIndicatorLingerTime" to="." method="_on_DamageIndicatorLingerTime_timeout"]

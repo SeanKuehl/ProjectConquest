@@ -743,10 +743,13 @@ func UseMonsterCardEffect(monsterAttack):
 	#also call the monster card dock to do the animation!
 	if GameState.GetPlayerBattleTurn() == "PlayerOne":
 		playerOneDock.MoveForAttackAnimation()
+		
 		monsterAttack = playerOneMonster.ActivateMonsterCardScriptEffect(monsterAttack)
+		playerTwoDock.ShowDamageIndicator(monsterAttack[2])	#ex. monster attack: [1, "flaming Sting", 60, "Inferno", "there is a one in eight chance this attack does 100 damage", true, true]
 	else:
 		playerTwoDock.MoveForAttackAnimation()
 		monsterAttack = playerTwoMonster.ActivateMonsterCardScriptEffect(monsterAttack)
+		playerOneDock.ShowDamageIndicator(monsterAttack[2])
 
 	return monsterAttack
 
@@ -760,6 +763,7 @@ func DealDamageToMonster(monsterAttack):
 		#if the attack is happening on player one's turn, deal the damage
 		#to player two's monster
 		playerTwoMonster.TakeDamage(monsterAttack)
+		
 		
 	else:
 		#if the attack is happening on player two's turn, deal the damage

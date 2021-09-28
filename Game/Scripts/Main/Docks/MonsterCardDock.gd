@@ -31,6 +31,8 @@ var thereIsAMonsterDocked = false
 
 func _ready():
 	animation.global_position = centre.global_position
+	$DamageIndicator.hide()
+	$DamageIndicatorLabel.hide()
 
 func SetPlayerOwnershipText(text):
 	ownership.text = text
@@ -116,6 +118,13 @@ func get_input():
 				goingBackFromAttackAnimation = false
 	
 	
+func ShowDamageIndicator(damage):
+	$DamageIndicatorLabel.text = str(damage)
+	$DamageIndicatorLingerTime.start()
+	
+	$DamageIndicator.show()
+	$DamageIndicatorLabel.show()
+	
 func ClearMonsterCardData():
 	
 	monsterCardName = ""
@@ -175,3 +184,8 @@ func _on_MonsterCardDock_mouse_entered():
 
 func _on_MonsterCardDock_mouse_exited():
 	mouseIsInTile = false
+
+
+func _on_DamageIndicatorLingerTime_timeout():
+	$DamageIndicator.hide()
+	$DamageIndicatorLabel.hide()
