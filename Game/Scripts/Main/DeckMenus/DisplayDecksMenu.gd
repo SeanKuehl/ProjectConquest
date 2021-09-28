@@ -7,6 +7,19 @@ var savedDecksDirectory = "res://Game/Assets/SavedDecksFolder/"
 var listOfDecks = []
 
 func _ready():
+	
+	
+	#if this menu is being used by the players to select their decks,
+	#set the designated label to tell them
+	if DeckMenuHelper.GetPlayersSelectingDecksForBattle():
+		#tell player whose turn it is to select deck for battle
+		if GameState.GetSetADeckFirstTime():
+			#it's player one's turn
+			$WhoIsSelectingDeck.text = "Player One please select your deck"
+		else:
+			$WhoIsSelectingDeck.text = "Player Two please select your deck"
+	
+	
 	Settings.SetButtonToTheme($LastButton)
 	Settings.SetButtonToTheme($NextButton)
 	Settings.SetButtonToTheme($DeckButton1)

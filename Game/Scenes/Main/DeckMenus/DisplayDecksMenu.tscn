@@ -76,6 +76,12 @@ __meta__ = {
 }
 
 [node name="MenuMusic" type="AudioStreamPlayer" parent="."]
+
+[node name="WhoIsSelectingDeck" type="Label" parent="."]
+margin_left = 348.0
+margin_top = 37.0
+margin_right = 636.0
+margin_bottom = 95.0
 [connection signal="pressed" from="DeckButton1" to="." method="_on_DeckButton1_pressed"]
 [connection signal="pressed" from="DeckButton2" to="." method="_on_DeckButton2_pressed"]
 [connection signal="pressed" from="DeckButton3" to="." method="_on_DeckButton3_pressed"]
