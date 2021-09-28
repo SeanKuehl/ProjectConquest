@@ -13,6 +13,8 @@ onready var attributeLabel = thisNode.get_node("AttributeIndicator")
 
 #this is for monster attack "animation"
 onready var speed = 10
+
+
 var attackAnimationHappening = false
 var goingBackFromAttackAnimation = false
 var stopPosition = 0
@@ -50,6 +52,7 @@ func OwnerSameAsClicker():
 
 
 func MoveForAttackAnimation():
+	
 	#hide the location card dock so it doesn't draw over the monster's attacking
 	get_parent().SetLocationDockToHidden()
 	#the animation will be a bit different depending on which player
@@ -61,12 +64,14 @@ func MoveForAttackAnimation():
 	
 	if ownership.text == "Player One":
 		stopPosition = animation.position.x+experimentallyDeterminedDistanceBetweenMonsters
+		speed = abs(speed)	#make it positive so it can't get a band hand off from when player two did it's animation
 		
 	elif ownership.text == "Player Two":
 		stopPosition = animation.position.x-experimentallyDeterminedDistanceBetweenMonsters
 		speed = speed * -1
 
 func GoingBackFromAttackAnimation():
+	
 	#hide the location card dock so it doesn't draw over the monster's attacking
 	get_parent().SetLocationDockToHidden()
 	speed = speed * -1	#going back the other way now
