@@ -41,7 +41,17 @@ func _ready():
 	LoadAllCards(GetFilePathsInDirectory(locationCardDirectory), GetFilePathsInDirectory(monsterCardDirectory), GetFilePathsInDirectory(battleCardDirectory), GetFilePathsInDirectory(strategyCardDirectory))
 	ConnectAllCardSignals()
 	SetAllMenuStates()
-	DisplayLocationCards()
+	
+	var cardsToDisplay = DeckMenuHelper.GetCurrentlyShowingCardType()
+	
+	if cardsToDisplay == "Location":
+		DisplayLocationCards()
+	elif cardsToDisplay == "Monster":
+		DisplayMonsterCards()
+	elif cardsToDisplay == "Battle":
+		DisplayBattleCards()
+	elif cardsToDisplay == "Strategy":
+		DisplayStrategyCards()
 	
 	#LoadCards(GetFilePathsInDirectory(monsterCardDirectory))
 

@@ -11,10 +11,16 @@ var browseMenuCardSelectedCardFile = ""
 var deckName = ""
 var playersSelectingDecksForBattle = false
 
+var currentlyShowingCardTypeBetweenEditDecksMenuAndBrowseCardsmenu = ""
+
 func _ready():
 	pass
 	
-	
+func GetCurrentlyShowingCardType():
+	return currentlyShowingCardTypeBetweenEditDecksMenuAndBrowseCardsmenu
+
+func SetCurrentlyShowingCardType(newVal):
+	currentlyShowingCardTypeBetweenEditDecksMenuAndBrowseCardsmenu = newVal
 	
 func GetPlayersSelectingDecksForBattle():
 	return playersSelectingDecksForBattle

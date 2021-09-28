@@ -30,6 +30,7 @@ func _ready():
 	SetAllCardStates()
 	LoadDeckAndBrowseMenuSelected()
 	ShowLocationCards()
+	DeckMenuHelper.SetCurrentlyShowingCardType("Location")	#set it so it has a default and doesn't cause problems
 
 
 func RemoveCardFromDeck():
@@ -251,22 +252,26 @@ func ShowStrategyCards():
 
 func _on_LocationCardButton_pressed():
 	showing = "Location"
+	DeckMenuHelper.SetCurrentlyShowingCardType("Location")
 	ShowLocationCards()
 	
 
 
 func _on_MonsterCardButton_pressed():
 	showing = "Monster"
+	DeckMenuHelper.SetCurrentlyShowingCardType("Monster")
 	ShowMonsterCards()
 
 
 func _on_BattleCardButton_pressed():
 	showing = "Battle"
+	DeckMenuHelper.SetCurrentlyShowingCardType("Battle")
 	ShowBattleCards()
 
 
 func _on_StrategyCardButton_pressed():
 	showing = "Strategy"
+	DeckMenuHelper.SetCurrentlyShowingCardType("Strategy")
 	ShowStrategyCards()
 
 
