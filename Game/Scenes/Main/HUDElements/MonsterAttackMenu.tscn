@@ -122,8 +122,13 @@ __meta__ = {
 margin_right = 600.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 600, 100 )
+
+[node name="HideAfterShowTimer" type="Timer" parent="."]
+wait_time = 0.001
+one_shot = true
 [connection signal="pressed" from="Panel/AttackOneAccept" to="." method="_on_AttackOneAccept_pressed"]
 [connection signal="pressed" from="Panel/AttackTwoAccept" to="." method="_on_AttackTwoAccept_pressed"]
 [connection signal="pressed" from="Panel/AttackThreeAccept" to="." method="_on_AttackThreeAccept_pressed"]
 [connection signal="pressed" from="Panel/Skip" to="." method="_on_Skip_pressed"]
 [connection signal="pressed" from="Panel/CloseButton" to="." method="_on_CloseButton_pressed"]
+[connection signal="timeout" from="HideAfterShowTimer" to="." method="_on_HideAfterShowTimer_timeout"]

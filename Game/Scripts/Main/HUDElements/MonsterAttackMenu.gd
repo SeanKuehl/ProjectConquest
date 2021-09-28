@@ -92,7 +92,12 @@ func ShowMyStuff():
 
 func LoadMonsterAttacks(monsterAttacks):
 	ShowMyStuff()
-	HideAttackSpotsBasedOnAttacks(monsterAttacks)
+	
+	$HideAfterShowTimer.start()
+	
+	
+	
+	
 	#each attack is in the form [1, "flaming Sting", 60, "Inferno", "there is a one in eight chance this attack does 100 damage", true, true]
 	#there could be 1,2 or 3 attacks
 	#print(monsterAttacks)
@@ -108,6 +113,8 @@ func LoadMonsterAttacks(monsterAttacks):
 			LoadAttack(attack, attackThreeComponents)
 			
 		numberOfAttacks += 1
+		
+	
 		
 	numberOfAttacks = 0	#reset for next time
 	loadedAttacks = monsterAttacks
@@ -140,25 +147,36 @@ func LoadAttack(attack, attackAssets):
 #attackAssets is a list of strategy menu children needed to load an attack
 #like label, button, effect text, container for the effect text
 func HideAttack(attackAssets):
-	for x in range(len(attackAssets)):
+	
+	for x in range(0, len(attackAssets)):
+		
 		#max is exclusive
 		#this might not work for buttons, since they have other stuff and might still detect the click on
-		attackAssets[x].hide()	#due to desynchronization, this may be the source of some problems
+		attackAssets[x].hide()
 		
+		
+	
+	
+	
+
 		
 #attacks is a list of monster attacks, each monster attack is
 # in the form: [1, "flaming Sting", 60, "Inferno", "there is a one in eight chance this attack does 100 damage", true, true]
 #where the the information is: the index of the attack(first attack), name of the attack, damage of the attack, attribute of the attack, text effect of the attack, whether the effect is enabled, whether the attack is allowed
 
 func HideAttackSpotsBasedOnAttacks(attacks):
-	var numberOfAttacks = len(attacks)	#this may be causing a problem
+	var numberOfAttacks = len(attacks)	
+	
 	
 	if numberOfAttacks == 2:
 		HideAttack(attackThreeComponents)
+		
 	if numberOfAttacks == 1:
+		
 		HideAttack(attackThreeComponents)
 		HideAttack(attackTwoComponents)
 	if numberOfAttacks == 0:
+		
 		HideAttack(attackThreeComponents)
 		HideAttack(attackTwoComponents)
 		HideAttack(attackOneComponents)
@@ -237,3 +255,10 @@ func _on_AttackOneAccept_pressed():
 	
 	
 
+
+
+func _on_HideAfterShowTimer_timeout():
+	#when I had it in the same function as a function that made everything "show"
+	#it wouldn't work, HideMyStuff() also wouldn't work. So I put it here to give
+	#it the delay away from ShowMyStuff that it needs to work
+	HideAttackSpotsBasedOnAttacks(loadedAttacks)
