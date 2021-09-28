@@ -20,7 +20,17 @@ func _ready():
 
 func GetAttacksForDisplay():
 	
-	return [firstAttack, secondAttack]
+	#this is done to dereference it so the original attack data isn't 
+	#effected by any changes done during the filtering process
+	var firstAttackToPass = []
+	for x in firstAttack:
+		firstAttackToPass.append(x)
+		
+	var secondAttackToPass = []
+	for x in secondAttack:
+		secondAttackToPass.append(x)
+	
+	return [firstAttackToPass, secondAttackToPass]
 
 func FirstAttack(filteredAttack):
 	#this attack has a 1 in 3 chance to miss

@@ -8,6 +8,11 @@ var firstAttack = [1, "Violent Thrash", 80, "Beast", "this attack has a 1 in 3 c
 
 var secondAttack = [2, "Savage Rage", 90, "Beast", "this attack has a 1 in 4 chance to hit", true, true]
 
+#make copy of above and overwrite every time they are passed,
+#but overwrite values slot by slot [x] instead of list = list 
+#because that's by reference
+
+
 #effect enabled(bool), attack enabled(bool)
 #index, name string, damage, attribute, effect text, effect enabled(bool), attack enabled(bool)
 #ex. 1, "flaming Sting", 60, "Inferno", "there is a one in eight chance this attack does 100 damage", true, true
@@ -19,8 +24,17 @@ func _ready():
 #if the card has an effect, the func will be called to do the attack, otherwise just the damage needs to be done
 
 func GetAttacksForDisplay():
+	#this is done to dereference it so the original attack data isn't 
+	#effected by any changes done during the filtering process
+	var firstAttackToPass = []
+	for x in firstAttack:
+		firstAttackToPass.append(x)
+		
+	var secondAttackToPass = []
+	for x in secondAttack:
+		secondAttackToPass.append(x)
 	
-	return [firstAttack, secondAttack]
+	return [firstAttackToPass, secondAttackToPass]
 
 func FirstAttack(filteredAttack):
 	#do random stuff and filter if it happens

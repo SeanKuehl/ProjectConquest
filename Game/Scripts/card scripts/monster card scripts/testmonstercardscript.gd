@@ -25,7 +25,17 @@ func _ready():
 
 func GetAttacksForDisplay():
 	
-	return [firstAttack, secondAttack]
+	#this is done to dereference it so the original attack data isn't 
+	#effected by any changes done during the filtering process
+	var firstAttackToPass = []
+	for x in firstAttack:
+		firstAttackToPass.append(x)
+		
+	var secondAttackToPass = []
+	for x in secondAttack:
+		secondAttackToPass.append(x)
+	
+	return [firstAttackToPass, secondAttackToPass]
 
 func FirstAttack(filteredAttack):
 	#one in eight chance this attack does 100 damage, check if effect and attack are enabled and damage isn't already that strong
