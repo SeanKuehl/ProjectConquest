@@ -38,6 +38,7 @@ func Effect(filteredVersion):
 	
 	
 	
+	
 	#no card/thing to filter, just do your effect by altering GameState
 	#if this is being called, this is enabled, check the attribute
 	#if this changed what kind of damage etc. is done by this card

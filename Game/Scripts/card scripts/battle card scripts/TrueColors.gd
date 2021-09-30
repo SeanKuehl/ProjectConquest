@@ -56,7 +56,7 @@ func Effect(filteredVersion):
 		#if your health is lower than theirs
 		#set attributes to swap to when filtering monster data
 		playerOwnerNewAttribute = theirData[0]
-		otherNewAttribute = theirData[0]
+		otherNewAttribute = yourData[0]
 	
 	#no card/thing to filter, just do your effect by altering GameState
 	#if this is being called, this is enabled, check the attribute

@@ -240,35 +240,37 @@ func CardEffectRemoveMonster(player):
 	
 	var monsterToReturn = 0
 	
-	if player == "PlayerOne":
-		#remove player one's monster
+	if typeof(playerOneMonster) == TYPE_OBJECT:
 		
-		#set return value 
-		monsterToReturn = playerOneMonster
+		if player == "PlayerOne":
+			#remove player one's monster
+			
+			#set return value 
+			monsterToReturn = playerOneMonster
+			
+			#clear out monster
+			playerOneDock.ClearMonsterCardData()
+			
+			playerOneMonster.SetInUsedPile(true)
+			playerOneMonster = 0
+			thereIsPlayerOneMonster = false
 		
-		#clear out monster
-		playerOneDock.ClearMonsterCardData()
+		else:
+			#remove player one's monster
+			
+			#set return value 
+			monsterToReturn = playerTwoMonster
+			
+			#clear out monster
+			playerTwoDock.ClearMonsterCardData()
+			
+			playerTwoMonster.SetInUsedPile(true)
+			playerTwoMonster = 0
+			thereIsPlayerTwoMonster = false
 		
-		playerOneMonster.SetInUsedPile(true)
-		playerOneMonster = 0
-		thereIsPlayerOneMonster = false
-	
-	else:
-		#remove player one's monster
 		
-		#set return value 
-		monsterToReturn = playerTwoMonster
 		
-		#clear out monster
-		playerTwoDock.ClearMonsterCardData()
-		
-		playerTwoMonster.SetInUsedPile(true)
-		playerTwoMonster = 0
-		thereIsPlayerTwoMonster = false
-	
-	
-	
-	return monsterToReturn
+		return monsterToReturn
 	
 func CardEffectPlaceMonster(player, monsterCard):
 	

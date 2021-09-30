@@ -1,12 +1,13 @@
 extends Node
 
+var playerToGiveHealthTo = ""
 
 func _ready():
 	pass
 	
 	
-#this card's effect is the player currently losing the game gets all
-#used battle cards back at the start of battle, nothing happens in a tie
+#this card's effect is the player currently losing the game gets +50 health
+
 	
 #dock is reference to a location card dock object
 func ConnectSignalsFromLocationDock(dock):
@@ -34,20 +35,15 @@ func OnBattleStart():
 	#load their cards again
 	if playerOnePoints == playerTwoPoints:
 		#it's a tie, do nothing
+		
 		pass
 	elif playerOnePoints < playerTwoPoints:
-		GameState.GetCardsBackFromUsedPile("Battle", "PlayerOne")
-		#if player is going right now, reload their cards to show the
-		#ones they just got back
-		if GameState.GetPlayerBattleTurn() == "PlayerOne":
-			GameState.ReloadPlayerCards("PlayerOne")
+		
+		playerToGiveHealthTo = "PlayerOne"
 		
 	elif playerTwoPoints < playerOnePoints:
-		GameState.GetCardsBackFromUsedPile("Battle", "PlayerTwo")
-		#if player is going right now, reload their cards to show the
-		#ones they just got back
-		if GameState.GetPlayerBattleTurn() == "PlayerTwo":
-			GameState.ReloadPlayerCards("PlayerTwo")
+		
+		playerToGiveHealthTo = "PlayerTwo"
 	
 	
 	#by default, barring any effects, the player who landed last will go first in the battle
@@ -66,6 +62,11 @@ func FilterMonsterAttack(attack):
 		#attack[2] = 1000
 		#attack[5] = false
 		#attack[6] = false
+	
+		
+	
+		
+		
 	return attack
 	
 func FilterBattleCard(battleCardToFilter):
@@ -74,6 +75,11 @@ func FilterBattleCard(battleCardToFilter):
 	return battleCardToFilter
 	
 func FilterMonsterData(monsterData):
+	#[attribute, health]
+	var ownerOfAttackingMonster = GameState.GetPlayerBattleTurn()
+	
+	if ownerOfAttackingMonster == playerToGiveHealthTo:
+		monsterData[1] += 50
 	#must return some version of the data, otherwise it's not filtering
 	return monsterData
 	

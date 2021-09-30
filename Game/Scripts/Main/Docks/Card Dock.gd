@@ -228,6 +228,7 @@ func _physics_process(_delta):
 				
 		
 func LoadPlayerCards(listOfCards):
+	
 	var locationCards = listOfCards[0]
 	var monsterCards = listOfCards[1]
 	var battleCards = listOfCards[2]
@@ -236,6 +237,7 @@ func LoadPlayerCards(listOfCards):
 	for x in locationCards:
 		
 		if x.GetIsDocked():
+			
 			#gotta replace the above with something meant for this singular purpose
 			
 			#it's a part of a battle
@@ -249,6 +251,7 @@ func LoadPlayerCards(listOfCards):
 	for x in monsterCards:
 		
 		if x.GetCardInvolvedInBattle():
+			
 			
 			#it's a part of a battle
 			pass
@@ -271,6 +274,7 @@ func LoadPlayerCards(listOfCards):
 	for x in strategyCards:
 		
 		if x.GetCardInvolvedInBattle():
+			
 			#it will never really be involved in battle, but this will
 			#be set true when it is used
 			
