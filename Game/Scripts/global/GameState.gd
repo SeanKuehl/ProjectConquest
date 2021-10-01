@@ -443,6 +443,9 @@ func HandleStrategyCardMenuForCustomScript(text):
 	var dock = locationDocks[0]	#doesn't matter which dock calls the func
 	dock.HandleStrategyCardMenuForGameState(text)
 
+
+
+
 func SetCurrentTurn(root):
 	
 	#player is either "PlayerOne" or "PlayerTwo"

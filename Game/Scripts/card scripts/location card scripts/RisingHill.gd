@@ -53,6 +53,8 @@ func OnBattleStart():
 	GameState.StartBattle()
 	
 	
+	
+	
 	#cutom scripts can access GameState, great!
 	
 func FilterMonsterAttack(attack):

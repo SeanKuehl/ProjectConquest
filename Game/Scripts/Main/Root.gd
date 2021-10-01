@@ -291,7 +291,7 @@ func HandleFilteredBattleCard(filteredBattleCard, card):
 		#now this player's battle turns are over, switch to other player's battle turn
 			#this is basically the same as normally switching turns, just using the battle turn instead so I can restore
 			#the normal turn order after
-			
+			FilterCurrentPlayerMonsterData()
 			
 			EndCurrentPlayerBattleTurn()
 			
@@ -299,9 +299,10 @@ func HandleFilteredBattleCard(filteredBattleCard, card):
 			#set the battle state for the next player
 			GameState.SetBattleState("MonsterAttackPhase")
 			
-			#filter their monster's data before showing it
-			var newDataToSet = GameState.FilterMonsterData(GameState.GetPlayerMonsterDataAtCurrentBattleIndex(GameState.GetPlayerBattleTurn()))
-			GameState.SetPlayerMonsterDataAtCurrentBattleIndex(GameState.GetPlayerBattleTurn(), newDataToSet)
+			#filter (other player's) their monster's data before showing it
+			FilterCurrentPlayerMonsterData()
+			
+			
 	else:
 		ShowCardActivationScreen(card.GetColorBackgroundColor(), card.GetCardType(), card.GetCardName())
 		#they played a card, handle it's effect
@@ -324,15 +325,27 @@ func HandleFilteredBattleCard(filteredBattleCard, card):
 			#this is basically the same as normally switching turns, just using the battle turn instead so I can restore
 			#the normal turn order after
 			
+			
+			
+			FilterCurrentPlayerMonsterData()
+			
 			EndCurrentPlayerBattleTurn()
 			
 			
 			#set the battle state for the next player
 			GameState.SetBattleState("MonsterAttackPhase")
 			
-			#filter their monster's data before allowing them to progress, same thing 
-			var newDataToSet = GameState.FilterMonsterData(GameState.GetPlayerMonsterDataAtCurrentBattleIndex(GameState.GetPlayerBattleTurn()))
-			GameState.SetPlayerMonsterDataAtCurrentBattleIndex(GameState.GetPlayerBattleTurn(), newDataToSet)
+			#filter (other player's) their monster's data before allowing them to progress, same thing 
+			#filter both player's monster data in case the battle card changed anything
+			FilterCurrentPlayerMonsterData()
+			#I tried one func which does both players but it didn't work, things need it to be the right player's turn to work
+			
+			
+func FilterCurrentPlayerMonsterData():
+	var newDataToSet = GameState.FilterMonsterData(GameState.GetPlayerMonsterDataAtCurrentBattleIndex(GameState.GetPlayerBattleTurn()))
+	GameState.SetPlayerMonsterDataAtCurrentBattleIndex(GameState.GetPlayerBattleTurn(), newDataToSet)
+	
+	
 	
 	
 #dir is the path to a dictory
