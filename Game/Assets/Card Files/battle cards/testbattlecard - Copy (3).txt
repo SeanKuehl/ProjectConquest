@@ -1,0 +1,8 @@
+Darrel
+thirdSample.png
+this is Darrel's description
+2
+If your monster's health is equal to or lower than the health of your opponent's
+then you may swap the attributes of the monsters in play
+testbattlecardscript.gd
+Inferno

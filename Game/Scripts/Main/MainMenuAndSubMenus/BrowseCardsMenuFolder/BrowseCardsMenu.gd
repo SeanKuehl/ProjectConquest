@@ -20,6 +20,8 @@ var deckMonsterCards = []
 var deckBattleCards = []
 var deckStrategyCards = []
 
+var numberOfTimesNextPressed = 0
+var cardsBeingDisplayed = ""
 
 func _ready():
 	
@@ -43,6 +45,7 @@ func _ready():
 	SetAllMenuStates()
 	
 	var cardsToDisplay = DeckMenuHelper.GetCurrentlyShowingCardType()
+	
 	
 	if cardsToDisplay == "Location":
 		DisplayLocationCards()
@@ -99,6 +102,7 @@ func LoadAllCards(locations, monsters, battles, strategys):
 	strategyCards = strategys
 	
 func DisplayStrategyCards():
+	cardsBeingDisplayed = "Strategy"
 	var numberOfStrategyCards = len(strategyCards)
 	#how many cards are there in locationCards?
 	
@@ -107,13 +111,30 @@ func DisplayStrategyCards():
 	if numberOfStrategyCards > numberOfDisplayCards:
 		#enable next and previouse etc.
 		var index = 1
+		var startingIndex = 0 + (numberOfTimesNextPressed*numberOfDisplayCards)
 		
-		for x in range(0,numberOfStrategyCards+1):
+		for x in range(startingIndex,startingIndex+numberOfDisplayCards+1):
 			#max is exclusive, hence +1
-			var currentCard = get_node("DisplayCard"+str(index))
-		
-			currentCard.initAsStrategyCard(strategyCards[x])
-			index += 1
+			if x < (len(strategyCards)) and index <= numberOfDisplayCards:
+				#it's a valid card
+				
+				var currentCard = get_node("DisplayCard"+str(index))
+			
+				currentCard.initAsStrategyCard(strategyCards[x])
+				currentCard.show()
+				currentCard.set_physics_process(true)
+				index += 1
+				
+			elif x > (len(strategyCards)) and index <= numberOfDisplayCards:
+				#it went over, set uneeded cards to blank
+				var currentCard = get_node("DisplayCard"+str(index))
+			
+				currentCard.hide()
+				currentCard.set_physics_process(false)
+				index += 1
+			else:
+				pass
+				#it's gone over the inex of card spots, ignore
 		
 	elif numberOfStrategyCards == numberOfDisplayCards:
 		#fill all display cards, disable next and previouse
@@ -143,6 +164,7 @@ func DisplayStrategyCards():
 	
 	
 func DisplayBattleCards():
+	cardsBeingDisplayed = "Battle"
 	var numberOfBattleCards = len(battleCards)
 	#how many cards are there in locationCards?
 	
@@ -151,13 +173,30 @@ func DisplayBattleCards():
 	if numberOfBattleCards > numberOfDisplayCards:
 		#enable next and previouse etc.
 		var index = 1
+		var startingIndex = 0 + (numberOfTimesNextPressed*numberOfDisplayCards)
 		
-		for x in range(0,numberOfBattleCards+1):
+		for x in range(startingIndex,startingIndex+numberOfDisplayCards+1):
 			#max is exclusive, hence +1
-			var currentCard = get_node("DisplayCard"+str(index))
-		
-			currentCard.initAsBattleCard(battleCards[x])
-			index += 1
+			if x < (len(battleCards)) and index <= numberOfDisplayCards:
+				#it's a valid card
+				
+				var currentCard = get_node("DisplayCard"+str(index))
+			
+				currentCard.initAsBattleCard(battleCards[x])
+				currentCard.show()
+				currentCard.set_physics_process(true)
+				index += 1
+				
+			elif x > (len(battleCards)) and index <= numberOfDisplayCards:
+				#it went over, set uneeded cards to blank
+				var currentCard = get_node("DisplayCard"+str(index))
+			
+				currentCard.hide()
+				currentCard.set_physics_process(false)
+				index += 1
+			else:
+				pass
+				#it's gone over the inex of card spots, ignore
 		
 	elif numberOfBattleCards == numberOfDisplayCards:
 		#fill all display cards, disable next and previouse
@@ -187,6 +226,7 @@ func DisplayBattleCards():
 	
 	
 func DisplayMonsterCards():
+	cardsBeingDisplayed = "Monster"
 	var numberOfMonsterCards = len(monsterCards)
 	#how many cards are there in locationCards?
 	
@@ -195,13 +235,30 @@ func DisplayMonsterCards():
 	if numberOfMonsterCards > numberOfDisplayCards:
 		#enable next and previouse etc.
 		var index = 1
+		var startingIndex = 0 + (numberOfTimesNextPressed*numberOfDisplayCards)
 		
-		for x in range(0,numberOfMonsterCards+1):
+		for x in range(startingIndex,startingIndex+numberOfDisplayCards+1):
 			#max is exclusive, hence +1
-			var currentCard = get_node("DisplayCard"+str(index))
-		
-			currentCard.initAsMonsterCard(monsterCards[x])
-			index += 1
+			if x < (len(monsterCards)) and index <= numberOfDisplayCards:
+				#it's a valid card
+				
+				var currentCard = get_node("DisplayCard"+str(index))
+			
+				currentCard.initAsMonsterCard(monsterCards[x])
+				currentCard.show()
+				currentCard.set_physics_process(true)
+				index += 1
+				
+			elif x > (len(monsterCards)) and index <= numberOfDisplayCards:
+				#it went over, set uneeded cards to blank
+				var currentCard = get_node("DisplayCard"+str(index))
+			
+				currentCard.hide()
+				currentCard.set_physics_process(false)
+				index += 1
+			else:
+				pass
+				#it's gone over the inex of card spots, ignore
 		
 	elif numberOfMonsterCards == numberOfDisplayCards:
 		#fill all display cards, disable next and previouse
@@ -230,21 +287,40 @@ func DisplayMonsterCards():
 			index += 1
 	
 func DisplayLocationCards():
+	cardsBeingDisplayed = "Location"
 	var numberOfLocationCards = len(locationCards)
 	#how many cards are there in locationCards?
 	
 	var numberOfDisplayCards = 8
 	
 	if numberOfLocationCards > numberOfDisplayCards:
+		#numberOfTimesNextPressed
+		var startingIndex = 0 + (numberOfTimesNextPressed*numberOfDisplayCards)
 		#enable next and previouse etc.
 		var index = 1
 		
-		for x in range(0,numberOfLocationCards+1):
+		for x in range(startingIndex,startingIndex+numberOfDisplayCards+1):
 			#max is exclusive, hence +1
-			var currentCard = get_node("DisplayCard"+str(index))
-		
-			currentCard.initAsLocationCard(locationCards[x])
-			index += 1
+			if x < (len(locationCards)) and index <= numberOfDisplayCards:
+				#it's a valid card
+				
+				var currentCard = get_node("DisplayCard"+str(index))
+			
+				currentCard.initAsLocationCard(locationCards[x])
+				currentCard.show()
+				currentCard.set_physics_process(true)
+				index += 1
+				
+			elif x > (len(locationCards)) and index <= numberOfDisplayCards:
+				#it went over, set uneeded cards to blank
+				var currentCard = get_node("DisplayCard"+str(index))
+			
+				currentCard.hide()
+				currentCard.set_physics_process(false)
+				index += 1
+			else:
+				pass
+				#it's gone over the inex of card spots, ignore
 		
 	elif numberOfLocationCards == numberOfDisplayCards:
 		#fill all display cards, disable next and previouse
@@ -312,11 +388,52 @@ func list_files_in_directory(path):
 
 
 func _on_PreviouseButton_pressed():
-	pass # Replace with function body.
+	#do this based off of length of cards list
+	if numberOfTimesNextPressed == 0:
+		pass
+		#it's already as far back as it can be
+	else:
+		numberOfTimesNextPressed -= 1
+		#call the display thing
+		if cardsBeingDisplayed == "Location":
+			DisplayLocationCards()
+		elif cardsBeingDisplayed == "Monster":
+			DisplayMonsterCards()
+		elif cardsBeingDisplayed == "Battle":
+			DisplayBattleCards()
+		elif cardsBeingDisplayed == "Strategy":
+			DisplayStrategyCards()
+	
 
 
 func _on_NextButton_pressed():
-	pass # Replace with function body.
+	
+	var maxNumberOfNexts = 0
+	var numberOfDisplayCards = 8
+	if cardsBeingDisplayed == "Location":
+		maxNumberOfNexts = len(locationCards)/numberOfDisplayCards
+	elif cardsBeingDisplayed == "Monster":
+		maxNumberOfNexts = len(monsterCards)/numberOfDisplayCards
+	elif cardsBeingDisplayed == "Battle":
+		maxNumberOfNexts = len(battleCards)/numberOfDisplayCards
+	elif cardsBeingDisplayed == "Strategy":
+		maxNumberOfNexts = len(strategyCards)/numberOfDisplayCards
+	
+	if numberOfTimesNextPressed >= maxNumberOfNexts:
+		pass
+		#it's as far as it can go
+	else:
+		numberOfTimesNextPressed += 1
+		
+	
+	if cardsBeingDisplayed == "Location":
+		DisplayLocationCards()
+	elif cardsBeingDisplayed == "Monster":
+		DisplayMonsterCards()
+	elif cardsBeingDisplayed == "Battle":
+		DisplayBattleCards()
+	elif cardsBeingDisplayed == "Strategy":
+		DisplayStrategyCards()
 
 
 func _on_LocationCardsButton_pressed():

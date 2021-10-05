@@ -1,0 +1,8 @@
+Darrel
+thirdSample.png
+this is Darrel's description
+3
+at the start of the battle, the first monster to stand gains 100 power. 
+Each time a battle card is played, if the card is played by the owner of
+the creature who stood second on the card, there is a 1 in 8 chance the card hello ther
+testlocationscript.gd
