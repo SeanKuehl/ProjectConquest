@@ -31,11 +31,11 @@ func _ready():
 	Settings.SetPanelToTheme($Panel)
 	
 	
-#	var returnedVals = MusicManager.GetCurrentMenuMusic()	#first is music, second is position in song
-#	var song = returnedVals[0]
-#	var songPos = returnedVals[1]
-#	$MenuMusic.stream = song
-#	$MenuMusic.play(songPos)
+	var returnedVals = MusicManager.GetCurrentMenuMusic()	#first is music, second is position in song
+	var song = returnedVals[0]
+	var songPos = returnedVals[1]
+	$MenuMusic.stream = song
+	$MenuMusic.play(songPos)
 	
 	listOfDecks = GetFilePathsInDirectory(savedDecksDirectory)	#load decks
 	#deckName = deckName[0]
@@ -210,7 +210,7 @@ func PlayerSelectedDeck(button):
 
 
 func _on_DeckButton1_pressed():
-	#MusicManager.SetMenuMusicPlaybackPosition($MenuMusic.get_playback_position())
+	MusicManager.SetMenuMusicPlaybackPosition($MenuMusic.get_playback_position())
 	
 	#put an if statement here, if a global variable is true, when they click they select a deck
 	if DeckMenuHelper.GetPlayersSelectingDecksForBattle():
@@ -220,7 +220,7 @@ func _on_DeckButton1_pressed():
 
 
 func _on_DeckButton3_pressed():
-	#MusicManager.SetMenuMusicPlaybackPosition($MenuMusic.get_playback_position())
+	MusicManager.SetMenuMusicPlaybackPosition($MenuMusic.get_playback_position())
 	
 	if DeckMenuHelper.GetPlayersSelectingDecksForBattle():
 		PlayerSelectedDeck($DeckButton3)
@@ -230,7 +230,7 @@ func _on_DeckButton3_pressed():
 
 
 func _on_DeckButton4_pressed():
-	#MusicManager.SetMenuMusicPlaybackPosition($MenuMusic.get_playback_position())
+	MusicManager.SetMenuMusicPlaybackPosition($MenuMusic.get_playback_position())
 	
 	if DeckMenuHelper.GetPlayersSelectingDecksForBattle():
 		PlayerSelectedDeck($DeckButton4)
@@ -240,7 +240,7 @@ func _on_DeckButton4_pressed():
 
 
 func _on_DeckButton2_pressed():
-	#MusicManager.SetMenuMusicPlaybackPosition($MenuMusic.get_playback_position())
+	MusicManager.SetMenuMusicPlaybackPosition($MenuMusic.get_playback_position())
 	
 	if DeckMenuHelper.GetPlayersSelectingDecksForBattle():
 		PlayerSelectedDeck($DeckButton2)
@@ -250,7 +250,7 @@ func _on_DeckButton2_pressed():
 
 
 func _on_CreateNewDeckButton_pressed():
-	#MusicManager.SetMenuMusicPlaybackPosition($MenuMusic.get_playback_position())
+	MusicManager.SetMenuMusicPlaybackPosition($MenuMusic.get_playback_position())
 	
 	if DeckMenuHelper.GetPlayersSelectingDecksForBattle():
 		pass
@@ -263,7 +263,7 @@ func _on_CreateNewDeckButton_pressed():
 
 
 func _on_BackButton_pressed():
-	#MusicManager.SetMenuMusicPlaybackPosition($MenuMusic.get_playback_position())
+	MusicManager.SetMenuMusicPlaybackPosition($MenuMusic.get_playback_position())
 	
 	if DeckMenuHelper.GetPlayersSelectingDecksForBattle():
 		pass

@@ -89,29 +89,29 @@ func StopBattleMusic():
 
 	
 func _physics_process(_delta):
-	pass
+	
 	#there is a game state function that calls a func here to make the music stop
 	#playing once battle is done so this should work
-#	if GameState.GetBattleState() == "" and $GameMusic.is_playing() == false:
-#		#there is no battle going on and no music is playing
-#		#stop the last music
-#		$GameMusic.stop()
-#
-#		#play a new game music
-#		$GameMusic.stream = MusicManager.GetGameMusic()
-#		$GameMusic.play()
-#
-#
-#	elif GameState.GetBattleState() != "" and $GameMusic.is_playing() == true and battleMusicOn == false:
-#		#if there is a battle and the game music is still playing
-#		#stop it and start some battle music
-#		$GameMusic.stop()
-#
-#		battleMusicOn = true
-#
-#		#play a new battle music
-#		$GameMusic.stream = MusicManager.GetBattleMusic()
-#		$GameMusic.play()
+	if GameState.GetBattleState() == "" and $GameMusic.is_playing() == false:
+		#there is no battle going on and no music is playing
+		#stop the last music
+		$GameMusic.stop()
+
+		#play a new game music
+		$GameMusic.stream = MusicManager.GetGameMusic()
+		$GameMusic.play()
+
+
+	elif GameState.GetBattleState() != "" and $GameMusic.is_playing() == true and battleMusicOn == false:
+		#if there is a battle and the game music is still playing
+		#stop it and start some battle music
+		$GameMusic.stop()
+
+		battleMusicOn = true
+
+		#play a new battle music
+		$GameMusic.stream = MusicManager.GetBattleMusic()
+		$GameMusic.play()
 		
 
 	

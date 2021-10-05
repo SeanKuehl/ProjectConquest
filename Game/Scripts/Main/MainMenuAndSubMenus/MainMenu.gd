@@ -12,16 +12,16 @@ func _ready():
 	Settings.SetPanelToTheme($Panel)
 	
 	
-#	if firstTimeCalled:
-#		MusicManager.LoadMusic()	#only need to call this once
-#		firstTimeCalled = false
-#
-#
-#	var returnedVals = MusicManager.GetCurrentMenuMusic()	#first is music, second is position in song
-#	var song = returnedVals[0]
-#	var songPos = returnedVals[1]
-#	$MenuMusic.stream = song
-#	$MenuMusic.play(songPos)
+	if firstTimeCalled:
+		MusicManager.LoadMusic()	#only need to call this once
+		firstTimeCalled = false
+
+
+	var returnedVals = MusicManager.GetCurrentMenuMusic()	#first is music, second is position in song
+	var song = returnedVals[0]
+	var songPos = returnedVals[1]
+	$MenuMusic.stream = song
+	$MenuMusic.play(songPos)
 
 
 func _on_QuitButton_pressed():
