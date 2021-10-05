@@ -67,18 +67,25 @@ func SetMenuMusicPlaybackPosition(pos):
 	menuMusicPlayPosition = pos
 
 func LoadMusicInDirectory(musicType, dir):
+	#change this to get the .import files and take off the .import ending
+	#because only the .imports are there in the exported version
 	
 	var allFiles = GetFilePathsInDirectory(dir)
 	#there's both the audio files and the import files in the directory
 	#remove every other element, we can't play and don't want to play the import files
-	var isMusicFile = true
+	
 	var musicFiles = []
 	for x in allFiles:
-		if isMusicFile:
+		#if music file ends in ".import", cut off the ".import" and 
+		#load it
+		#this explains what this mess is: https://godotengine.org/qa/96597/audio-crashes-and-missing-on-exported-project-3-2-3
+		
+		if x.ends_with(".import"):
+			
+			x.erase(len(x)-7,7)
+			
 			musicFiles.append(x)
-			isMusicFile = false
-		else:
-			isMusicFile = true
+			
 		
 	
 	if musicType == "menu":
