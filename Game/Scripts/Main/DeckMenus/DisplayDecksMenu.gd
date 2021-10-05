@@ -6,6 +6,8 @@ var savedDecksDirectory = "res://Game/Assets/SavedDecksFolder/"
 
 var listOfDecks = []
 
+var numberOfTimesNextPressed = 0
+
 func _ready():
 	
 	
@@ -43,6 +45,7 @@ func _ready():
 	DisplayDecks()
 
 func DisplayDecks():
+	
 	#if there are no decks, hide the buttons or don't do anything
 	var startingDeckDisplayIndex = 1
 	var maxDeckDisplayIndex = 4
@@ -52,7 +55,26 @@ func DisplayDecks():
 			var tempDeck = listOfDecks[x-1]	#listOfDecks starts at zero, so -1
 			tempDeck.erase(0, len(savedDecksDirectory))
 			get_node("DeckButton"+str(x)).text = tempDeck
-	
+	elif len(listOfDecks) > maxDeckDisplayIndex:
+		var startingIndex = startingDeckDisplayIndex + (numberOfTimesNextPressed * maxDeckDisplayIndex)
+		var index = 1
+		
+		for x in range(startingIndex, startingIndex+maxDeckDisplayIndex+1):
+			#+1 because max is inclusive
+			
+			if (x-1) < (len(listOfDecks)-1) and index <= maxDeckDisplayIndex:
+				
+				var tempDeck = listOfDecks[x-1]	#listOfDecks starts at zero, so -1
+				tempDeck.erase(0, len(savedDecksDirectory))
+				get_node("DeckButton"+str(index)).text = tempDeck
+				index += 1
+			elif (x-1) > (len(listOfDecks)-1) and index <= maxDeckDisplayIndex:
+				#clear the button text
+				
+				get_node("DeckButton"+str(index)).text = ""	#must be this otherwise it will try and use it
+				index += 1
+			else:
+				pass
 
 #dir is the path to a dictory
 #this function takes a directory and returns the full paths to files, ["c:/hello.txt"] for example
@@ -269,3 +291,20 @@ func _on_BackButton_pressed():
 		pass
 	else:
 		get_tree().change_scene("res://Game/Scenes/Main/MainMenuAndSubMenus/MainMenu.tscn")
+
+
+func _on_NextButton_pressed():
+	var maxNumberOfDecks = 4
+	if numberOfTimesNextPressed >= len(listOfDecks)/maxNumberOfDecks:
+		pass
+	else:
+		numberOfTimesNextPressed += 1
+		DisplayDecks()
+
+
+func _on_LastButton_pressed():
+	if numberOfTimesNextPressed == 0:
+		pass
+	else:
+		numberOfTimesNextPressed -= 1
+		DisplayDecks()
