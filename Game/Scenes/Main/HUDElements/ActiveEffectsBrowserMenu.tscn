@@ -55,6 +55,7 @@ __meta__ = {
 margin_right = 520.0
 margin_bottom = 340.0
 rect_min_size = Vector2( 520, 340 )
+autowrap = true
 
 [node name="CloseButton" type="Button" parent="."]
 margin_left = 418.818
