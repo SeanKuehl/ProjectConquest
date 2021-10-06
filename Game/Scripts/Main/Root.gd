@@ -48,6 +48,9 @@ func _ready():
 	#hide these menus, they'll be made visible only when the user needs to use them
 	#get_node("AttackMenu").hide()
 	
+	#apply the universal button theme to the "end phase" button
+	Settings.SetButtonToTheme($"End Phase")
+	
 	
 	get_node("StrategyCardMenu").hide()
 	get_node("VictoryScreen").hide()
