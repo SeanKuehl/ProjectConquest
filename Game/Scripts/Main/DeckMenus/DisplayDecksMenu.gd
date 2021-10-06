@@ -62,13 +62,13 @@ func DisplayDecks():
 		for x in range(startingIndex, startingIndex+maxDeckDisplayIndex+1):
 			#+1 because max is inclusive
 			
-			if (x-1) < (len(listOfDecks)-1) and index <= maxDeckDisplayIndex:
+			if (x-1) < (len(listOfDecks)) and index <= maxDeckDisplayIndex:
 				
 				var tempDeck = listOfDecks[x-1]	#listOfDecks starts at zero, so -1
 				tempDeck.erase(0, len(savedDecksDirectory))
 				get_node("DeckButton"+str(index)).text = tempDeck
 				index += 1
-			elif (x-1) > (len(listOfDecks)-1) and index <= maxDeckDisplayIndex:
+			elif (x-1) > (len(listOfDecks)) and index <= maxDeckDisplayIndex:
 				#clear the button text
 				
 				get_node("DeckButton"+str(index)).text = ""	#must be this otherwise it will try and use it

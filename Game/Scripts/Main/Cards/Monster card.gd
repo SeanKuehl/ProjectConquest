@@ -129,7 +129,7 @@ func init(passedFile, passedOwner):
 		
 		for x in range(textFileIndex+1, textFileIndex+linesOfTextOfAttack+1):
 			#+1 because max is exclusive
-			thisAttack += content[x]
+			thisAttack += content[x] + "\n"		#this is completely seperate from the attack that comes next so more than a space is needed
 			
 		
 		textFileIndex += linesOfTextOfAttack+1	#skip to the next line after the attack

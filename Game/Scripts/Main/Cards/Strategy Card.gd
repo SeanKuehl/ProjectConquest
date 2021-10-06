@@ -115,7 +115,7 @@ func init(passedFile, passedOwner):
 		var effectLinesStartIndex = 4
 		var customScriptIndex = 4
 		for x in range(effectLinesStartIndex,effectLinesStartIndex+numberOfEffectLines):
-			effect += content[x]
+			effect += content[x] + " "	
 			customScriptIndex += 1
 			
 		customScript = content[customScriptIndex]
