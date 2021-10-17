@@ -52,9 +52,9 @@ func _ready():
 	
 	#apply the universal button theme to the "end phase" button
 	Settings.SetButtonToTheme($"End Phase")
+	get_node("StrategyCardMenu").HideMyStuff()
 	
 	
-	get_node("StrategyCardMenu").hide()
 	get_node("VictoryScreen").hide()
 	
 	get_node("StrategyCardMenu").connect("userMadeSelection", self, "UserSelectedFromStrategyCardMenu")
@@ -180,7 +180,7 @@ func UserSelectedFromStrategyCardMenu(caller):
 	elif caller == "signal":
 		#close the last menu
 		get_node("StrategyCardMenu").SetTextToShowUser("")
-		get_node("StrategyCardMenu").hide()
+		get_node("StrategyCardMenu").HideMyStuff()
 		
 		var dockNum = get_node("StrategyCardMenu").GetLocationDockToReturn()
 		get_node("StrategyCardMenu").SetLocationDockToReturn(-1)	#reset it for next time, -1 is good here because it's not a valid dock index so if it were returned when it shouldn't be it would throw an error
@@ -573,8 +573,8 @@ func HandleStrategyCardMenu(text):
 		GameState.SetLocationCardAtIndexToHidden(x)
 	
 	get_node("StrategyCardMenu").SetTextToShowUser(text)
-	get_node("StrategyCardMenu").rect_global_position = menuLocation
-	get_node("StrategyCardMenu").show()
+	#get_node("StrategyCardMenu").rect_global_position = menuLocation
+	get_node("StrategyCardMenu").ShowMyStuff()
 	
 	
 	

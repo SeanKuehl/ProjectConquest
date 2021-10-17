@@ -67,12 +67,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="StrategyCardMenu" parent="." instance=ExtResource( 7 )]
-margin_left = 979.913
-margin_top = -92.9901
-margin_right = 979.913
-margin_bottom = -92.9901
-
 [node name="VictoryScreen" parent="." instance=ExtResource( 10 )]
 margin_left = 1032.56
 margin_top = 636.565
@@ -90,6 +84,8 @@ margin_bottom = 636.565
 [node name="ActiveEffectsMenu" parent="." instance=ExtResource( 12 )]
 
 [node name="AttackMenu" parent="." instance=ExtResource( 5 )]
+
+[node name="StrategyCardMenu" parent="." instance=ExtResource( 7 )]
 
 [node name="GameMusic" type="AudioStreamPlayer" parent="."]
 

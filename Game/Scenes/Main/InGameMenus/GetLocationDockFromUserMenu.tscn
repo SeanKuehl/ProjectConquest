@@ -2,16 +2,11 @@
 
 [ext_resource path="res://Game/Scripts/Main/InGameMenus/GetLocationDockFromUserMenu.gd" type="Script" id=1]
 
-[node name="StrategyCardMenu" type="Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="CanvasLayer" type="CanvasLayer"]
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Panel" type="Panel" parent="."]
-margin_right = 1010.0
+margin_right = 1029.0
 margin_bottom = 601.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -86,12 +81,8 @@ margin_bottom = 235.834
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="pressed" from="LocationDockOneButton" to="." method="_on_LocationDockOneButton_pressed"]
-[connection signal="pressed" from="LocationDockTwoButton" to="." method="_on_LocationDockTwoButton_pressed"]
-[connection signal="pressed" from="LocationDockThreeButton" to="." method="_on_LocationDockThreeButton_pressed"]
-[connection signal="pressed" from="LocationDockFourButton" to="." method="_on_LocationDockFourButton_pressed"]
-[connection signal="pressed" from="LocationDockFiveButton" to="." method="_on_LocationDockFiveButton_pressed"]
-[connection signal="pressed" from="LocationDockSixButton" to="." method="_on_LocationDockSixButton_pressed"]
-[connection signal="pressed" from="LocationDockSevenButton" to="." method="_on_LocationDockSevenButton_pressed"]
-[connection signal="pressed" from="LocationDockEightButton" to="." method="_on_LocationDockEightButton_pressed"]
-[connection signal="pressed" from="LocationDockNineButton" to="." method="_on_LocationDockNineButton_pressed"]
+
+[node name="HideTimer" type="Timer" parent="."]
+wait_time = 0.001
+one_shot = true
+[connection signal="timeout" from="HideTimer" to="." method="_on_HideTimer_timeout"]
