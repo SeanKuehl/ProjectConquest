@@ -96,4 +96,9 @@ margin_bottom = 636.565
 [node name="FullScreenInGameMenu" parent="." instance=ExtResource( 13 )]
 
 [node name="CardActivationScreen" parent="." instance=ExtResource( 15 )]
+
+[node name="TurnChangeTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
 [connection signal="pressed" from="End Phase" to="." method="_on_End_Phase_pressed"]
+[connection signal="timeout" from="TurnChangeTimer" to="." method="_on_TurnChangeTimer_timeout"]

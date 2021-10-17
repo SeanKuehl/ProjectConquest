@@ -760,6 +760,86 @@ func PutMonsterCardsIntoUsedPiles():
 			playerTwoUsedMonsterCards.append(card)
 		
 	
+func MoveLocationCardToAndFromUsedPile():
+	#first test: move a location card to the used pile and back again
+	#process is different for different cards, this may be why past approaches failed as they didn't account for that
+	var card = playerOneUnusedLocationCards[0]
+	
+	#this is what happens to it when it is docked into location card dock, minus some minor things
+	card.hide()
+	card.set_process(false)
+	card.set_physics_process(false)
+	card.set_process_input(false)
+					
+	card.SetCardIsDocked(true)
+	
+	
+	
+	card.SetIsDocked(false)
+				
+	#remove the card from the unused pile
+	playerOneUnusedLocationCards.erase(card)	#this should remove the reference to the location card from the list
+				
+	playerOneUsedLocationCards.append(card)	#now add the reference to the used cards
+				
+	#in this test it's not in active cards list
+	
+	
+	var cardToMoveBack = playerOneUsedLocationCards[0]
+	
+	#this is needed because otherwise the card will be docked but won't show until location dock is reselected again
+	card.show()
+	card.set_process(true)
+	card.set_physics_process(true)
+	card.set_process_input(true)
+					
+	#card.SetCardIsDocked(true)
+	#don't set the other isdocked thing as that's a location dock thing
+	playerOneUsedLocationCards.erase(card)	#this should remove the reference to the location card from the list
+				
+	playerOneUnusedLocationCards.append(card)	#now add the reference to the used cards
+	#when it's moved from the used pile, you'll need to load the player's cards for it 
+	#to be made visible again and be used
+	sceneRoot.CallLoadPlayerCardsFromGameState(GetPlayerOneUnusedCards())
+	
+func MovingCardsFromUsedPilesTest():
+	#second test is monster cards
+	var card = playerOneUnusedMonsterCards[0]
+	
+	#this is what is done to the card when it is docked in the location card dock
+	card.hide()
+	card.set_process(false)
+	card.set_physics_process(false)
+	card.set_process_input(false)
+	card.SetCardIsDocked(true)
+	card.SetCardInvolvedInBattle(true)
+	
+	
+	playerOneUnusedMonsterCards.erase(card)
+	card.SetCardIsDocked(false)	#card is officially no longer a part of a battle
+	card.SetCardInvolvedInBattle(false)	#if this stays true, load cards in card dock will show it and clear all here won't clear it
+	playerOneUsedMonsterCards.append(card)
+	
+	#clearall
+	#get player one unused cards only has 4 monster cards, but the dock displays 5. There must be something wrong with this function call
+	#something happens with loadplayercards in root that doesn't happen here!
+	#maybe it's just not hiding the fifth/whatever card because it was already there?
+	#sceneRoot.CallLoadPlayerCardsFromGameState(GetPlayerOneUnusedCards())
+	
+	#move it back
+#	var cardToMoveBack = playerOneUsedMonsterCards[0]
+#
+#	#card.show()
+#	card.set_process(true)
+#	card.set_physics_process(true)
+#	card.set_process_input(true)
+#
+#	playerOneUsedMonsterCards.erase(card)
+#	playerOneUnusedMonsterCards.append(card)
+#
+#	sceneRoot.CallLoadPlayerCardsFromGameState(GetPlayerOneUnusedCards())
+#
+	
 func PutActiveCardsIntoUsedPiles():
 	#for battle cards set "cardisinvolvedinbattle" to false
 	#only battle and location cards can become active cards
