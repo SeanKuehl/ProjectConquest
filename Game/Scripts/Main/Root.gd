@@ -52,12 +52,13 @@ func _ready():
 	
 	#apply the universal button theme to the "end phase" button
 	Settings.SetButtonToTheme($"End Phase")
-	get_node("StrategyCardMenu").HideMyStuff()
+	
 	
 	
 	get_node("VictoryScreen").hide()
 	
 	get_node("StrategyCardMenu").connect("userMadeSelection", self, "UserSelectedFromStrategyCardMenu")
+	get_node("StrategyCardMenu").HideMyStuff()
 	
 	GameState.SetLocationDocks(listOfLocationDocks)	#set the game state reference lists to the location docks on the field of play
 	
@@ -175,6 +176,7 @@ func UserSelectedFromStrategyCardMenu(caller):
 	#this could either be called for the first time, or from the signal
 	
 	if caller == "first time":
+		
 		strategyCardBeingHandled.ActivatePreparation()
 		locationDockNumbersList = []	#clear it incase this is no the first strategy card played
 	elif caller == "signal":
@@ -186,6 +188,7 @@ func UserSelectedFromStrategyCardMenu(caller):
 		get_node("StrategyCardMenu").SetLocationDockToReturn(-1)	#reset it for next time, -1 is good here because it's not a valid dock index so if it were returned when it shouldn't be it would throw an error
 		
 		locationDockNumbersList.append(dockNum)
+		
 		
 		#keep calling preparation until we get "done"
 		var possibleDone = strategyCardBeingHandled.ActivatePreparation()
@@ -664,3 +667,5 @@ func _on_TurnChangeTimer_timeout():
 		else:
 			get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
 			timerCodeToExecute = ""
+
+

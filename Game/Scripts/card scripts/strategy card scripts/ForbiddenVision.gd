@@ -28,9 +28,9 @@ func Effect():
 	var values = GameState.GetStrategyPreparationValues()
 	
 	#get card at that index to emit_signal("userWantsToDisplayCard", cardName, cardPicture, cardDescription)
-	GameState.DisplayLocationCardAtIndex(values[0])
+	GameState.DisplayLocationCardAtIndex(values[0]-1)	#the -1 is here because the returned index is 1-9 not 0-8 which is how they are accessed in the list
 	
-	print("strategy card effect worked")
+	
 	
 	
 	return "Success"	#if the card effect could not be played/work, return "Fail"
