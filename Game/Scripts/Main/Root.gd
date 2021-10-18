@@ -79,7 +79,8 @@ func _ready():
 	get_node("Dock").LoadPlayerCards(GameState.GetPlayerOneUnusedCards())
 	
 	#this is temporary for a test
-	GameState.MovingCardsFromUsedPilesTest()
+	#GameState.MoveLocationCardToAndFromUsedPile()
+	#GameState.MovingCardsFromUsedPilesTest()
 	
 	#it's now a canvas layer, position isn't needed
 	#var centerOfMiddleLocationDockX = 140
@@ -200,6 +201,7 @@ func UserSelectedFromStrategyCardMenu(caller):
 			
 			get_node("LocationDock1").StrategyCardActivateEffectHelperCode(strategyCardBeingHandled)	#it doesn't matter which dock executes this function since nothing is stored in location dock
 	
+			#do I every actually put strategy cards into the used pile?
 	
 #card is a reference to a strategy card
 func SetStrategyCardBeingHandled(card):
