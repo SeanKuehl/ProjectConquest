@@ -351,7 +351,15 @@ func MonsterCardPhaseHelperCode():
 					GameState.AddCardToActiveCardList(storedCard)
 					GameState.RegisterBattleStarted(intIndex, lastPlayerToLand)
 					
-					emit_signal("BattleStarted")
+					
+					
+					emit_signal("BattleStarted")	#this will trigger any cards or things with an onbattlestarted effect
+					
+					#filter the monster information when the battle starts so the on battle effects
+					#have their changes shown
+					var newDataToSet = GameState.FilterMonsterData(GameState.GetPlayerMonsterDataAtCurrentBattleIndex(GameState.GetPlayerBattleTurn()))
+					GameState.SetPlayerMonsterDataAtCurrentBattleIndex(GameState.GetPlayerBattleTurn(), newDataToSet)
+	
 					
 					
 				
@@ -391,6 +399,13 @@ func MonsterCardPhaseHelperCode():
 					GameState.RegisterBattleStarted(intIndex, lastPlayerToLand)
 					
 					emit_signal("BattleStarted")
+					
+					
+					#filter the monster information when the battle starts so the on battle effects
+					#have their changes shown
+					var newDataToSet = GameState.FilterMonsterData(GameState.GetPlayerMonsterDataAtCurrentBattleIndex(GameState.GetPlayerBattleTurn()))
+					GameState.SetPlayerMonsterDataAtCurrentBattleIndex(GameState.GetPlayerBattleTurn(), newDataToSet)
+					
 	
 func MonsterCardPhaseHelperCodeTestingStub(draggedOn, cardIsDocked, cardType, inUsedPile, cardOwner, thereIsCardOwnerMonster, turnState, battleStarted, thereIsOtherPlayerMonster):
 	if draggedOn == false and cardIsDocked == false:
