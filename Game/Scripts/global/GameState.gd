@@ -204,26 +204,25 @@ func ChangeTurnState():
 		print("ERROR: there was a typo with turn state")
 	
 #player is either "PlayerOne" or "PlayerTwo"
-func MoveAllDockedStrategyCardsToUsedPile(player):
+func MoveStrategyCardToUsedPile(card, player):
 	#a strategy card's cardIsDocked is only set if it is used
 	#and this function only called if it is used successfully
-	
+	#GameState.MoveStrategyCardToUsedPile(card, player)
 	if player == "PlayerOne":
 		#remember that if I wanted to use this card again, I would
 		#have to set it's cardIsDocked to false again
-		for x in playerOneUnusedStrategyCards:
-			if x.GetCardIsDocked():
-				x.SetCardInvolvedInBattle(true)	#this way the card will not be placed back in the dock
-				x.hide()	#hide them, otherwise they will show up overtop of the cards in the card dock
-				playerOneUnusedStrategyCards.erase(x)
-				playerOneUsedStrategyCards.append(x)
+		
+		card.SetCardInvolvedInBattle(true)	#this way the card will not be placed back in the dock
+		card.hide()	#hide them, otherwise they will show up overtop of the cards in the card dock
+		playerOneUnusedStrategyCards.erase(card)
+		playerOneUsedStrategyCards.append(card)
+		
 	else:
-		for x in playerTwoUnusedStrategyCards:
-			if x.GetCardIsDocked():
-				x.SetCardInvolvedInBattle(true)	#this way the card will not be placed back in the dock
-				x.hide()	#hide them, otherwise they will show up overtop of the cards in the card dock
-				playerTwoUnusedStrategyCards.erase(x)
-				playerTwoUsedStrategyCards.append(x)
+		
+		card.SetCardInvolvedInBattle(true)	#this way the card will not be placed back in the dock
+		card.hide()	#hide them, otherwise they will show up overtop of the cards in the card dock
+		playerTwoUnusedStrategyCards.erase(card)
+		playerTwoUsedStrategyCards.append(card)
 	
 
 func GetOneCardBackFromUsedPile(cardType, player):

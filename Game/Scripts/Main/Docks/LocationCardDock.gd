@@ -605,7 +605,7 @@ func StrategyCardActivateEffectHelperCode(card):
 	if effectOutcome == "Success":
 		GameState.SetTurnOver(true)	#you've played a card successfully, prevent them from playing anothe
 		#the card has done it's effect, move it to the used pile
-		GameState.MoveAllDockedStrategyCardsToUsedPile(card.GetCardOwner())
+		GameState.MoveStrategyCardToUsedPile(card, card.GetCardOwner())
 			#enable the player to play a strategy card again
 		#they played the card and it was successfully played, end the phase
 		#now that the player has played a strategy card, their turn is over
