@@ -43,7 +43,6 @@ var locationDockNumbersList = []	#this temporarily stores the values of location
 
 var battleMusicOn = false
 
-var timerCodeToExecute = ""	#this is either, turn change, battle turn change, or change to battle card phase
 
 
 func _ready():
@@ -267,8 +266,8 @@ func SwitchToBattleCardPhase():
 	GameState.SetLocationCardAtIndexToRevealed(GameState.GetindexOfActiveLocationCardDock())
 	get_node("AttackMenu").HideMyStuff()
 	
-	timerCodeToExecute = "SwitchToBattleCardPhase"
-	$TurnChangeTimer.start()
+	GameState.SetBattleState("BattleCardPhase")	#this phase allows battle cards to be dragged onto location card docks
+		
 	
 	#GameState.SetBattleState("BattleCardPhase")	#this phase allows battle cards to be dragged onto location card docks
 	
@@ -585,16 +584,47 @@ func HandleStrategyCardMenu(text):
 	
 func EndCurrentPlayerTurn():
 	
-	timerCodeToExecute = "currentTurn"
-	$TurnChangeTimer.start()
+	get_node("Dock").ClearAll()	#wipe the data in card dock
+	
+	GameState.ClearPlayerCards(GameState.GetCurrentTurn())	#make the unused cards of the current player(the ones that would be in the dock) invisible and unusable
+	GameState.ChangeCurrentTurn()
+		
+	get_node("Dock").SetButtonHighlightToDefault()
+	get_node("Display").ClearDisplay()
+	
+	get_node("TurnTransitionMenu").SetWhoseTurnNext(GameState.GetCurrentTurn())
+	get_node("TurnTransitionMenu").ShowMyStuff()
+		
+	if GameState.GetCurrentTurn() == "PlayerOne":
+		get_node("Dock").LoadPlayerCards(GameState.GetPlayerOneUnusedCards())
+	else:
+		get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
+		
+			
+			
 	
 	
 	
 func EndCurrentPlayerBattleTurn():
 	#use player battle turn not current turn
 	
-	timerCodeToExecute = "battleTurn"
-	$TurnChangeTimer.start()
+	get_node("Dock").ClearAll()	#wipe the data in card dock
+			
+			
+	GameState.ClearPlayerCards(GameState.GetPlayerBattleTurn())	#make the unused cards of playerone(the ones that would be in the dock) invisible and unusable
+	GameState.ChangePlayerBattleTurn()
+		
+	get_node("Dock").SetButtonHighlightToDefault()
+	get_node("Display").ClearDisplay()
+		
+	get_node("TurnTransitionMenu").SetWhoseTurnNext(GameState.GetPlayerBattleTurn())
+	get_node("TurnTransitionMenu").ShowMyStuff()
+				
+	if GameState.GetPlayerBattleTurn() == "PlayerOne":
+		get_node("Dock").LoadPlayerCards(GameState.GetPlayerOneUnusedCards())
+	else:
+		get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
+			
 	
 	
 			
@@ -604,9 +634,15 @@ func EndCurrentPlayerBattleTurn():
 
 
 func _on_End_Phase_pressed():
-	if GameState.GetTurnState() == "Setup":
-		#you can't get out of setup
-		pass
+	if GameState.GetTurnState() == "Setup" and GameState.GetTurnOver() == true:
+		if GameState.GetCurrentTurn() == "PlayerTwo":
+			GameState.ChangeTurnState()	#from setup phase, it will change to location card phase
+		
+		EndCurrentPlayerTurn()
+		GameState.SetTurnOver(false)
+		
+	
+		
 	elif GameState.GetThereIsActiveBattle():
 		#you can't change turn phase during a battle, unless it's the battle card phase, the monster attack phase has a different skip button
 		
@@ -615,59 +651,26 @@ func _on_End_Phase_pressed():
 			HandleFilteredBattleCard([], [])	#this will trigger the turns to change
 			#this replaces the skip battle card phase button
 		
+	
+	elif GameState.GetTurnState() == "MonsterCardPhase":
+		#don't need to check for turn over because player doesn't have to play a card here
+		GameState.ChangeTurnState()
+		GameState.SetTurnOver(false)
+		
+	elif GameState.GetTurnState() == "StrategyCardPhase":
+		#don't need to check for turn over because player doesn't have to play a card here
+		GameState.ChangeTurnState()
+		GameState.SetTurnOver(false)	#set it to false in case they played a card
+		EndCurrentPlayerTurn()
+		
 	else:
 		GameState.ChangeTurnState()	#this acts as a 'skip' in case you don't want to play any cards of that type
 		
-		if GameState.GetTurnState() == "LocationCardPhase":
+		if GameState.GetTurnState() == "LocationCardPhase" and GameState.GetTurnOver() == true:
 			#change to other player's turn
+			
 			EndCurrentPlayerTurn()
-
-
-func _on_TurnChangeTimer_timeout():
-	
-	if timerCodeToExecute == "SwitchToBattleCardPhase": 
-	
-		GameState.SetBattleState("BattleCardPhase")	#this phase allows battle cards to be dragged onto location card docks
-		timerCodeToExecute = ""
-		
-	elif timerCodeToExecute == "currentTurn":
-		
-		get_node("Dock").ClearAll()	#wipe the data in card dock
-	
-		GameState.ClearPlayerCards(GameState.GetCurrentTurn())	#make the unused cards of the current player(the ones that would be in the dock) invisible and unusable
-		GameState.ChangeCurrentTurn()
-		
-		get_node("Dock").SetButtonHighlightToDefault()
-		get_node("Display").ClearDisplay()
-		
-		get_node("TurnTransitionMenu").SetWhoseTurnNext(GameState.GetCurrentTurn())
-		get_node("TurnTransitionMenu").ShowMyStuff()
-		
-		if GameState.GetCurrentTurn() == "PlayerOne":
-			get_node("Dock").LoadPlayerCards(GameState.GetPlayerOneUnusedCards())
-		else:
-			get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
-		
 			
-			timerCodeToExecute = ""
-			
-	elif timerCodeToExecute == "battleTurn":
-		get_node("Dock").ClearAll()	#wipe the data in card dock
-			
-			
-		GameState.ClearPlayerCards(GameState.GetPlayerBattleTurn())	#make the unused cards of playerone(the ones that would be in the dock) invisible and unusable
-		GameState.ChangePlayerBattleTurn()
-		
-		get_node("Dock").SetButtonHighlightToDefault()
-		get_node("Display").ClearDisplay()
-		
-		get_node("TurnTransitionMenu").SetWhoseTurnNext(GameState.GetPlayerBattleTurn())
-		get_node("TurnTransitionMenu").ShowMyStuff()
-				
-		if GameState.GetPlayerBattleTurn() == "PlayerOne":
-			get_node("Dock").LoadPlayerCards(GameState.GetPlayerOneUnusedCards())
-		else:
-			get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
-			timerCodeToExecute = ""
+		GameState.SetTurnOver(false)	#enable cards and things again
 
 

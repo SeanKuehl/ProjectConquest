@@ -73,6 +73,14 @@ var playerTwoStrategyCardDeck = []
 
 var firstTimeCalled = true
 
+var turnOver = false	#this is set to true once the player has done what they need to do that turn, then the player must press the end turn button to change turns
+
+
+func GetTurnOver():
+	return turnOver
+	
+func SetTurnOver(newValue):
+	turnOver = newValue
 
 func GetSetADeckFirstTime():
 	return firstTimeCalled

@@ -67,7 +67,7 @@ func GetMonsterAttribute(player):
 
 func LocationCardPhysicsProcessCode():
 	#you can only play a location card during setup, or during location card phase
-	if GameState.GetTurnState() == "Setup":
+	if GameState.GetTurnState() == "Setup" and GameState.GetTurnOver() == false:
 		#then end the player's turn after they dock the location card
 		#typeof(storedCard) != TYPE_OBJECT checks if there is a stored card and it's not an integer, this will allow me to prevent the stacking of multiple location cards in a single location card dock
 		#add mouse in tile to fix issue where if you click and drag location card over dock it will still take it when you release click
@@ -93,14 +93,15 @@ func LocationCardPhysicsProcessCode():
 			
 			#if this is player two ending their turn due to it being the setup phase, 
 			#then the setup phase is now over and the phase is changed to the next one
-			if GameState.GetCurrentTurn() == "PlayerTwo":
-				GameState.ChangeTurnState()	#from setup phase, it will change to location card phase
+			GameState.SetTurnOver(true)
+			#if GameState.GetCurrentTurn() == "PlayerTwo":
+			#	GameState.ChangeTurnState()	#from setup phase, it will change to location card phase
 			
 			
 			#end the current player's turn, they've placed down their location card as their part of the setup phase
-			get_parent().EndCurrentPlayerTurn()
+			#get_parent().EndCurrentPlayerTurn()
 			
-	elif GameState.GetTurnState() == "LocationCardPhase" and GameState.GetBattleState() == "":
+	elif GameState.GetTurnState() == "LocationCardPhase" and GameState.GetBattleState() == "" and GameState.GetTurnOver() == false:
 		#make sure there's no battle somehow going on
 		
 		if cardHoveredOverArea.GetClickAndDraggedOn() == false and cardHoveredOverArea.GetCardIsDocked() == false and cardHoveredOverArea.GetCardType() == "Location" and typeof(storedCard) != TYPE_OBJECT and mouseIsInTile:
@@ -124,7 +125,8 @@ func LocationCardPhysicsProcessCode():
 			get_parent().ShowCardActivationScreen(storedCard.GetColorBackgroundColor(), storedCard.GetCardType(), storedCard.GetCardName())
 			#now that they have played a location card the location card phase is over
 			#switch to the next turn phase
-			GameState.ChangeTurnState()
+			GameState.SetTurnOver(true)
+			#GameState.ChangeTurnState()
 			
 func LocationCardPhysicsProcessCodeTestingStub(turnState, battleState, currentTurn, passedStoredCard, passedMouseIsInTile, draggedOn, cardIsDocked, cardType):
 	#you can only play a location card during setup, or during location card phase
@@ -201,7 +203,7 @@ func LocationCardPhysicsProcessCodeTestingStub(turnState, battleState, currentTu
 	
 func MonsterCardPhysicsProcessCode():
 	
-	if GameState.GetTurnState() == "MonsterCardPhase" and GameState.GetBattleState() == "":
+	if GameState.GetTurnState() == "MonsterCardPhase" and GameState.GetBattleState() == "" and GameState.GetTurnOver() == false:
 		#make sure there's no battle going on, and that it's the right phase
 		MonsterCardPhaseHelperCode()
 		
@@ -332,8 +334,8 @@ func MonsterCardPhaseHelperCode():
 				playerOneMonster = cardHoveredOverArea
 				thereIsPlayerOneMonster = true
 				#now that the player has placed a monster, change the turn to the next phase
-				GameState.ChangeTurnState()
-				
+				#GameState.ChangeTurnState()
+				GameState.SetTurnOver(true)
 				
 				#check if this is the second of two opposing monsters placed
 				if thereIsPlayerTwoMonster:
@@ -370,7 +372,8 @@ func MonsterCardPhaseHelperCode():
 				playerTwoMonster = cardHoveredOverArea
 				thereIsPlayerTwoMonster = true
 				#now that the player has placed a monster, change the turn to the next phase
-				GameState.ChangeTurnState()
+				#GameState.ChangeTurnState()
+				GameState.SetTurnOver(true)
 				
 				
 				#check if this is the second of two opposing monsters placed
@@ -573,7 +576,7 @@ func BattleCardPhysicsProcessCodeTestingStub(battleState, draggedOn, isDocked, c
 	
 func StrategyCardPhysicsProcessCode():
 	
-	if GameState.GetTurnState() == "StrategyCardPhase" and GameState.GetBattleState() == "":
+	if GameState.GetTurnState() == "StrategyCardPhase" and GameState.GetBattleState() == "" and GameState.GetTurnOver() == false:
 		#make sure there's no battle going on
 		StrategyCardPhaseHelperCode()
 	
@@ -590,6 +593,7 @@ func StrategyCardPhaseHelperCode():
 			get_parent().SetStrategyCardBeingHandled(cardHoveredOverArea)
 			get_parent().UserSelectedFromStrategyCardMenu("first time")
 			
+			
 #card is a reference to a strategy card
 #this function activates and handles the effect of a strategy card
 func StrategyCardActivateEffectHelperCode(card):
@@ -599,15 +603,16 @@ func StrategyCardActivateEffectHelperCode(card):
 			
 	
 	if effectOutcome == "Success":
+		GameState.SetTurnOver(true)	#you've played a card successfully, prevent them from playing anothe
 		#the card has done it's effect, move it to the used pile
 		GameState.MoveAllDockedStrategyCardsToUsedPile(card.GetCardOwner())
 			#enable the player to play a strategy card again
 		#they played the card and it was successfully played, end the phase
 		#now that the player has played a strategy card, their turn is over
 		#change the turn state and change the player turn
-		GameState.ChangeTurnState()
+		#GameState.ChangeTurnState()
 		
-		get_parent().EndCurrentPlayerTurn()
+		#get_parent().EndCurrentPlayerTurn()
 		GameState.SetStrategyCardBeingPlayed(false)
 				
 	elif effectOutcome == "Fail":
