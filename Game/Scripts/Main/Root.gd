@@ -177,7 +177,16 @@ func UserSelectedFromStrategyCardMenu(caller):
 	
 	if caller == "first time":
 		
-		strategyCardBeingHandled.ActivatePreparation()
+		var possibleDone = strategyCardBeingHandled.ActivatePreparation()
+		
+		#this happens if the card has no preparation and just returns "Done" on the first call
+		if possibleDone == "Done":
+			ShowCardActivationScreen(strategyCardBeingHandled.GetColorBackgroundColor(), strategyCardBeingHandled.GetCardType(), strategyCardBeingHandled.GetCardName())
+			GameState.SetStrategyPreparationValues(locationDockNumbersList)
+			
+			get_node("LocationDock1").StrategyCardActivateEffectHelperCode(strategyCardBeingHandled)	#it doesn't matter which dock executes this function since nothing is stored in location dock
+	
+		
 		locationDockNumbersList = []	#clear it incase this is no the first strategy card played
 	elif caller == "signal":
 		#close the last menu
@@ -200,8 +209,7 @@ func UserSelectedFromStrategyCardMenu(caller):
 			
 			get_node("LocationDock1").StrategyCardActivateEffectHelperCode(strategyCardBeingHandled)	#it doesn't matter which dock executes this function since nothing is stored in location dock
 	
-			#do I every actually put strategy cards into the used pile?
-	
+			
 #card is a reference to a strategy card
 func SetStrategyCardBeingHandled(card):
 	strategyCardBeingHandled = card

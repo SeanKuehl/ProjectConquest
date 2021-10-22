@@ -28,10 +28,10 @@ func Effect():
 	var values = GameState.GetStrategyPreparationValues()
 	
 	#take location cards from both indexes and swap where they were
-	var cardOne = GameState.TakeLocationCardFromDockAtIndex(values[0])
-	var cardTwo = GameState.TakeLocationCardFromDockAtIndex(values[1])
-	GameState.GiveLocationCardToDockAtIndex(values[0], cardTwo)
-	GameState.GiveLocationCardToDockAtIndex(values[1], cardOne)
+	var cardOne = GameState.TakeLocationCardFromDockAtIndex(values[0]-1)	#the -1 is here because the returned index is 1-9 not 0-8 which is how they are accessed in the list
+	var cardTwo = GameState.TakeLocationCardFromDockAtIndex(values[1]-1)	#the -1 is here because the returned index is 1-9 not 0-8 which is how they are accessed in the list
+	GameState.GiveLocationCardToDockAtIndex(values[0]-1, cardTwo)	#the -1 is here because the returned index is 1-9 not 0-8 which is how they are accessed in the list
+	GameState.GiveLocationCardToDockAtIndex(values[1]-1, cardOne)	#the -1 is here because the returned index is 1-9 not 0-8 which is how they are accessed in the list
 	
 	
 	

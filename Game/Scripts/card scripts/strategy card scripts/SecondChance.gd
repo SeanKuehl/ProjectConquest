@@ -24,7 +24,7 @@ func Effect():
 	
 	#current player
 	var currentPlayer = GameState.GetPlayerBattleTurn()
-	GameState.GetOneCardBackFromUsedPile("Location", currentPlayer)
+	GameState.GetLocationCardFromUsedPile(-1, currentPlayer)	#-1 is a shortcut for the last element in an array
 	
 	print("strategy card effect worked")
 	

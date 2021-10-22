@@ -9,6 +9,7 @@ onready var locationDocks = []	#location docks are numbered 1-9 from bottom left
 
 var sceneRoot = load("res://Game/Scripts/Main/Root.gd")
 
+
 #player one stuff
 var playerOnePoints = 0	#you get points by winning battles, if you win enough battles you win the game
 
@@ -225,83 +226,6 @@ func MoveStrategyCardToUsedPile(card, player):
 		playerTwoUsedStrategyCards.append(card)
 	
 
-func GetOneCardBackFromUsedPile(cardType, player):
-	#make sure to check both here and elsewhere that there are cards in the lists!
-	
-	#move the cards of type "cardType" from the player's used pile to their
-	#unused pile
-	if player == "PlayerOne":
-		if cardType == "Location":
-			
-			
-			#add to unused,
-			playerOneUnusedLocationCards.append(playerOneUsedLocationCards[-1])
-				
-			#remove from used
-			playerOneUsedLocationCards.erase(playerOneUsedLocationCards[-1])
-			
-			
-		if cardType == "Monster":
-			
-			#add to unused,
-			playerOneUnusedMonsterCards.append(playerOneUsedMonsterCards[-1])
-				
-			#remove from used
-			playerOneUsedMonsterCards.erase(playerOneUsedMonsterCards[-1])
-			
-			
-		if cardType == "Battle":
-			
-			#add to unused,
-			playerOneUnusedBattleCards.append(playerOneUsedBattleCards[-1])
-				
-			#remove from used
-			playerOneUsedBattleCards.erase(playerOneUsedBattleCards[-1])
-			
-			
-		if cardType == "Strategy":
-			
-			#add to unused,
-			playerOneUnusedStrategyCards.append(playerOneUsedStrategyCards[-1])
-				
-			#remove from used
-			playerOneUsedStrategyCards.erase(playerOneUsedStrategyCards[-1])
-	
-	elif player == "PlayerTwo":
-		if cardType == "Location":
-			
-			#add to unused,
-			playerTwoUnusedLocationCards.append(playerTwoUsedLocationCards[-1])
-				
-			#remove from used
-			playerTwoUsedLocationCards.erase(playerTwoUsedLocationCards[-1])
-			
-			
-		if cardType == "Monster":
-			
-			#add to unused,
-			playerTwoUnusedMonsterCards.append(playerTwoUsedMonsterCards[-1])
-				
-			#remove from used
-			playerTwoUsedMonsterCards.erase(playerTwoUsedMonsterCards[-1])
-			
-			
-		if cardType == "Battle":
-			
-			#add to unused,
-			playerTwoUnusedBattleCards.append(playerTwoUsedBattleCards[-1])
-				
-			#remove from used
-			playerTwoUsedBattleCards.erase(playerTwoUsedBattleCards[-1])
-			
-			
-		if cardType == "Strategy":
-			
-			#add to unused,
-			playerTwoUnusedStrategyCards.append(playerTwoUsedStrategyCards[-1])
-				
-			#remove from used
-			playerTwoUsedStrategyCards.erase(playerTwoUsedStrategyCards[-1])
 
 func GiveLocationCardToDockAtIndex(index, card):
 	var dock = locationDocks[index]
@@ -321,81 +245,7 @@ func GiveMonsterToDockAtIndex(index, player, card):
 	
 
 
-func GetCardsBackFromUsedPile(cardType, player):
-	#move the cards of type "cardType" from the player's used pile to their
-	#unused pile
-	if player == "PlayerOne":
-		if cardType == "Location":
-			for x in playerOneUsedLocationCards:
-				#add to unused,
-				playerOneUnusedLocationCards.append(x)
-				
-				#remove from used
-				playerOneUsedLocationCards.erase(x)
-			
-			
-		if cardType == "Monster":
-			for x in playerOneUsedMonsterCards:
-				#add to unused,
-				playerOneUnusedMonsterCards.append(x)
-				
-				#remove from used
-				playerOneUsedMonsterCards.erase(x)
-			
-			
-		if cardType == "Battle":
-			for x in playerOneUsedBattleCards:
-				#add to unused,
-				playerOneUnusedBattleCards.append(x)
-				
-				#remove from used
-				playerOneUsedBattleCards.erase(x)
-			
-			
-		if cardType == "Strategy":
-			for x in playerOneUsedStrategyCards:
-				#add to unused,
-				playerOneUnusedStrategyCards.append(x)
-				
-				#remove from used
-				playerOneUsedStrategyCards.erase(x)
-	
-	elif player == "PlayerTwo":
-		if cardType == "Location":
-			for x in playerTwoUsedLocationCards:
-				#add to unused,
-				playerTwoUnusedLocationCards.append(x)
-				
-				#remove from used
-				playerTwoUsedLocationCards.erase(x)
-			
-			
-		if cardType == "Monster":
-			for x in playerTwoUsedMonsterCards:
-				#add to unused,
-				playerTwoUnusedMonsterCards.append(x)
-				
-				#remove from used
-				playerTwoUsedMonsterCards.erase(x)
-			
-			
-		if cardType == "Battle":
-			for x in playerTwoUsedBattleCards:
-				#add to unused,
-				playerTwoUnusedBattleCards.append(x)
-				
-				#remove from used
-				playerTwoUsedBattleCards.erase(x)
-			
-			
-		if cardType == "Strategy":
-			for x in playerTwoUsedStrategyCards:
-				#add to unused,
-				playerTwoUnusedStrategyCards.append(x)
-				
-				#remove from used
-				playerTwoUsedStrategyCards.erase(x)
-	
+
 
 func DisplayLocationCardAtIndex(index):
 	var dock = locationDocks[index]
@@ -765,6 +615,91 @@ func PutMonsterCardsIntoUsedPiles():
 			card.SetCardIsDocked(false)	#card is officially no longer a part of a battle
 			card.SetCardInvolvedInBattle(false)
 			playerTwoUsedMonsterCards.append(card)
+		
+	
+func GetLocationCardFromUsedPile(index, player):
+	#this functions is NOT finished!
+	
+	#remove the card from the unused pile
+	if player == "PlayerOne":
+		
+	
+		var card = playerOneUsedLocationCards[index]
+		
+		#this is needed because otherwise the card will be docked but won't show until location dock is reselected again
+		card.show()
+		card.set_process(true)
+		card.set_physics_process(true)
+		card.set_process_input(true)
+						
+		#card.SetCardIsDocked(true)
+		#don't set the other isdocked thing as that's a location dock thing
+		playerOneUsedLocationCards.erase(card)	#this should remove the reference to the location card from the list
+					
+		playerOneUnusedLocationCards.append(card)	#now add the reference to the used cards
+		#when it's moved from the used pile, you'll need to load the player's cards for it 
+		#to be made visible again and be used
+		
+			#it has to be their turn if they're playing the card
+		get_tree().current_scene.get_node("Dock").LoadPlayerCards(GameState.GetPlayerOneUnusedCards())
+		
+		
+	else:
+		var card = playerTwoUsedLocationCards[index]
+		
+		#this is needed because otherwise the card will be docked but won't show until location dock is reselected again
+		card.show()
+		card.set_process(true)
+		card.set_physics_process(true)
+		card.set_process_input(true)
+						
+		#card.SetCardIsDocked(true)
+		#don't set the other isdocked thing as that's a location dock thing
+		playerTwoUsedLocationCards.erase(card)	#this should remove the reference to the location card from the list
+					
+		playerTwoUnusedLocationCards.append(card)	#now add the reference to the used cards
+		#when it's moved from the used pile, you'll need to load the player's cards for it 
+		#to be made visible again and be used
+		
+		
+		get_tree().current_scene.get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
+	
+func GetMonsterCardFromUsedPile(index, player):
+	
+	if player == "PlayerOne":
+		#move it back
+		var card = playerOneUsedMonsterCards[index]
+
+		#card.show()
+		
+		card.SetCardIsDocked(false)	
+		card.SetCardInvolvedInBattle(false)
+		card.set_process(true)
+		card.set_physics_process(true)
+		card.set_process_input(true)
+
+		playerOneUsedMonsterCards.erase(card)
+		playerOneUnusedMonsterCards.append(card)
+		
+		
+		get_tree().current_scene.get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
+
+	else:
+		#move it back
+		var card = playerTwoUsedMonsterCards[index]
+
+		card.show()
+		
+		card.SetCardIsDocked(false)	
+		card.SetCardInvolvedInBattle(false)
+		card.set_process(true)
+		card.set_physics_process(true)
+		card.set_process_input(true)
+
+		playerTwoUsedMonsterCards.erase(card)
+		playerTwoUnusedMonsterCards.append(card)
+		
+		get_tree().current_scene.get_node("Dock").LoadPlayerCards(GameState.GetPlayerTwoUnusedCards())
 		
 	
 func MoveLocationCardToAndFromUsedPile():

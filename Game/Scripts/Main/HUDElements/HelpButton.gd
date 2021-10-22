@@ -3,7 +3,7 @@ extends CanvasLayer
 signal ShowHelp()
 
 func _ready():
-	pass
+	Settings.SetButtonToTheme($Button)
 
 
 func _on_Button_pressed():

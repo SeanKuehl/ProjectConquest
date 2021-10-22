@@ -78,6 +78,8 @@ margin_bottom = 636.565
 
 [node name="TopRightCornerMenu" parent="." instance=ExtResource( 14 )]
 
+[node name="HelpButton" parent="." instance=ExtResource( 16 )]
+
 [node name="Display" parent="." instance=ExtResource( 6 )]
 
 [node name="TurnTransitionMenu" parent="." instance=ExtResource( 11 )]
@@ -93,6 +95,4 @@ margin_bottom = 636.565
 [node name="FullScreenInGameMenu" parent="." instance=ExtResource( 13 )]
 
 [node name="CardActivationScreen" parent="." instance=ExtResource( 15 )]
-
-[node name="HelpButton" parent="." instance=ExtResource( 16 )]
 [connection signal="pressed" from="End Phase" to="." method="_on_End_Phase_pressed"]
