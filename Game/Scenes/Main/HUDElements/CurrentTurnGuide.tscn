@@ -14,12 +14,3 @@ text = "sample text"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="AdviceLabel" type="Label" parent="."]
-margin_left = 332.236
-margin_top = 48.818
-margin_right = 615.236
-margin_bottom = 62.818
-__meta__ = {
-"_edit_use_anchors_": false
-}

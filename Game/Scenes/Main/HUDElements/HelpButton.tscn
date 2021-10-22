@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Game/Scripts/Main/HUDElements/HelpButton.gd" type="Script" id=1]
+[ext_resource path="res://Game/Assets/Images/Experimental/help.png" type="Texture" id=2]
+
+[node name="HelpButton" type="CanvasLayer"]
+script = ExtResource( 1 )
+
+[node name="Button" type="Button" parent="."]
+margin_left = 818.394
+margin_top = 16.3213
+margin_right = 870.394
+margin_bottom = 56.3213
+icon = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

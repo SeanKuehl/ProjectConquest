@@ -13,7 +13,7 @@ func _physics_process(_delta):
 	#otherwise show player turn - turn state
 	
 	#set the advice for what the player should do
-	advice.text = GameState.HudGetAdvice()	
+	#advice.text = GameState.HudGetAdvice()	
 	
 	if GameState.GetBattleState() == "":
 		#then no battle is going on, show "player turn - turn state"

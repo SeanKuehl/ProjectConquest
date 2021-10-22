@@ -14,12 +14,20 @@ func _ready():
 	
 	
 
+func ConnectHelpSignal(helpNode):
+	helpNode.connect("ShowHelp", self, "ShowHelpOnDisplay")
 	
 func ConnectCardSignal(card):
 	card.connect("userWantsToDisplayCard", self, "DisplayCard")
 	card.connect("userWantsToDisplayMonsterCard", self, "DisplayMonsterCard")
 	card.connect("userWantsToDisplayBattleCard", self, "DisplayBattleCard")
 	
+func ShowHelpOnDisplay(textToShow):
+	#first clear out whatever was there before
+	ClearDisplay()
+	
+	nameLabel.text = "help"
+	descriptionOrEffectLabel.text = textToShow
 	
 func ClearDisplay():
 	picture.texture = defaultPicture

@@ -139,25 +139,25 @@ func HudGetAdvice():
 		#MonsterCardPhase, StrategyCardPhase
 		
 		if turnState == "Setup":
-			advice = "Place down a location card and end your turn"
+			advice = "Place down a location card on a location card dock(grey squares) and end your turn. Left click on a location card you've placed down to see it."
 			
 		if turnState == "LocationCardPhase":
-			advice = "Place down a location card on a location card dock(grey squares)"
+			advice = "Place down a location card on a location card dock(grey squares) and end your turn. Left click on a location card you've placed down to see it. You don't have to place down a location card if you don't want to."
 		
 		if turnState == "MonsterCardPhase":
-			advice = "Place down a monster card on a location card dock(grey squares).\n If your opponent already has one there, you'll start a battle."
+			advice = "Place down a monster card on a location card dock(grey squares) and end your turn. If your opponent already has one there, you'll start a battle. You don't have to place down a mosnter if you don't want to."
 		
 		if turnState == "StrategyCardPhase":
-			advice = "Place a strategy you want to play on a \nlocation card dock(grey squares) to activate it's effect if possible."
+			advice = "Place a strategy you want to play on a location card dock(grey squares) to activate it's effect if possible. If the effect fails, you'll get the card back and still have the option to play a strategy card. You don't have to play a strategy card if you don't want to."
 		
 	else:
 		#there is a battle, return advice based on battle phase
 		#the battle phases are MonsterAttackPhase, BattleCardPhase
 		if battleState == "MonsterAttackPhase":
-			advice = "right click on your monster and select an action for it to take from the attack menu"
+			advice = "right click on your monster and select an action for it to take from the attack menu and this will end the phase. If you right click on the location card dock(grey square) where there's a battle you can browse the cards involved in the battle and their effects to see if there are any that might be effecting your monster. You can choose to skip the attack if you so choose."
 			
 		if battleState == "BattleCardPhase":
-			advice = "Place a battle card you want to play onto the location card dock\n the battle is happening on to activate it"
+			advice = "Place a battle card you want to play onto the location card dock the battle is happening on to activate it and then end your turn. If you right click on the location card dock(grey square) where there's a battle you can browse the cards involved in the battle and their effects to see if there are any that might be effecting your mosnter. you don't have to play a battle card if you don't want to."
 	
 	return advice
 

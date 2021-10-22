@@ -52,7 +52,7 @@ func _ready():
 	#apply the universal button theme to the "end phase" button
 	Settings.SetButtonToTheme($"End Phase")
 	
-	
+	get_node("Display").ConnectHelpSignal(get_node("HelpButton"))
 	
 	get_node("VictoryScreen").hide()
 	

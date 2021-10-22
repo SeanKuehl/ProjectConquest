@@ -228,18 +228,18 @@ func _physics_process(_delta):
 				
 		
 func LoadPlayerCards(listOfCards):
-	print("\n\n\n")
+	
 	var locationCards = listOfCards[0]
 	var monsterCards = listOfCards[1]
 	var battleCards = listOfCards[2]
 	var strategyCards = listOfCards[3]
 	
-	print("start of location cards")
+	
 	for x in locationCards:
 		
 		
 		if x.GetIsDocked():
-			print("location not placed")
+			
 			#gotta replace the above with something meant for this singular purpose
 			
 			#it's a part of a battle
@@ -248,14 +248,14 @@ func LoadPlayerCards(listOfCards):
 			
 			x.SetCardIsDocked(false)	#otherwise this will enter the Place function but will not be placed and just not do anything
 			PlaceCard(x)
-			print("location placed")
+			
 		
 	#GetCardIsDocked(), but for location it's GetIsDocked()
-	print("start of monster cards")
+	
 	for x in monsterCards:
 		
 		if x.GetCardInvolvedInBattle():
-			print("monster not placed")
+			
 			
 			#it's a part of a battle
 			pass
@@ -263,26 +263,26 @@ func LoadPlayerCards(listOfCards):
 			
 			x.SetCardIsDocked(false)	#otherwise this will enter the Place function but will not be placed and just not do anything
 			PlaceCard(x)
-			print("monster placed")
+			
 		
-	print("start of battle cards")
+	
 	for x in battleCards:
 		
 		if x.GetCardInvolvedInBattle():
-			print("battle not placed")
+			
 			#it's a part of a battle
 			pass
 		else:
 			
 			x.SetCardIsDocked(false)	#otherwise this will enter the Place function but will not be placed and just not do anything
 			PlaceCard(x)
-			print("battle placed")
+			
 		
-	print("start of strategy cards")
+	
 	for x in strategyCards:
 		
 		if x.GetCardInvolvedInBattle():
-			print("strategy not placed")
+			
 			#it will never really be involved in battle, but this will
 			#be set true when it is used
 			
@@ -291,7 +291,7 @@ func LoadPlayerCards(listOfCards):
 			
 			x.SetCardIsDocked(false)	#otherwise this will enter the Place function but will not be placed and just not do anything
 			PlaceCard(x)
-			print("strategy placed")
+			
 		
 
 func _on_Dock_body_entered(body):
