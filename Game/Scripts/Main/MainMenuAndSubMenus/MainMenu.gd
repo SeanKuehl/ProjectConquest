@@ -11,6 +11,7 @@ func _ready():
 	Settings.SetButtonToTheme($BrowseCardsButton)
 	Settings.SetPanelToTheme($Panel)
 	
+	Settings.SetSettings()
 	
 	if firstTimeCalled:
 		MusicManager.LoadMusic()	#only need to call this once

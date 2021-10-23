@@ -35,5 +35,28 @@ __meta__ = {
 }
 
 [node name="MenuMusic" type="AudioStreamPlayer" parent="."]
+
+[node name="SoundVolume" type="Label" parent="."]
+margin_left = 406.634
+margin_top = 219.005
+margin_right = 582.634
+margin_bottom = 281.005
+text = "System Volume: 0"
+
+[node name="SoundVolumeUp" type="Button" parent="."]
+margin_left = 485.434
+margin_top = 300.009
+margin_right = 540.434
+margin_bottom = 341.009
+text = "+"
+
+[node name="SoundVolumeDown" type="Button" parent="."]
+margin_left = 414.91
+margin_top = 295.339
+margin_right = 453.91
+margin_bottom = 339.339
+text = "-"
 [connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]
 [connection signal="pressed" from="SaveChangesButton" to="." method="_on_SaveChangesButton_pressed"]
+[connection signal="pressed" from="SoundVolumeUp" to="." method="_on_SoundVolumeUp_pressed"]
+[connection signal="pressed" from="SoundVolumeDown" to="." method="_on_SoundVolumeDown_pressed"]
