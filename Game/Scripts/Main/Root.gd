@@ -43,7 +43,7 @@ var locationDockNumbersList = []	#this temporarily stores the values of location
 
 var battleMusicOn = false
 
-
+var playerWhoWon = ""	#this works with the GameState Victory bool so the player has to end their turn after a battle is won
 
 func _ready():
 	#hide these menus, they'll be made visible only when the user needs to use them
@@ -159,7 +159,7 @@ func HandleVictory(player):
 	#award point for winning the battle
 	GameState.AwardBattleVictoryPoint(player, thisNode)
 			
-	
+	GameState.SetVictory(false)
 			
 	#end the battle and set indexes in gamestate
 	GameState.RegisterBattleEnded()
@@ -302,10 +302,14 @@ func HandleMonsterAttackSelection(chosenFilteredAttack, skipSelected):
 		var victory = GameState.CheckForVictoryAtCurrentBattleIndex(GameState.GetindexOfActiveLocationCardDock())
 		
 		if victory == "PlayerOne":	
-			HandleVictory("PlayerOne")
+			GameState.SetVictory(true)
+			playerWhoWon = "PlayerOne"
+			
 			
 		elif victory == "PlayerTwo":
-			HandleVictory("PlayerTwo")
+			GameState.SetVictory(true)
+			playerWhoWon = "PlayerTwo"
+			
 			
 		else:
 			#if no victory battle continues, switch to battle card phase
@@ -349,9 +353,13 @@ func HandleFilteredBattleCard(filteredBattleCard, card):
 		var victory = GameState.CheckForVictoryAtCurrentBattleIndex(GameState.GetindexOfActiveLocationCardDock())
 		
 		if victory == "PlayerOne":
-			HandleVictory("PlayerOne")
+			GameState.SetVictory(true)
+			playerWhoWon = "PlayerOne"
+			
 		elif victory == "PlayerTwo":
-			HandleVictory("PlayerTwo")
+			GameState.SetVictory(true)
+			playerWhoWon = "PlayerTwo"
+			
 		else:
 			#no one won, continue the battle
 		
@@ -649,7 +657,11 @@ func _on_End_Phase_pressed():
 		EndCurrentPlayerTurn()
 		GameState.SetTurnOver(false)
 		
-	
+	elif GameState.GetVictory() == true:
+		HandleVictory(playerWhoWon)	#Victory is set to false inside this function
+		playerWhoWon = ""
+		
+		
 		
 	elif GameState.GetThereIsActiveBattle():
 		#you can't change turn phase during a battle, unless it's the battle card phase, the monster attack phase has a different skip button

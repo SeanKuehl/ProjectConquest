@@ -76,6 +76,14 @@ var firstTimeCalled = true
 
 var turnOver = false	#this is set to true once the player has done what they need to do that turn, then the player must press the end turn button to change turns
 
+var victory = false	#this is the equivalent of turnOver but for when a battle has been won
+
+
+func GetVictory():
+	return victory
+	
+func SetVictory(newVal):
+	victory = newVal
 
 func GetTurnOver():
 	return turnOver
@@ -954,7 +962,7 @@ func PutActiveCardsIntoUsedPiles():
 				playerTwoUsedBattleCards.append(activeCard)
 				activeCardsList.erase(activeCard)
 				
-		print(playerTwoUsedBattleCards, playerOneUsedBattleCards)
+		
 		activeCardsList = []	#clear the list anyways, sometimes a battle card stuck around when it shouldn't have
 		#and I don't know why
 	
