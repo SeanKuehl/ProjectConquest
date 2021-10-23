@@ -1,12 +1,34 @@
 BASIC INFORMATION
-Project Conquest uses the Mono version of the Godot game engine. No C# is used, so you may be able to use the non-Mono version of Godot, but this has not been tested. This game should work with the latest version of Godot, using much older versions has not been tested and is not recommended. Once you have an adequate version of the Godot game engine you can import the project.godot file and handle the project. Gdscript is used for scripting, Gdunit is the testing framework used.
+Project Conquest uses the Mono version of the Godot game engine. 
+No C# is used, so you may be able to use the non-Mono version of 
+Godot, but this has not been tested. This game should work with 
+the latest version of Godot, using much older versions has not 
+been tested and is not recommended. Once you have an adequate 
+version of the Godot game engine you can import the project.godot 
+file and handle the project. Gdscript is used for scripting, 
+Gdunit is the testing framework used.
 
 
 WORK FLOW
-If you want to add a feature or fix a bug, please fork this repository. Commit any changes you make to your fork and when you are ready submit a pull request. A maintainer will then examine your pull request for code quality, functionality and so on. The maintainer may ask you to make further changes to your pull request/fork before accepting it, this is simply to ensure the code base remains readable and healthy for all. We do not require tests for most changes, but we assume that you have at least run your version (if applicable) to make sure it works. We will also test your fork ourselves to make sure everything is in order.
+If you want to add a feature or fix a bug, please fork this repository. 
+Commit any changes you make to your fork and when you are ready submit 
+a pull request. A maintainer will then examine your pull request for 
+code quality, functionality and so on. The maintainer may ask you to 
+make further changes to your pull request/fork before accepting it, 
+this is simply to ensure the code base remains readable and healthy 
+for all. We do not require tests for most changes, but we assume that 
+you have at least run your version (if applicable) to make sure it works. 
+We will also test your fork ourselves to make sure everything is in order.
 
 CODING GUIDELINES
-Only Gdscript should be used for scripting. Make sure your editor is set to tabs instead of spaces. When creating a new script, use the LISCENSE as a template, simply replace the name and year where appropriate. Use typed variables, arguments and return values where possible. Fix any warnings Godot shows on your scripts. When writing functions that are not built-in functions or signals, please comment above the function what it does and what each of the parameters is as well as typing where possible. follow the exemplar below:
+Only Gdscript should be used for scripting. Make sure your editor is set 
+to tabs instead of spaces. When creating a new script, use the LISCENSE 
+as a template, simply replace the name and year where appropriate. Use 
+typed variables, arguments and return values where possible. Fix any 
+warnings Godot shows on your scripts. When writing functions that are 
+not built-in functions or signals, please comment above the function what 
+it does and what each of the parameters is as well as typing where possible. 
+follow the exemplar below:
 
 # Return the element at the given index.
 # Returns: The element at index i.
@@ -15,7 +37,9 @@ func get_element(i: int) -> int:
     # ...
 
 MERGE CONFLICTS
-Sometimes, GitHub will not let us merge a pull request. It is the responsibility of the creator of the pull request(you) to solve this conflict, although we will help you where we can. One method that might work is: 
+Sometimes, GitHub will not let us merge a pull request. It is the 
+responsibility of the creator of the pull request(you) to solve this conflict, 
+although we will help you where we can. One method that might work is: 
 1. make sure your fork’s master branch is up to date with the original’s 
 2. merge the master branch on your local repository into your custom branch. 
 3. push the merge commit

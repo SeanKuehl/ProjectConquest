@@ -1,5 +1,16 @@
 BASIC INFORMATION
-For sound/audio assets, the ogg vorbis type should be used. For art/visual assets, the PNG type should be used or at least available. For Monster card animations, they should only be three images, look somewhat like the card’s ‘profile’ picture and follow the naming format of the other animations. Any card scripts(scripts belonging to a card, like a card’s custom script for it’s effect) should follow the card script naming convention used by the other cards. If you are contributing an asset and are unsure about any format/standard information, refer to a precedent. If no precedent is available, feel free to contact a maintainer.
+For sound/audio assets, the ogg vorbis type should be used. For art/visual assets, the PNG type should be used or at least available. 
+For Monster card animations, they should only be three images, look somewhat like the card’s ‘profile’ picture and follow the naming 
+format of the other animations. Any card scripts(scripts belonging to a card, like a card’s custom script for it’s effect) should 
+follow the card script naming convention used by the other cards. If you are contributing an asset and are unsure about any 
+format/standard information, refer to a precedent. If no precedent is available, feel free to contact a maintainer.
 
 WHERE AND HOW
-Once you have prepared the asset(s) you would like to contribute, make a new post in the GitHub Discussions->Contributions->Assets->(the appropriate category). In your post please provide at least the following: name of the asset, asset’s intended role(is it the picture for a monster card? Is it a new sound track for the main menu?), name of the author, the license the asset is under(only open licenses can be accepted, MIT No Attribution is prefered as it is the same license as the project, but other licenses such as CC BY-SA 3.0  are acceptable), the URL where the asset can be obtained from(the asset must be available to the public and the URL must lead to a trusted site like OpenGameArt, Unsplash etc.).
+Once you have prepared the asset(s) you would like to contribute, make a new post in the 
+GitHub Discussions->Contributions->Assets->(the appropriate category). In your post 
+please provide at least the following: name of the asset, asset’s intended role(is it 
+the picture for a monster card? Is it a new sound track for the main menu?), name of the 
+author, the license the asset is under(only open licenses can be accepted, MIT No Attribution 
+is prefered as it is the same license as the project, but other licenses such as CC BY-SA 3.0  
+are acceptable), the URL where the asset can be obtained from(the asset must be available to the 
+public and the URL must lead to a trusted site like OpenGameArt, Unsplash etc.).

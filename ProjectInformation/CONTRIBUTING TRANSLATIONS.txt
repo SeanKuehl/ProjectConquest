@@ -1,1 +1,4 @@
-There is currently no infrastructure in place for accommodating translations, however the maintainers are interested in setting up infrastructure if there is interest in supporting other languages. If you are wanting to help translate Project Conquest, please contact a maintainer.
+There is currently no infrastructure in place for accommodating translations, 
+however the maintainers are interested in setting up infrastructure if there 
+is interest in supporting other languages. If you are wanting to help translate 
+Project Conquest, please contact a maintainer.

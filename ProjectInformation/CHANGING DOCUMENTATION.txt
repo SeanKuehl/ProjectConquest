@@ -1,4 +1,10 @@
-If you feel that any part of the existing documentation could be improved or that new documentation should be made don’t hesitate to suggest a change to the documentation. Make a post on GitHub Discussions->Documentation->Changes, and provide the file(s) that would be effected as well as why this change would be beneficial and an example if possible. Additionally you could make a pull request with the changes, for more information on this process see CONTRIBUTING CODE.
+If you feel that any part of the existing documentation could be improved or 
+that new documentation should be made don’t hesitate to suggest a change to 
+the documentation.  Make a post on GitHub 
+Discussions->Documentation->Changes, and provide the file(s) that would be 
+effected as well as why this change would be beneficial and an example if possible. 
+Additionally you could make a pull request with the changes, for more 
+information on this process see CONTRIBUTING CODE.
 
 
 

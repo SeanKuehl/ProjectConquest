@@ -1,16 +1,67 @@
 BASIC INFORMATION
-Conquest is a game for two players. A game of Conquest is played on a battlefield, this battle field has nine location card spaces arranged in rows of three.  Each player has 20 cards, split up into four types with 5 cards of each type. The card types are Location, Monster, Battle and Strategy.  Location cards are primarily red, you play them by placing them onto an open location space(grey squares). At any point you can click on a location card placed in a space to see it, but this won’t work if the card belongs to your opponents. Monster cards are primarily green and can only be played onto a location card in a space where you don’t already have a monster. If at the time you play a monster card onto a location card in a space your opponent also has a monster on the same space, a battle starts(see BATTLES). Battle cards are primarily blue and can only be played when you have already done a monster attack during a battle(see BATTLES). Strategy cards are primarily black and can be activated by playing it on any location space whether there’s a location there or not.
+Conquest is a game for two players. A game of Conquest is played 
+on a battlefield, this battle field has nine location card spaces 
+arranged in rows of three.  Each player has 20 cards, split up 
+into four types with 5 cards of each type. The card types are Location, 
+Monster, Battle and Strategy.  Location cards are primarily red, 
+you play them by placing them onto an open location space(grey squares).
+ At any point you can click on a location card placed in a space to 
+see it, but this won’t work if the card belongs to your opponents. 
+Monster cards are primarily green and can only be played onto a 
+location card in a space where you don’t already have a monster. 
+If at the time you play a monster card onto a location card in a space 
+your opponent also has a monster on the same space, a battle starts(see BATTLES). 
+Battle cards are primarily blue and can only be played when you have already 
+done a monster attack during a battle(see BATTLES). Strategy cards are primarily 
+black and can be activated by playing it on any location space whether there’s 
+a location there or not.
 
 
 GAME
-At the very start of a game, the game is in the SETUP phase. Player One goes first and MUST place a Location card and then end their turn. Player Two then goes and MUST place a Location card and then end their turn. This ends the SETUP phase and now regular turns can begin. Every turn a player takes is divided into phases. The first phase is the Location Card Phase in which a player can play a location card onto a space if they want or press the End Phase button and go to the next phase without placing a location card. The second phase is the Monster Card Phase in which a player can play a monster card onto an already placed location card or press the End Phase button and go to the next phase without placing a monster card. If the location card you place your monster card on already has a monster on it belonging to your opponent, a battle will start(see BATTLES). The last phase is the Strategy Card Phase in which a player can play a strategy card onto a location place to activate it’s effect. This effect may need additional information, in which case menus will pop up which require user input, once these menus are satisfied the card’s effect will be attempted. If the effect cannot be activated(for example due to invalid user input) then it will not be activated and you will have another opportunity to play a strategy card. Alternatively you can press the End Phase button to end the Strategy Card Phase and you turn.
+At the very start of a game, the game is in the SETUP phase. Player One goes first 
+and MUST place a Location card and then end their turn. Player Two then goes and 
+MUST place a Location card and then end their turn. This ends the SETUP phase and 
+now regular turns can begin. Every turn a player takes is divided into phases. 
+The first phase is the Location Card Phase in which a player can play a location card 
+onto a space if they want or press the End Phase button and go to the next phase without 
+placing a location card. The second phase is the Monster Card Phase in which a player can 
+play a monster card onto an already placed location card or press the End Phase button and 
+go to the next phase without placing a monster card. If the location card you place your 
+monster card on already has a monster on it belonging to your opponent, a battle will 
+start(see BATTLES). The last phase is the Strategy Card Phase in which a player can play 
+a strategy card onto a location place to activate it’s effect. This effect may need additional 
+information, in which case menus will pop up which require user input, once these menus are 
+satisfied the card’s effect will be attempted. If the effect cannot be activated(for example 
+due to invalid user input) then it will not be activated and you will have another opportunity 
+to play a strategy card. Alternatively you can press the End Phase button to end the 
+Strategy Card Phase and you turn.
 
 BATTLES
-Once two opposing monsters land on the same location card a battle ensues. A battle is split into battle turns. Both players take battles turns until the health of one monster reaches zero, at which point the other player wins. A battle turn is split into two parts, the Monster Card Attack Phase and the Battle Card Phase. In the Monster Card Attack Phase, the player whose battle turn it is can right click on their monster to see the attack options allowed to be played. Select one of the attack options or the skip button to continue. These attack options may not be exactly what’s on the card due to filtering(see EFFECTS). Next is the Battle Card Phase where you can either click and drag a Battle card onto the location card where the battle is happening or press the End Phase button. The Battle card’s effect may also be filtered(see EFFECTS). This ends your battle turn, now the other player takes their battle turn and so on until the health of one monster reaches 0. Once the battles over, a victory point is awarded to the victorious player and all cards involved are moved to the used pile. Win enough battles and you’ll win the game.
+Once two opposing monsters land on the same location card a battle ensues. A battle 
+is split into battle turns. Both players take battles turns until the health of one 
+monster reaches zero, at which point the other player wins. A battle turn is split 
+into two parts, the Monster Card Attack Phase and the Battle Card Phase. In the Monster 
+Card Attack Phase, the player whose battle turn it is can right click on their monster 
+to see the attack options allowed to be played. Select one of the attack options or the 
+skip button to continue. These attack options may not be exactly what’s on the card due to 
+filtering(see EFFECTS). Next is the Battle Card Phase where you can either click and drag 
+a Battle card onto the location card where the battle is happening or press the End Phase 
+button. The Battle card’s effect may also be filtered(see EFFECTS). This ends your battle turn, 
+now the other player takes their battle turn and so on until the health of one monster reaches 0. 
+Once the battles over, a victory point is awarded to the victorious player and all cards involved 
+are moved to the used pile. Win enough battles and you’ll win the game.
 
 
 
 
 
 EFFECTS
-You may have noticed that some cards have effects on them that can effect how other cards might be played. To handle this effects are filtered before being activated. For Monster cards, their attacks are filtered before you see them in the Monster attack menu, some may be altered or prohibited based on the effects of other cards in play. For Battle cards the filtering happens after activation(after the card is clicked and dragged onto the location place but before the card’s effect is activated). Only Location cards and Battle cards can have effects that filter other things. Location card and battle card effects expire once the battle ends. If ever in doubt about what effects are in play during a battle, right click on the location card the battle is happening on to see a list of the active cards and the effects they apply.
+You may have noticed that some cards have effects on them that can effect how other cards 
+might be played. To handle this effects are filtered before being activated. For Monster cards, 
+their attacks are filtered before you see them in the Monster attack menu, some may be 
+altered or prohibited based on the effects of other cards in play. For Battle cards the 
+filtering happens after activation(after the card is clicked and dragged onto the location 
+place but before the card’s effect is activated). Only Location cards and Battle cards can 
+have effects that filter other things. Location card and battle card effects expire once the battle ends. 
+If ever in doubt about what effects are in play during a battle, right click on the location card the battle 
+is happening on to see a list of the active cards and the effects they apply.
