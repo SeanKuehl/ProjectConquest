@@ -283,6 +283,7 @@ func RegisterBattleEnded():
 	indexOfActiveLocationCardDock = -1	#-1 is not a valid location dock number, so if it was used when it wasn't supposed to be it would cause an error
 	playerWhoLandedlast = ""
 	
+	
 #index is a number 1-9, represents a location dock
 #lastPlayerToLand is either "PlayerOne" or "PlayerTwo"
 func RegisterBattleStarted(index, lastPlayerToLand):
@@ -952,6 +953,10 @@ func PutActiveCardsIntoUsedPiles():
 				playerTwoUnusedBattleCards.erase(activeCard)
 				playerTwoUsedBattleCards.append(activeCard)
 				activeCardsList.erase(activeCard)
+				
+		print(playerTwoUsedBattleCards, playerOneUsedBattleCards)
+		activeCardsList = []	#clear the list anyways, sometimes a battle card stuck around when it shouldn't have
+		#and I don't know why
 	
 func RestoreOriginalStatsToUsedMonsterCards():
 	#in case a card's effect is to bring a card back from the unused pile or in case

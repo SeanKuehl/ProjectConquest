@@ -128,8 +128,7 @@ func PlaceCard(card):
 		occupiedSlots = strategyCardOccupiedSlots
 		referenceSlots = strategyCardReferenceSlots
 	
-	print("here's the start of the reference slots")
-	print(referenceSlots, occupiedSlots)
+	
 	
 	#there is something wrong with the use of the dictionaries above
 	if card.GetCardType() == slotState:
@@ -253,11 +252,11 @@ func LoadPlayerCards(listOfCards):
 			
 		
 	#GetCardIsDocked(), but for location it's GetIsDocked()
-	print("start of this time's monster cards")
+	
 	for x in monsterCards:
-		print(x, x.GetCardInvolvedInBattle())
+		
 		if x.GetCardInvolvedInBattle():
-			print("monster card not placed")
+			
 			
 			#it's a part of a battle
 			pass
@@ -265,7 +264,7 @@ func LoadPlayerCards(listOfCards):
 			
 			x.SetCardIsDocked(false)	#otherwise this will enter the Place function but will not be placed and just not do anything
 			PlaceCard(x)
-			print("monster card placed")
+			
 			
 		
 	
@@ -279,6 +278,7 @@ func LoadPlayerCards(listOfCards):
 			
 			x.SetCardIsDocked(false)	#otherwise this will enter the Place function but will not be placed and just not do anything
 			PlaceCard(x)
+			
 			
 		
 	

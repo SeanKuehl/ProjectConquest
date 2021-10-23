@@ -49,6 +49,7 @@ func SetInformation(index):
 		pass
 	
 func ShowMyStuff():
+	activeCardsInformationList = []
 	activeCardsInformationList = GameState.GetActiveCardsInformation()
 	panel.show()
 	prevButton.show()
