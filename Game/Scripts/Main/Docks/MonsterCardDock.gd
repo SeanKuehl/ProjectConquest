@@ -52,7 +52,7 @@ func OwnerSameAsClicker():
 
 
 func MoveForAttackAnimation():
-	
+	$MonsterSound.play()	#play the monster sound
 	#hide the location card dock so it doesn't draw over the monster's attacking
 	get_parent().SetLocationDockToHidden()
 	#the animation will be a bit different depending on which player
@@ -139,6 +139,8 @@ func ClearMonsterCardData():
 	animation.stop()
 	animation.frames = SpriteFrames.new()
 	thereIsAMonsterDocked = false
+	$MonsterSound.stream = AudioStream.new()
+	
 	hide()
 		
 		
@@ -164,6 +166,9 @@ func LoadMonsterCardInformation(card):
 	
 	thereIsAMonsterDocked = true
 	show()
+	
+	$MonsterSound.stream = load("res://Game/Assets/Sounds/Monster sounds/"+card.GetSound())
+	$MonsterSound.play()	#this does play, just pretty quietly
 
 	
 func SetHealthAndAttributeIndicators():

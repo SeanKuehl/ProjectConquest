@@ -64,6 +64,8 @@ func GetInUsedPile():
 func SetInUsedPile(newVal):
 	inUsedPile = newVal
 	
+func GetSound():
+	return sound
 	
 #passedFile is the path to a text file
 #passedOwner is "PlayerOne" or "PlayerTwo"
