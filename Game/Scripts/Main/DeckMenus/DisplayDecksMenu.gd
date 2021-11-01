@@ -17,9 +17,13 @@ func _ready():
 		#tell player whose turn it is to select deck for battle
 		if GameState.GetSetADeckFirstTime():
 			#it's player one's turn
-			$WhoIsSelectingDeck.text = "Player One please select your deck"
+			
+			
+			$WhoIsSelectingDeck.text = "Player ONE please select your deck"
+			
 		else:
-			$WhoIsSelectingDeck.text = "Player Two please select your deck"
+			
+			$WhoIsSelectingDeck.text = "Player TWO please select your deck"
 	
 	
 	Settings.SetButtonToTheme($LastButton)

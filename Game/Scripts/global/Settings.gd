@@ -7,7 +7,16 @@ var menuButtonHoveredTheme = 0
 
 var systemVolume = 0
 
-var settingsFilePath = "res://Game/Assets/SettingsFolder/Settings.txt"
+#res becomes read only on export, I should use user: instead which remains read and write accessable
+#projects/ProjectConquest-73691fd7f412f513fcbbd4406590ef31
+#orig: "res://Game/Assets/SettingsFolder/Settings.txt"
+#C:\Users\turqo\AppData\Roaming\Godot\projects\ProjectConquest-73691fd7f412f513fcbbd4406590ef31
+#"user://Settings.txt"
+
+#my actual user dir on my machine is: C:\Users\turqo\AppData\Roaming\Godot\app_userdata\ProjectConquest
+#the official docs may be out of date, there is an OS command in godot to print the user dir
+#the settings file under the assets isn't the one being used
+var settingsFilePath = "user://Settings.txt"
 
 
 func GetListOfSettings():
@@ -53,10 +62,20 @@ func SetPanelToTheme(panel):
 	panel.set("custom_styles/panel", menuPanelTheme)
 
 
+
+	
+
+	
+
 func GetSettingsFromFile():
 	
 	var file = File.new()
+	
+		
 	file.open(settingsFilePath, File.READ)
+	
+		
+		
 	var content = []
 	#check for empty lines! reading etc the file will add an empty line onto the end of it
 	var line = ""
@@ -74,6 +93,8 @@ func GetSettingsFromFile():
 	
 	
 func SetSettings():
+	
+	
 	var settingsFileContent = GetSettingsFromFile()
 	
 	var soundVolumeSettings = int(settingsFileContent[0])

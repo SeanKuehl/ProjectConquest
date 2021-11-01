@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Game/Scripts/Main/DeckMenus/DisplayDecksMenu.gd" type="Script" id=1]
+[ext_resource path="res://Game/Assets/Fonts/arial.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 46
+font_data = ExtResource( 2 )
 
 [node name="DisplayDecks" type="Control"]
 anchor_right = 1.0
@@ -78,10 +83,11 @@ __meta__ = {
 [node name="MenuMusic" type="AudioStreamPlayer" parent="."]
 
 [node name="WhoIsSelectingDeck" type="Label" parent="."]
-margin_left = 348.0
-margin_top = 37.0
-margin_right = 636.0
-margin_bottom = 95.0
+margin_left = 125.082
+margin_top = 70.371
+margin_right = 537.082
+margin_bottom = 203.371
+custom_fonts/font = SubResource( 1 )
 [connection signal="pressed" from="LastButton" to="." method="_on_LastButton_pressed"]
 [connection signal="pressed" from="NextButton" to="." method="_on_NextButton_pressed"]
 [connection signal="pressed" from="DeckButton1" to="." method="_on_DeckButton1_pressed"]
