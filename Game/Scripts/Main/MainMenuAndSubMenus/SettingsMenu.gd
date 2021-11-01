@@ -7,6 +7,7 @@ extends Control
 var localVolume = 0
 var upperVolumeLimit = 15
 var lowerVolumeLimit = -30
+var isMute = false
 
 func _ready():
 	Settings.SetButtonToTheme($BackButton)
@@ -14,7 +15,15 @@ func _ready():
 	Settings.SetPanelToTheme($Panel)
 	
 	localVolume = Settings.GetSystemVolume()
-	$SoundVolume.text = "System Volume: "+str(localVolume)
+	
+	if localVolume == -100:
+		#it's muted
+		localVolume = 0
+		isMute = true
+		$MuteButton.text = "Unmute"
+		$SoundVolume.text = "System Volume: "+str(localVolume)
+	else:
+		$SoundVolume.text = "System Volume: "+str(localVolume)
 	
 	#print(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master")))
 	#AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), 10)
@@ -35,7 +44,10 @@ func _on_BackButton_pressed():
 
 
 func _on_SaveChangesButton_pressed():
-	Settings.SetSystemVolume(localVolume)
+	if isMute:
+		Settings.SetSystemVolume(-100)	#-100 is beyond the min of -30, so it's the indicator that they want it muted
+	else:
+		Settings.SetSystemVolume(localVolume)
 	var file = File.new()
 	file.open(Settings.GetSettingsFilePath(), File.WRITE)
 	
@@ -73,4 +85,20 @@ func _on_SoundVolumeDown_pressed():
 	
 	
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), localVolume)
+	
+
+
+func _on_MuteButton_pressed():
+	
+	if isMute:
+		#if it's muted, unmute it
+		$MuteButton.text = "Mute"
+		AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"), false)
+		isMute = false
+	else:
+		#if it's unmuted, mute it
+		$MuteButton.text = "Unmute"
+		
+		AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"), true)
+		isMute = true
 	

@@ -56,7 +56,15 @@ margin_top = 295.339
 margin_right = 453.91
 margin_bottom = 339.339
 text = "-"
+
+[node name="MuteButton" type="Button" parent="."]
+margin_left = 431.0
+margin_top = 367.321
+margin_right = 512.0
+margin_bottom = 402.321
+text = "Mute"
 [connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]
 [connection signal="pressed" from="SaveChangesButton" to="." method="_on_SaveChangesButton_pressed"]
 [connection signal="pressed" from="SoundVolumeUp" to="." method="_on_SoundVolumeUp_pressed"]
 [connection signal="pressed" from="SoundVolumeDown" to="." method="_on_SoundVolumeDown_pressed"]
+[connection signal="pressed" from="MuteButton" to="." method="_on_MuteButton_pressed"]

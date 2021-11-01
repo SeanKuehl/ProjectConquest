@@ -97,8 +97,15 @@ func SetSettings():
 	
 	var settingsFileContent = GetSettingsFromFile()
 	
+	
+	
 	var soundVolumeSettings = int(settingsFileContent[0])
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), soundVolumeSettings)
+	
+	if soundVolumeSettings == -100:
+		#this is the indicator that they want it muted
+		AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"), true)
+	else:
+		AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), soundVolumeSettings)
 	systemVolume = soundVolumeSettings
 
 
