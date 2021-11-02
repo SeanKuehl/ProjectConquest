@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 var timerStarted = false
+var endTurnNotification = false
 
 func _ready():
 	HideMyStuff()
@@ -19,6 +20,25 @@ func _physics_process(_delta):
 	if $ExistenceTimer.is_stopped() and timerStarted:
 		HideMyStuff()
 		timerStarted = false
+		if endTurnNotification:
+			$ExistenceTimer.wait_time = 3	#set back to usual
+			endTurnNotification = false
+		
+	
+	
+func SetEndTurnNotification():
+	var blackImage = load("res://Game/Assets/Images/Experimental/Black.png")
+	$Color.texture = blackImage
+	$ExistenceTimer.wait_time = 1	#normally 3, set it back to 3 once done
+	var textToDisplay = ""
+	endTurnNotification = true
+	textToDisplay = "Phase Over"
+	
+	
+	$ActivationText.text = textToDisplay
+	ShowMyStuff()
+	$ExistenceTimer.start()
+	timerStarted = true
 	
 func DisplayCard(cardColor, cardType, cardName):
 	$Color.texture = cardColor

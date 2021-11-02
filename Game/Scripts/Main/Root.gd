@@ -646,16 +646,21 @@ func EndCurrentPlayerBattleTurn():
 			
 
 
-
+func NotifyThatTurnHasEnded():
+	
+	get_node("CardActivationScreen").SetEndTurnNotification()
+	get_node("CardActivationScreen").ShowMyStuff()
 
 
 func _on_End_Phase_pressed():
 	if GameState.GetTurnState() == "Setup" and GameState.GetTurnOver() == true:
 		if GameState.GetCurrentTurn() == "PlayerTwo":
 			GameState.ChangeTurnState()	#from setup phase, it will change to location card phase
-		
+			
+			
 		EndCurrentPlayerTurn()
 		GameState.SetTurnOver(false)
+		NotifyThatTurnHasEnded()
 		
 	elif GameState.GetVictory() == true:
 		HandleVictory(playerWhoWon)	#Victory is set to false inside this function
@@ -667,28 +672,34 @@ func _on_End_Phase_pressed():
 		#you can't change turn phase during a battle, unless it's the battle card phase, the monster attack phase has a different skip button
 		
 		if GameState.GetBattleState() == "BattleCardPhase":
+			NotifyThatTurnHasEnded()
 			#the first argument having a length of 0 is what the function will use to determine that the user has pressed the skip button
 			HandleFilteredBattleCard([], [])	#this will trigger the turns to change
 			#this replaces the skip battle card phase button
 		
 	
 	elif GameState.GetTurnState() == "MonsterCardPhase":
+		NotifyThatTurnHasEnded()
 		#don't need to check for turn over because player doesn't have to play a card here
 		GameState.ChangeTurnState()
 		GameState.SetTurnOver(false)
 		
 	elif GameState.GetTurnState() == "StrategyCardPhase":
+		NotifyThatTurnHasEnded()
 		#don't need to check for turn over because player doesn't have to play a card here
 		GameState.ChangeTurnState()
 		GameState.SetTurnOver(false)	#set it to false in case they played a card
 		EndCurrentPlayerTurn()
 		
 	else:
-		GameState.ChangeTurnState()	#this acts as a 'skip' in case you don't want to play any cards of that type
+		if GameState.GetTurnState() != "Setup":
+			#they can't skip setup
+			NotifyThatTurnHasEnded()
+			GameState.ChangeTurnState()	#this acts as a 'skip' in case you don't want to play any cards of that type
 		
 		if GameState.GetTurnState() == "LocationCardPhase" and GameState.GetTurnOver() == true:
 			#change to other player's turn
-			
+			NotifyThatTurnHasEnded()
 			EndCurrentPlayerTurn()
 			
 		GameState.SetTurnOver(false)	#enable cards and things again
