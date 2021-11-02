@@ -31,6 +31,8 @@ var monsterCardDescription = ""
 var mouseIsInTile = false
 var thereIsAMonsterDocked = false
 
+var soundTimerInUse = false
+
 func _ready():
 	animation.global_position = centre.global_position
 	$DamageIndicator.hide()
@@ -52,7 +54,7 @@ func OwnerSameAsClicker():
 
 
 func MoveForAttackAnimation():
-	$MonsterSound.play()	#play the monster sound
+	PlayMonsterSound()	#play the monster sound
 	#hide the location card dock so it doesn't draw over the monster's attacking
 	get_parent().SetLocationDockToHidden()
 	#the animation will be a bit different depending on which player
@@ -144,6 +146,17 @@ func ClearMonsterCardData():
 	hide()
 		
 		
+func PlayMonsterSound():
+	#mute/pause main music by calling a func in root
+	get_parent().get_parent().ToggleMusicPaused(true)
+	
+	$MonsterSound.play()
+	soundTimerInUse = true
+	$DamageIndicatorLingerTime.wait_time = 3
+	$DamageIndicatorLingerTime.start()
+	
+	
+		
 #card is a reference to a monster card
 func LoadMonsterCardInformation(card):
 	var displayStuff = card.GetDisplayStuff()	#list of cardname, pic and description
@@ -168,7 +181,7 @@ func LoadMonsterCardInformation(card):
 	show()
 	
 	$MonsterSound.stream = load("res://Game/Assets/Sounds/Monster sounds/"+card.GetSound())
-	$MonsterSound.play()	#this does play, just pretty quietly
+	PlayMonsterSound()
 
 	
 func SetHealthAndAttributeIndicators():
@@ -197,5 +210,12 @@ func _on_MonsterCardDock_mouse_exited():
 
 
 func _on_DamageIndicatorLingerTime_timeout():
-	$DamageIndicator.hide()
-	$DamageIndicatorLabel.hide()
+	
+	if soundTimerInUse:
+		#unmute/pause main music
+		get_parent().get_parent().ToggleMusicPaused(false)
+		$DamageIndicatorLingerTime.wait_time = 1
+		soundTimerInUse = false
+	else:
+		$DamageIndicator.hide()
+		$DamageIndicatorLabel.hide()

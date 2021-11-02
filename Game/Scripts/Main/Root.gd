@@ -45,6 +45,8 @@ var battleMusicOn = false
 
 var playerWhoWon = ""	#this works with the GameState Victory bool so the player has to end their turn after a battle is won
 
+var musicPaused = false
+
 func _ready():
 	#hide these menus, they'll be made visible only when the user needs to use them
 	#get_node("AttackMenu").hide()
@@ -88,6 +90,8 @@ func _ready():
 	#1024, 600
 	#rect is just top left corner, and it's 1024 wide and 600 tall, so do the math
 
+func ToggleMusicPaused(val):
+	musicPaused = val
 
 #this is for gamestate using card effects
 func CallLoadPlayerCardsFromGameState(cards):
@@ -111,7 +115,11 @@ func _physics_process(_delta):
 	
 	#there is a game state function that calls a func here to make the music stop
 	#playing once battle is done so this should work
-	if GameState.GetBattleState() == "" and $GameMusic.is_playing() == false:
+	
+	if musicPaused:
+		$GameMusic.stop()
+	
+	elif GameState.GetBattleState() == "" and $GameMusic.is_playing() == false:
 		#there is no battle going on and no music is playing
 		#stop the last music
 		$GameMusic.stop()
