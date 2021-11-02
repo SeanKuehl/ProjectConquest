@@ -18,13 +18,27 @@ func _physics_process(_delta):
 	if GameState.GetBattleState() == "":
 		#then no battle is going on, show "player turn - turn state"
 		var textToShow = ""
-		textToShow += GameState.GetCurrentTurn() + " - " + GameState.GetTurnState() + "\n"
+		
+		if GameState.GetTurnOver() == true:
+			textToShow += GameState.GetCurrentTurn() + " - " + GameState.GetTurnState() +  ", end your turn" + "\n"
+		else:
+			textToShow += GameState.GetCurrentTurn() + " - " + GameState.GetTurnState() + "\n"
+		
 		textToShow += "You have "+ str(GameState.GetPlayerVictoryPoints(GameState.GetCurrentTurn())) + " victory points"
 		label.text = textToShow
+		
+	
+		
 	else:
 		#there is a battle going on, show "player battle turn - battle state"
 		var textToShow = ""
-		textToShow += GameState.GetPlayerBattleTurn() + " - " + GameState.GetBattleState() + "\n"
+		
+		if GameState.GetTurnOver() == true:
+			textToShow += GameState.GetPlayerBattleTurn() + " - " + GameState.GetBattleState() +  ", end your turn"+ "\n"
+		else:
+			textToShow += GameState.GetPlayerBattleTurn() + " - " + GameState.GetBattleState() + "\n"
+		
+		
 		textToShow += "You have "+ str(GameState.GetPlayerVictoryPoints(GameState.GetPlayerBattleTurn())) + " victory points"
 		label.text = textToShow
 	

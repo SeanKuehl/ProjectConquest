@@ -12,7 +12,23 @@ func _ready():
 	
 	pass
 	
+func HideMyStuff():
+	$Panel.hide()
+	$Name.hide()
+	$Picture.hide()
+	$Picture/Red.hide()
+	$ScrollContainer/DescriptionOrEffect.hide()
+	$ScrollContainer.hide()
+	$HideButton.hide()	
 	
+func ShowMyStuff():
+	$Panel.show()
+	$Name.show()
+	$Picture.show()
+	$Picture/Red.show()
+	$ScrollContainer/DescriptionOrEffect.show()
+	$ScrollContainer.show()
+	$HideButton.show()	
 
 func ConnectHelpSignal(helpNode):
 	helpNode.connect("ShowHelp", self, "ShowHelpOnDisplay")
@@ -23,6 +39,7 @@ func ConnectCardSignal(card):
 	card.connect("userWantsToDisplayBattleCard", self, "DisplayBattleCard")
 	
 func ShowHelpOnDisplay(textToShow):
+	ShowMyStuff()
 	#first clear out whatever was there before
 	ClearDisplay()
 	
@@ -36,6 +53,7 @@ func ClearDisplay():
 
 
 func DisplayCard(cardName, cardPicture, cardDescription):
+	ShowMyStuff()
 	nameLabel.text = cardName
 	descriptionOrEffectLabel.text = cardDescription
 	
@@ -43,6 +61,7 @@ func DisplayCard(cardName, cardPicture, cardDescription):
 
 #this function does extra work to show the extra information this card type has that the other two types of cards don't have
 func DisplayMonsterCard(cardName, cardPicture, cardDescription, cardHealth, cardAttribute):
+	ShowMyStuff()
 	nameLabel.text = cardName
 	
 	var descriptionText = ""
@@ -64,6 +83,7 @@ func DisplayMonsterCard(cardName, cardPicture, cardDescription, cardHealth, card
 
 #this function does extra work to show the extra information this card type has that the other two types of cards don't have
 func DisplayBattleCard(cardName, cardPicture, cardDescription, cardAttribute):
+	ShowMyStuff()
 	nameLabel.text = cardName
 	
 	var descriptionText = ""
@@ -84,3 +104,7 @@ func DisplayBattleCard(cardName, cardPicture, cardDescription, cardAttribute):
 
 
 	
+
+
+func _on_HideButton_pressed():
+	HideMyStuff()
