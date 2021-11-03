@@ -43,21 +43,31 @@ margin_bottom = 423.733
 text = "Settings"
 
 [node name="PlayButton" type="Button" parent="."]
-margin_left = 471.0
-margin_top = 249.353
-margin_right = 619.0
-margin_bottom = 293.353
+margin_left = 470.251
+margin_top = 208.899
+margin_right = 618.251
+margin_bottom = 252.899
 text = "Play"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="BrowseCardsButton" type="Button" parent="."]
-margin_left = 488.471
-margin_top = 317.24
-margin_right = 611.471
-margin_bottom = 358.24
+margin_left = 484.725
+margin_top = 268.545
+margin_right = 607.725
+margin_bottom = 309.545
 text = "Browse Cards"
+
+[node name="HowToPlay" type="Button" parent="."]
+margin_left = 493.245
+margin_top = 329.122
+margin_right = 604.245
+margin_bottom = 360.122
+text = "How To Play"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Logo" type="Sprite" parent="."]
 
@@ -72,3 +82,4 @@ texture = ExtResource( 2 )
 [connection signal="pressed" from="SettingsButton" to="." method="_on_SettingsButton_pressed"]
 [connection signal="pressed" from="PlayButton" to="." method="_on_PlayButton_pressed"]
 [connection signal="pressed" from="BrowseCardsButton" to="." method="_on_BrowseCardsButton_pressed"]
+[connection signal="pressed" from="HowToPlay" to="." method="_on_HowToPlay_pressed"]

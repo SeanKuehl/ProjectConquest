@@ -9,6 +9,7 @@ func _ready():
 	Settings.SetButtonToTheme($SettingsButton)
 	Settings.SetButtonToTheme($PlayButton)
 	Settings.SetButtonToTheme($BrowseCardsButton)
+	Settings.SetButtonToTheme($HowToPlay)
 	Settings.SetPanelToTheme($Panel)
 	
 	Settings.SetSettings()
@@ -51,3 +52,9 @@ func _on_PlayButton_pressed():
 func _on_BrowseCardsButton_pressed():
 	MusicManager.SetMenuMusicPlaybackPosition($MenuMusic.get_playback_position())
 	get_tree().change_scene("res://Game/Scenes/Main/DeckMenus/DisplayDecksMenu.tscn")
+
+
+func _on_HowToPlay_pressed():
+	MusicManager.SetMenuMusicPlaybackPosition($MenuMusic.get_playback_position())
+	get_tree().change_scene("res://Game/Scenes/Main/MainMenuAndSubMenus/HowToPlay.tscn")
+
