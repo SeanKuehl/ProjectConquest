@@ -29,7 +29,7 @@ func LoadStuff():
 	LoadCurrent()
 	
 func LoadCurrent():
-	$HelpImage/Red.texture = load(imageList[index])
+	$HelpImage/battle1.texture = load(imageList[index])
 	$HelpText.text = textList[index]
 	
 func LoadText():
