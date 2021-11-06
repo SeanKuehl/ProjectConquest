@@ -52,6 +52,8 @@ var cardIsBeingHoveredOver = false
 
 var movingCardsList = []
 var movingCardsPositionList = []
+var cardAnimationSpeed = 10
+var cardAnimationPositionOffset = 200
 var thereAreCardsToMove = false
 
 
@@ -64,6 +66,14 @@ func _ready():
 	#the slotState is location cards by default, so make the location card
 	#button highlighted with the style to show that that's the dock it's on
 	locationCardButton.set("custom_styles/normal", styleThing)
+
+func PlayCardDockAnimationSound():
+	get_parent().ToggleMusicPaused(true)	#pause the main game music
+	#play the "fwip" card docking sound effect
+	var animationSound = load("res://Game/Assets/Sounds/Monster sounds/testmonstersound.ogg")
+	$AnimationSoundPlayer.stream = animationSound
+	$AnimationSoundPlayer.play()
+	$AnimationSoundWaitTimer.start()
 
 
 func SetButtonHighlightToDefault():
@@ -150,23 +160,48 @@ func PlaceCard(card, cardBeingLoaded):
 						#the slot is free
 
 					if (x+1) == 1:
-						#put the card 100 below the slot so it will slide up
+						#put the card x below the slot so it will slide up
 						#and into place
 						card.show()
 						card.position.x = firstSlot.global_position.x
-						card.position.y = firstSlot.global_position.y+200
+						card.position.y = firstSlot.global_position.y+cardAnimationPositionOffset
 						movingCardsList.append(card)
 						movingCardsPositionList.append(firstSlot.global_position)
 						thereAreCardsToMove = true
 
 					if (x+1) == 2:
-						card.position = secondSlot.global_position
+						card.show()
+						card.position.x = secondSlot.global_position.x
+						card.position.y = secondSlot.global_position.y+cardAnimationPositionOffset
+						movingCardsList.append(card)
+						movingCardsPositionList.append(secondSlot.global_position)
+						thereAreCardsToMove = true
+
+
 					if (x+1) == 3:
-						card.position = thirdSlot.global_position
+						card.show()
+						card.position.x = thirdSlot.global_position.x
+						card.position.y = thirdSlot.global_position.y+cardAnimationPositionOffset
+						movingCardsList.append(card)
+						movingCardsPositionList.append(thirdSlot.global_position)
+						thereAreCardsToMove = true
+
 					if (x+1) == 4:
-						card.position = fourthSlot.global_position
+						card.show()
+						card.position.x = fourthSlot.global_position.x
+						card.position.y = fourthSlot.global_position.y+cardAnimationPositionOffset
+						movingCardsList.append(card)
+						movingCardsPositionList.append(fourthSlot.global_position)
+						thereAreCardsToMove = true
+
 					if (x+1) == 5:
-						card.position = fifthSlot.global_position
+						card.show()
+						card.position.x = fifthSlot.global_position.x
+						card.position.y = fifthSlot.global_position.y+cardAnimationPositionOffset
+						movingCardsList.append(card)
+						movingCardsPositionList.append(fifthSlot.global_position)
+						thereAreCardsToMove = true
+
 					card.SetDockNumber(x+1)	#+1 because loop starts at zero, set the cards dock number
 					card.SetCardIsDocked(true)
 					cardIsBeingHoveredOver = false	#there is no longer a card hovering over
@@ -276,22 +311,23 @@ func _physics_process(_delta):
 			PlaceCard(cardHoveredOverArea, false)
 
 	if thereAreCardsToMove:
-		var index = 0
-		for card in movingCardsList:
 
-			if card.position.y > movingCardsPositionList[index].y:
+		var card = movingCardsList[0]	#do cards one at a time for cascade effect
 
-				card.position.y -= 1
-			else:
-				#it's done moving, remove from list
-				movingCardsList.erase(card)
-			index += 1
+		if card.position.y > movingCardsPositionList[0].y:
+
+			card.position.y -= cardAnimationSpeed
+		else:
+			#it's done moving, remove from list
+			PlayCardDockAnimationSound()	#it reached the position and docked, play the sound
+			movingCardsList.erase(card)
+
+
 
 		if len(movingCardsList) == 0:
 			thereAreCardsToMove = false
 
-		if index > len(movingCardsList)-1:
-			index = 0
+
 
 
 
@@ -423,3 +459,7 @@ func _on_StrategyCardButton_pressed():
 	slotState = "Strategy"
 	HideAllCards()
 	ShowCardSlot("Strategy")
+
+
+func _on_AnimationSoundWaitTimer_timeout():
+	get_parent().ToggleMusicPaused(false)	#pause the main game music
