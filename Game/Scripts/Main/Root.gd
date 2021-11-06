@@ -129,6 +129,7 @@ func _physics_process(_delta):
 		$GameMusic.play()
 
 
+
 	elif GameState.GetBattleState() != "" and $GameMusic.is_playing() == true and battleMusicOn == false:
 		#if there is a battle and the game music is still playing
 		#stop it and start some battle music
@@ -138,6 +139,7 @@ func _physics_process(_delta):
 
 		#play a new battle music
 		$GameMusic.stream = MusicManager.GetBattleMusic()
+
 		$GameMusic.play()
 
 
