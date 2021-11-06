@@ -68,9 +68,10 @@ func _ready():
 	locationCardButton.set("custom_styles/normal", styleThing)
 
 func PlayCardDockAnimationSound():
+
 	get_parent().ToggleMusicPaused(true)	#pause the main game music
 	#play the "fwip" card docking sound effect
-	var animationSound = load("res://Game/Assets/Sounds/Monster sounds/testmonstersound.ogg")
+	var animationSound = load("res://Game/Assets/Sounds/Monster sounds/cardDeal.ogg")
 	$AnimationSoundPlayer.stream = animationSound
 	$AnimationSoundPlayer.play()
 	$AnimationSoundWaitTimer.start()
@@ -463,3 +464,4 @@ func _on_StrategyCardButton_pressed():
 
 func _on_AnimationSoundWaitTimer_timeout():
 	get_parent().ToggleMusicPaused(false)	#pause the main game music
+	$AnimationSoundPlayer.stop()

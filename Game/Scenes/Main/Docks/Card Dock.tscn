@@ -77,7 +77,7 @@ __meta__ = {
 [node name="AnimationSoundPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="AnimationSoundWaitTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 0.5
 one_shot = true
 [connection signal="body_entered" from="." to="." method="_on_Dock_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_Dock_body_exited"]
