@@ -20,10 +20,10 @@ func _ready():
 	Settings.SetButtonToTheme($Previouse)
 	Settings.SetButtonToTheme($CloseButton)
 	Settings.SetPanelToTheme($Panel)
-	
+
 	HideMyStuff()	#when first loaded into the scene, we don't want to block the screen
-	
-	
+
+
 func HideMyStuff():
 	panel.hide()
 	prevButton.hide()
@@ -32,14 +32,14 @@ func HideMyStuff():
 	effectLabel.hide()
 	closeButton.hide()
 	effectContainer.hide()
-	
+
 func SetInformation(index):
 	var textForNameAndTypeLabel = ""
 	var information = activeCardsInformationList[index]	#get a single entry, which is in the form [cardName, cardType, cardEffect]
 	textForNameAndTypeLabel += "Name of card: "+information[0] + "\n"	#this is the name
 	textForNameAndTypeLabel += "Type of card: "+information[1]	#this is the card type
 	nameAndTypeLabel.text = textForNameAndTypeLabel
-	
+
 	effectLabel.text = information[2]	#this is the effect
 	currentListIndex += 1	#this was the index passed in
 	if currentListIndex > (len(activeCardsInformationList)-1):
@@ -47,7 +47,7 @@ func SetInformation(index):
 		currentListIndex = 0	#set it back to zero
 	else:
 		pass
-	
+
 func ShowMyStuff():
 	activeCardsInformationList = []
 	activeCardsInformationList = GameState.GetActiveCardsInformation()
@@ -59,15 +59,15 @@ func ShowMyStuff():
 	closeButton.show()
 	effectContainer.show()
 	SetInformation(currentListIndex)
-	
-	
+
+
 
 
 func _on_CloseButton_pressed():
 	activeCardsInformationList = []
 	currentListIndex = 0
 	HideMyStuff()
-	
+
 
 
 func _on_Next_pressed():

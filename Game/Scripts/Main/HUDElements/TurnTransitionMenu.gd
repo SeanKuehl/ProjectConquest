@@ -6,12 +6,12 @@ onready var myPanel = $Panel
 var nextPlayer = ""
 
 func _ready():
-	
-	
+
+
 	Settings.SetPanelToTheme($Panel)
-	
+
 	HideMyStuff()
-	
+
 
 func ShowMyStuff():
 	nextTurnCountdown.start()
@@ -20,17 +20,17 @@ func ShowMyStuff():
 
 func SetWhoseTurnNext(playerWhoseTurnItIsNext):
 	nextPlayer = playerWhoseTurnItIsNext
-	
+
 func HideMyStuff():
 	labelText.hide()
 	myPanel.hide()
-	
+
 func _physics_process(_delta):
-	
+
 	labelText.text = "Please hand things over to "+nextPlayer+", this menu will close in "+str(int(nextTurnCountdown.get_time_left()))
 	if nextTurnCountdown.is_stopped():
 		HideMyStuff()
-	
 
-	
-	
+
+
+

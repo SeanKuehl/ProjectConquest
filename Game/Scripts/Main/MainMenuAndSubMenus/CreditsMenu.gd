@@ -5,7 +5,7 @@ extends Control
 func _ready():
 	Settings.SetButtonToTheme($BackButton)
 	Settings.SetPanelToTheme($Panel)
-	
+
 	var returnedVals = MusicManager.GetCurrentMenuMusic()	#first is music, second is position in song
 	var song = returnedVals[0]
 	var songPos = returnedVals[1]

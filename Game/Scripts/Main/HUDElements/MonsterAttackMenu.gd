@@ -37,12 +37,12 @@ func _ready():
 	Settings.SetButtonToTheme($Panel/Skip)
 	Settings.SetButtonToTheme($Panel/CloseButton)
 	Settings.SetPanelToTheme($Panel)
-	
-	
+
+
 	#there may be 0,1,2 or three attacks with or without effects
 	#if there is less than 3 attacks, hide the unneeded attack assets/components
 	HideMyStuff()
-	
+
 #monsterAttacks is a list of monster attacks, each monster attack is
 # in the form: [1, "flaming Sting", 60, "Inferno", "there is a one in eight chance this attack does 100 damage", true, true]
 #where the the information is: the index of the attack(first attack), name of the attack, damage of the attack, attribute of the attack, text effect of the attack, whether the effect is enabled, whether the attack is allowed
@@ -51,17 +51,17 @@ func HideMyStuff():
 	$Panel.hide()
 	$Panel/Skip.hide()
 	$Panel/CloseButton.hide()
-	
+
 	attackOneLabel.hide()
 	attackOneButton.hide()
 	attackOneEffectText.hide()
 	attackOneContainer.hide()
-	
+
 	attackTwoLabel.hide()
 	attackTwoButton.hide()
 	attackTwoEffectText.hide()
 	attackTwoContainer.hide()
-	
+
 	attackThreeLabel.hide()
 	attackThreeButton.hide()
 	attackThreeEffectText.hide()
@@ -71,33 +71,33 @@ func ShowMyStuff():
 	$Panel.show()
 	$Panel/Skip.show()
 	$Panel/CloseButton.show()
-	
+
 	attackOneLabel.show()
 	attackOneButton.show()
 	attackOneEffectText.show()
 	attackOneContainer.show()
-	
+
 	attackTwoLabel.show()
 	attackTwoButton.show()
 	attackTwoEffectText.show()
 	attackTwoContainer.show()
-	
+
 	attackThreeLabel.show()
 	attackThreeButton.show()
 	attackThreeEffectText.show()
 	attackThreeContainer.show()
 
-	
+
 
 
 func LoadMonsterAttacks(monsterAttacks):
 	ShowMyStuff()
-	
+
 	$HideAfterShowTimer.start()
-	
-	
-	
-	
+
+
+
+
 	#each attack is in the form [1, "flaming Sting", 60, "Inferno", "there is a one in eight chance this attack does 100 damage", true, true]
 	#there could be 1,2 or 3 attacks
 	#print(monsterAttacks)
@@ -105,35 +105,35 @@ func LoadMonsterAttacks(monsterAttacks):
 		#print(attack)
 		if numberOfAttacks == 0:
 			LoadAttack(attack, attackOneComponents)
-			
+
 		if numberOfAttacks == 1:
 			LoadAttack(attack, attackTwoComponents)
-			
+
 		if numberOfAttacks == 2:
 			LoadAttack(attack, attackThreeComponents)
-			
+
 		numberOfAttacks += 1
-		
-	
-		
+
+
+
 	numberOfAttacks = 0	#reset for next time
 	loadedAttacks = monsterAttacks
-	
-	
+
+
 #attack is a monster attack in the form: [1, "flaming Sting", 60, "Inferno", "there is a one in eight chance this attack does 100 damage", true, true]
 #where the the information is: the index of the attack(first attack), name of the attack, damage of the attack, attribute of the attack, text effect of the attack, whether the effect is enabled, whether the attack is allowed
 #attackAssets is a list of strategy menu children needed to load an attack
 #like label, button, effect text, container for the effect text
 func LoadAttack(attack, attackAssets):
 	#attackAssets is one of the attack components things
-	
+
 	if attack[6]:
 		#attack is enabled, no change
 		pass
 	else:
 		#attack is disabled and can't be picked set the button to disabled
 		attackAssets[1].disabled = true
-	
+
 	#last two are null for some reason
 	attackAssets[0].text = attack[1] +" "+ str(attack[2])+" " + str(attack[3])	#set main text
 	if attack[5]:
@@ -147,36 +147,36 @@ func LoadAttack(attack, attackAssets):
 #attackAssets is a list of strategy menu children needed to load an attack
 #like label, button, effect text, container for the effect text
 func HideAttack(attackAssets):
-	
+
 	for x in range(0, len(attackAssets)):
-		
+
 		#max is exclusive
 		#this might not work for buttons, since they have other stuff and might still detect the click on
 		attackAssets[x].hide()
-		
-		
-	
-	
-	
 
-		
+
+
+
+
+
+
 #attacks is a list of monster attacks, each monster attack is
 # in the form: [1, "flaming Sting", 60, "Inferno", "there is a one in eight chance this attack does 100 damage", true, true]
 #where the the information is: the index of the attack(first attack), name of the attack, damage of the attack, attribute of the attack, text effect of the attack, whether the effect is enabled, whether the attack is allowed
 
 func HideAttackSpotsBasedOnAttacks(attacks):
-	var numberOfAttacks = len(attacks)	
-	
-	
+	var numberOfAttacks = len(attacks)
+
+
 	if numberOfAttacks == 2:
 		HideAttack(attackThreeComponents)
-		
+
 	if numberOfAttacks == 1:
-		
+
 		HideAttack(attackThreeComponents)
 		HideAttack(attackTwoComponents)
 	if numberOfAttacks == 0:
-		
+
 		HideAttack(attackThreeComponents)
 		HideAttack(attackTwoComponents)
 		HideAttack(attackOneComponents)
@@ -187,19 +187,19 @@ func GetIfAttackSelectable(attackIndex):
 	#this checks both that the index exists(there is no third attack if there is only 2 in the list
 	#and that it's enabled(the attack is not disabled
 	var numOfAttacks = len(loadedAttacks)
-	
+
 	if attackIndex <= numOfAttacks:
-		
+
 		#the attack exists, check if enabled
 		var attack = loadedAttacks[attackIndex-1]	#-1 because lists start at zero
-		
+
 		if attack[6]:
-			
+
 			#the attack is enabled, return true
 			return true
-			
+
 	return false	#one or more conditions weren't correct, return false
-	
+
 
 
 
@@ -209,18 +209,18 @@ func _on_CloseButton_pressed():
 	set_process(false)
 	set_physics_process(false)
 	set_process_input(false)
-				
-	
+
+
 
 
 func _on_Skip_pressed():
-	
+
 	attackSelected = 4
-	
-	
+
+
 	get_parent().HandleMonsterAttackSelection([], true)
-	
-	#now call a root func or something so it can handle this information and 
+
+	#now call a root func or something so it can handle this information and
 	#change the battle state and start filtering
 
 
@@ -231,29 +231,29 @@ func _on_AttackThreeAccept_pressed():
 	#if attackCanBeDone:
 	#call func to do attack
 	if attackCanBeDone:
-		
+
 		get_parent().HandleMonsterAttackSelection(loadedAttacks[attackSelected-1], false)
-	
+
 
 
 func _on_AttackTwoAccept_pressed():
 	attackSelected = 2
 	var attackCanBeDone = GetIfAttackSelectable(attackSelected)
 	if attackCanBeDone:
-		
+
 		get_parent().HandleMonsterAttackSelection(loadedAttacks[attackSelected-1], false)
-	
+
 
 
 func _on_AttackOneAccept_pressed():
 	attackSelected = 1
 	var attackCanBeDone = GetIfAttackSelectable(attackSelected)
 	if attackCanBeDone:
-		
+
 		get_parent().HandleMonsterAttackSelection(loadedAttacks[attackSelected-1], false)
-	
-	
-	
+
+
+
 
 
 

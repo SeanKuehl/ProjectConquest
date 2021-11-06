@@ -9,8 +9,8 @@ func _ready():
 func _on_Button_pressed():
 	var textToSend = GameState.HudGetAdvice()
 	emit_signal("ShowHelp", textToSend)
-	
-	
-	
-	
-	
+
+
+
+
+

@@ -63,100 +63,100 @@ func MoveForAttackAnimation():
 	attackAnimationHappening = true
 	originalPosition = animation.position.x
 	var experimentallyDeterminedDistanceBetweenMonsters = 170	#I got this number by dragging a position 2d around to editor to figure out the distance
-	
+
 	if ownership.text == "Player One":
 		stopPosition = animation.position.x+experimentallyDeterminedDistanceBetweenMonsters
 		speed = abs(speed)	#make it positive so it can't get a band hand off from when player two did it's animation
-		
+
 	elif ownership.text == "Player Two":
 		stopPosition = animation.position.x-experimentallyDeterminedDistanceBetweenMonsters
 		speed = speed * -1
 
 func GoingBackFromAttackAnimation():
-	
+
 	#hide the location card dock so it doesn't draw over the monster's attacking
 	get_parent().SetLocationDockToHidden()
 	speed = speed * -1	#going back the other way now
 
 func get_input():
-	
+
 	#the left click to display docked monster isn't needed because the right click
-	#triggers the monster card's signal to display which shows helath and attribute which means 
+	#triggers the monster card's signal to display which shows helath and attribute which means
 	#there is no need for this one(displayDockedMonster signal
-	
+
 	#NOTE: right clicking on the monster animation and having it display in the card display
 	#is only possible because the card is invisible on the location of the animation and still checking for input
 	#(has a running physics process)
-	
+
 	if Input.is_action_pressed("RIGHT_CLICK") and mouseIsInTile and thereIsAMonsterDocked and GameState.GetBattleState() == "MonsterAttackPhase" and OwnerSameAsClicker():
 		get_parent().RootShowMonsterAttackOptions()
 		#get parent, call one of it's funcs with params to do stuff
 	#if monster is right clicked on during the "MonsterAttackPhase" you can select it's attacks
-		
+
 	if attackAnimationHappening:
-		
+
 		animation.position.x += speed
-		
+
 		if ownership.text == "Player One":
-			
+
 			if animation.position.x >= stopPosition:
 				attackAnimationHappening = false
 				GoingBackFromAttackAnimation()
 				goingBackFromAttackAnimation = true
-		
+
 		else:
-				
+
 			if animation.position.x <= stopPosition:
 				attackAnimationHappening = false
 				GoingBackFromAttackAnimation()
 				goingBackFromAttackAnimation = true
-	
+
 	if goingBackFromAttackAnimation:
 		animation.position.x += speed
-		
+
 		if ownership.text == "Player One":
 			if animation.position.x <= originalPosition:
 				animation.position.x = originalPosition	#make it exactly where it started
 				goingBackFromAttackAnimation = false
-				
+
 		else:
 			if animation.position.x >= originalPosition:
 				animation.position.x = originalPosition	#make it exactly where it started
 				goingBackFromAttackAnimation = false
-	
-	
+
+
 func ShowDamageIndicator(damage):
 	$DamageIndicatorLabel.text = str(damage)
 	$DamageIndicatorLingerTime.start()
-	
+
 	$DamageIndicator.show()
 	$DamageIndicatorLabel.show()
-	
+
 func ClearMonsterCardData():
-	
+
 	monsterCardName = ""
 	monsterCardPicture = ""
 	monsterCardDescription = ""
-	
+
 	animation.stop()
 	animation.frames = SpriteFrames.new()
 	thereIsAMonsterDocked = false
 	$MonsterSound.stream = AudioStream.new()
-	
+
 	hide()
-		
-		
+
+
 func PlayMonsterSound():
 	#mute/pause main music by calling a func in root
 	get_parent().get_parent().ToggleMusicPaused(true)
-	
+
 	$MonsterSound.play()
 	soundTimerInUse = true
 	$DamageIndicatorLingerTime.wait_time = 3
 	$DamageIndicatorLingerTime.start()
-	
-	
-		
+
+
+
 #card is a reference to a monster card
 func LoadMonsterCardInformation(card):
 	var displayStuff = card.GetDisplayStuff()	#list of cardname, pic and description
@@ -164,8 +164,8 @@ func LoadMonsterCardInformation(card):
 	monsterCardName = displayStuff[0]
 	monsterCardPicture = displayStuff[1]
 	monsterCardDescription = displayStuff[2]
-	
-	var animationToCopy = card.GetAnimation()	
+
+	var animationToCopy = card.GetAnimation()
 	var newAnimation : SpriteFrames = SpriteFrames.new()
 	newAnimation.add_animation("first")
 	newAnimation.add_frame("first", load("res://Game/Assets/Animations/monster animations/"+animationToCopy[0]), 0)
@@ -176,14 +176,14 @@ func LoadMonsterCardInformation(card):
 	animation.frames = newAnimation
 	#$animation.speed_scale = 0.5
 	animation.play("first")
-	
+
 	thereIsAMonsterDocked = true
 	show()
-	
+
 	$MonsterSound.stream = load("res://Game/Assets/Sounds/Monster sounds/"+card.GetSound())
 	PlayMonsterSound()
 
-	
+
 func SetHealthAndAttributeIndicators():
 	if ownership.text == "Player One":
 		healthLabel.text = "Health: "+ str(get_parent().GetMonsterHealth("PlayerOne"))
@@ -194,11 +194,11 @@ func SetHealthAndAttributeIndicators():
 	else:
 		#ownership isn't set yet
 		pass
-	
+
 func _physics_process(_delta):
-	
+
 	SetHealthAndAttributeIndicators()
-	
+
 	get_input()
 
 func _on_MonsterCardDock_mouse_entered():
@@ -210,7 +210,7 @@ func _on_MonsterCardDock_mouse_exited():
 
 
 func _on_DamageIndicatorLingerTime_timeout():
-	
+
 	if soundTimerInUse:
 		#unmute/pause main music
 		get_parent().get_parent().ToggleMusicPaused(false)

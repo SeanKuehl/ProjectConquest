@@ -13,9 +13,9 @@ func _ready():
 	Settings.SetButtonToTheme($BackButton)
 	Settings.SetButtonToTheme($SaveChangesButton)
 	Settings.SetPanelToTheme($Panel)
-	
+
 	localVolume = Settings.GetSystemVolume()
-	
+
 	if localVolume == -100:
 		#it's muted
 		localVolume = 0
@@ -24,10 +24,10 @@ func _ready():
 		$SoundVolume.text = "System Volume: "+str(localVolume)
 	else:
 		$SoundVolume.text = "System Volume: "+str(localVolume)
-	
+
 	#print(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master")))
 	#AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), 10)
-	
+
 	var returnedVals = MusicManager.GetCurrentMenuMusic()	#first is music, second is position in song
 	var song = returnedVals[0]
 	var songPos = returnedVals[1]
@@ -50,18 +50,18 @@ func _on_SaveChangesButton_pressed():
 		Settings.SetSystemVolume(localVolume)
 	var file = File.new()
 	file.open(Settings.GetSettingsFilePath(), File.WRITE)
-	
-	
+
+
 	for line in Settings.GetListOfSettings():
 		file.store_string(str(line))
-	
+
 	file.close()
 	#save the changes to the text file and the script
-	
+
 	MusicManager.SetMenuMusicPlaybackPosition($MenuMusic.get_playback_position())
 	get_tree().change_scene("res://Game/Scenes/Main/MainMenuAndSubMenus/MainMenu.tscn")
 
-	
+
 
 
 func _on_SoundVolumeUp_pressed():
@@ -70,10 +70,10 @@ func _on_SoundVolumeUp_pressed():
 	else:
 		localVolume += 1
 	$SoundVolume.text = "System Volume: "+str(localVolume)
-	
-	
+
+
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), localVolume)
-	
+
 
 
 func _on_SoundVolumeDown_pressed():
@@ -82,14 +82,14 @@ func _on_SoundVolumeDown_pressed():
 	else:
 		localVolume -= 1
 	$SoundVolume.text = "System Volume: "+str(localVolume)
-	
-	
+
+
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), localVolume)
-	
+
 
 
 func _on_MuteButton_pressed():
-	
+
 	if isMute:
 		#if it's muted, unmute it
 		$MuteButton.text = "Mute"
@@ -98,7 +98,7 @@ func _on_MuteButton_pressed():
 	else:
 		#if it's unmuted, mute it
 		$MuteButton.text = "Unmute"
-		
+
 		AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"), true)
 		isMute = true
-	
+

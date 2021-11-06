@@ -3,7 +3,7 @@ extends Control
 var firstTimeCalled = true
 
 func _ready():
-	
+
 	Settings.SetButtonToTheme($QuitButton)
 	Settings.SetButtonToTheme($CreditsButton)
 	Settings.SetButtonToTheme($SettingsButton)
@@ -11,9 +11,9 @@ func _ready():
 	Settings.SetButtonToTheme($BrowseCardsButton)
 	Settings.SetButtonToTheme($HowToPlay)
 	Settings.SetPanelToTheme($Panel)
-	
+
 	Settings.SetSettings()
-	
+
 	if firstTimeCalled:
 		MusicManager.LoadMusic()	#only need to call this once
 		firstTimeCalled = false
@@ -43,7 +43,7 @@ func _on_SettingsButton_pressed():
 
 func _on_PlayButton_pressed():
 	DeckMenuHelper.SetPlayersSelectingDecksForBattle(true)
-	
+
 	#get_tree().change_scene("res://Game/Scenes/Main/Root.tscn")
 	MusicManager.SetMenuMusicPlaybackPosition($MenuMusic.get_playback_position())
 	get_tree().change_scene("res://Game/Scenes/Main/DeckMenus/DisplayDecksMenu.tscn")

@@ -5,7 +5,7 @@ func _ready():
 	Settings.SetButtonToTheme($BackButton)
 	Settings.SetButtonToTheme($QuitButton)
 	Settings.SetPanelToTheme($Panel)
-	
+
 	HideMyStuff()
 
 
@@ -13,7 +13,7 @@ func HideMyStuff():
 	$Panel.hide()
 	$QuitButton.hide()
 	$BackButton.hide()
-	
+
 func ShowMyStuff():
 	$Panel.show()
 	$QuitButton.show()

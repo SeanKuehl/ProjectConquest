@@ -9,8 +9,8 @@ onready var textToShowUser = $TextPrompt
 signal userMadeSelection()
 
 func _ready():
-	
-	
+
+
 	Settings.SetButtonToTheme($LocationDockOneButton)
 	Settings.SetButtonToTheme($LocationDockTwoButton)
 	Settings.SetButtonToTheme($LocationDockThreeButton)
@@ -22,7 +22,7 @@ func _ready():
 	Settings.SetButtonToTheme($LocationDockNineButton)
 	Settings.SetPanelToTheme($Panel)
 	HideMyStuff()
-	
+
 
 func ShowMyStuff():
 	$Panel.show()
@@ -36,7 +36,7 @@ func ShowMyStuff():
 	$LocationDockSevenButton.show()
 	$LocationDockEightButton.show()
 	$LocationDockNineButton.show()
-	
+
 func HideMyStuff():
 	$Panel.hide()
 	$TextPrompt.hide()
@@ -55,81 +55,81 @@ func SetTextToShowUser(newText):
 
 func GetLocationDockToReturn():
 	return locationDockNumberToReturn
-	
+
 func SetLocationDockToReturn(newNum):
 	locationDockNumberToReturn = newNum
 
 func _on_LocationDockOneButton_pressed():
-	
+
 	#this is the real(not counting starting at zero) index of the location dock
 	locationDockNumberToReturn = 1
 	HideMyStuff()
 	emit_signal("userMadeSelection", "signal")
-	
-	
+
+
 
 
 func _on_LocationDockTwoButton_pressed():
 	locationDockNumberToReturn = 2
 	HideMyStuff()
 	emit_signal("userMadeSelection", "signal")
-	
-	
+
+
 
 func _on_LocationDockThreeButton_pressed():
 	locationDockNumberToReturn = 3
 	HideMyStuff()
 	emit_signal("userMadeSelection", "signal")
-	
-	
+
+
 
 
 func _on_LocationDockFourButton_pressed():
 	locationDockNumberToReturn = 4
 	HideMyStuff()
 	emit_signal("userMadeSelection", "signal")
-	
-	
+
+
 
 
 func _on_LocationDockFiveButton_pressed():
 	locationDockNumberToReturn = 5
 	HideMyStuff()
 	emit_signal("userMadeSelection", "signal")
-	
-	
+
+
 
 
 func _on_LocationDockSixButton_pressed():
 	locationDockNumberToReturn = 6
 	HideMyStuff()
 	emit_signal("userMadeSelection", "signal")
-	
-	
+
+
 
 
 func _on_LocationDockSevenButton_pressed():
 	locationDockNumberToReturn = 7
 	HideMyStuff()
 	emit_signal("userMadeSelection", "signal")
-	
-	
+
+
 
 
 func _on_LocationDockEightButton_pressed():
 	locationDockNumberToReturn = 8
 	HideMyStuff()
 	emit_signal("userMadeSelection", "signal")
-	
-	
+
+
 
 
 func _on_LocationDockNineButton_pressed():
 	locationDockNumberToReturn = 9
 	HideMyStuff()
 	emit_signal("userMadeSelection", "signal")
-	
-	
+
+
 
 
 

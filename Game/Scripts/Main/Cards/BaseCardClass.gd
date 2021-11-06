@@ -10,7 +10,7 @@ signal userWantsToDisplayMonsterCard(cardName, cardPicture, cardDescription, car
 signal userWantsToDisplayBattleCard(cardName, cardPicture, cardDescription, cardAttribute)
 
 var cardIsDocked = false
-var dockNumber = 0 
+var dockNumber = 0
 var cardType = "Base"	#this would be 'location' or 'battle' etc.
 var cardName = ""
 var cardPicture = ""
@@ -65,88 +65,89 @@ func ReadLinesFromFile(fileName):
 			pass
 		else:
 			content.append(line)
-			
+
 	file.close()
-	
+
 	return content
 
 func _ready():
 	pass
-	
 
-	
+
+
 func GetColorBackgroundColor():
 	return colorBackgroundColor
 	#this is the value that a sprite's texture can be set to
-	
-	
+
+
+
 #passedFile is the path to a text file
 #passedOwner is "PlayerOne" or "PlayerTwo"
 func init(passedFile, passedOwner):
-	
+
 	var content = ReadLinesFromFile(passedFile)
 	#this is now the child of the root scene so it's no longer direct children
-	
+
 	cardOwner = passedOwner
-	
-	cardName = content[0]	
-	
+
+	cardName = content[0]
+
 	nameLabel.text = cardName
-	
+
 	cardDescription = content[2]
 	descriptionOrEffectLabel.text = cardDescription
-	
-	
-	
+
+
+
 	#load the image
 	cardPicture = content[1]
 	var image = load("res://Game/Assets/Images/Experimental/"+cardPicture)
 	cardPicture = image	#this is for later when it's passed to the cardDisplay
-	
+
 	picture.texture = image
 	#actual pic is texture property
 	#it's just highlighting, which may be why it doesn't work on black
-	
+
 	#set background colors
 	baseBackground.texture = baseBackgroundColor
 	colorBackground.texture = colorBackgroundColor
 	pictureBackground.texture = pictureBackgroundColor
 	descriptionOrEffectBackground.texture = descriptionOrEffectBackgroundColor
 
-	
-	
-	
+
+
+
 func GetCardName():
 	return cardName
-	
+
 func GetCardIsDocked():
 	return cardIsDocked
 
 func SetCardIsDocked(value):
 	cardIsDocked = value
-	
+
 func GetCardInvolvedInBattle():
 	return cardInvolvedInBattle
-	
+
 func SetCardInvolvedInBattle(newValue):
 	cardInvolvedInBattle = newValue
-	
+
 func GetDockNumber():
 	return dockNumber
-	
+
 func SetDockNumber(num):
 	dockNumber = num
-	
+
 func SetCardType(value):
 	cardType = value
-	
+
 func GetCardType():
 	return cardType
-	
+
 func GetDisplayStuff():
 	return [cardName, cardPicture, cardDescription]
-	
-	
+
+
 func get_input():
 	if Input.is_action_pressed("CLICK") and mouseIsInTile:
 		if GameState.GetCardWasSelected() == false:
@@ -155,37 +156,37 @@ func get_input():
 		else:
 			#don't let the card be dragged
 			pass
-		
-	
+
+
 	if Input.is_action_just_released("CLICK"):
 		clickedAndDraggedOn = false
 		GameState.SetCardWasSelected(false)
-		
-		
+
+
 		#mouseIsInTile must be present here otherwise it will call it on all the listening cards at that time
-		#effectively only showing the last card added to the field of play. 
+		#effectively only showing the last card added to the field of play.
 	if Input.is_action_just_pressed("RIGHT_CLICK") and mouseIsInTile:
 		emit_signal("userWantsToDisplayCard", cardName, cardPicture, cardDescription)
-	
-	
-	
-		
+
+
+
+
 func GetClickAndDraggedOn():
 	return clickedAndDraggedOn
-	
+
 func _physics_process(_delta):
 	#I'm only putting it in here so it constantly checks
-	
+
 	var newPos = get_global_mouse_position()
-	
+
 	if clickedAndDraggedOn:
 		position = newPos
-	
-	
-	
+
+
+
 	get_input()
-   
-	
+
+
 
 
 
@@ -195,10 +196,10 @@ func GetCardOwner():
 
 
 func _on_Card_mouse_entered():
-	
+
 	mouseIsInTile = true
 
 
 func _on_Card_mouse_exited():
-	
+
 	mouseIsInTile = false
