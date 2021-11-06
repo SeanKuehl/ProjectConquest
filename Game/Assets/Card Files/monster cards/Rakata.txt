@@ -1,5 +1,5 @@
 Rakata
-thirdSample.png
+Rakatta.png
 this is Darrel's description
 Beast
 200
@@ -10,8 +10,8 @@ this attack has a 1 in 3 chance to hit
 2
 Savage Rage(Beast) 90
 this attack has a 1 in 4 chance to hit
-testmonstersound.ogg
-testmonsteranimation_01.png
-testmonsteranimation_02.png
-testmonsteranimation_03.png
+monstersoundthree.ogg
+Rakatta.png
+Rakatta.png
+Rakatta.png
 Rakata.gd

@@ -1,5 +1,5 @@
 Gimlin
-thirdSample.png
+Gimlin.png
 this is Darrel's description
 Mystic
 150
@@ -8,8 +8,8 @@ Mystic
 Magic Missile(Mystic) 40
 1
 Wack(Normal) 30
-testmonstersound.ogg
-testmonsteranimation_01.png
-testmonsteranimation_02.png
-testmonsteranimation_03.png
+monstersoundfour.ogg
+Gimlin.png
+Gimlin.png
+Gimlin.png
 Gimlin.gd

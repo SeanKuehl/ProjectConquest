@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/monstersoundfive.ogg-18da92a45707fbdef1f4971c4d381a59.oggstr"
+
+[deps]
+
+source_file="res://Game/Assets/Sounds/Monster sounds/monstersoundfive.ogg"
+dest_files=[ "res://.import/monstersoundfive.ogg-18da92a45707fbdef1f4971c4d381a59.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

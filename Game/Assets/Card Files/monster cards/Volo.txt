@@ -1,5 +1,5 @@
 Volo
-thirdSample.png
+Volo.png
 this is Darrel's description
 Inferno
 150
@@ -8,8 +8,8 @@ Inferno
 Fire Ball(Inferno) 40
 1
 Tackle(Normal) 30
-testmonstersound.ogg
-testmonsteranimation_01.png
-testmonsteranimation_02.png
-testmonsteranimation_03.png
+monstersoundone.ogg
+Volo.png
+Volo.png
+Volo.png
 Volo.gd

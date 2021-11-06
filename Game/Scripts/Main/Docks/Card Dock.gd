@@ -71,7 +71,7 @@ func PlayCardDockAnimationSound():
 
 	get_parent().ToggleMusicPaused(true)	#pause the main game music
 	#play the "fwip" card docking sound effect
-	var animationSound = load("res://Game/Assets/Sounds/Monster sounds/cardDeal.ogg")
+	var animationSound = load("res://Game/Assets/Sounds/SoundEffects/cardDeal.ogg")
 	$AnimationSoundPlayer.stream = animationSound
 	$AnimationSoundPlayer.play()
 	$AnimationSoundWaitTimer.start()
