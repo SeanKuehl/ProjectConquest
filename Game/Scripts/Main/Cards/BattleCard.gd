@@ -228,10 +228,12 @@ func _physics_process(_delta):
 
 
 func _on_Card_mouse_entered():
+	$CardAnimationPlayer.play("HoverGrow")
 
 	mouseIsInTile = true
 
 
 func _on_Card_mouse_exited():
+	$CardAnimationPlayer.play("HoverShrink")
 
 	mouseIsInTile = false
