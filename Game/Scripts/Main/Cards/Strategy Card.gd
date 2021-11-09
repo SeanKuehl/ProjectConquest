@@ -171,12 +171,35 @@ func _physics_process(_delta):
 
 
 func _on_Card_mouse_entered():
-	$CardAnimationPlayer.play("HoverGrow")
+
+#if animation still playing, wait for it to finish before shrinking again
+	if $CardAnimationPlayer.is_playing() == false:
+		$CardAnimationPlayer.play("HoverGrow")
+
+		growAnimation = true
+
+
 
 	mouseIsInTile = true
 
 
 func _on_Card_mouse_exited():
-	$CardAnimationPlayer.play("HoverShrink")
+
+
+	if $CardAnimationPlayer.is_playing() == false:
+		growAnimation = false
+		$CardAnimationPlayer.play("HoverShrink")
+
+
 
 	mouseIsInTile = false
+
+
+
+
+
+func _on_CardAnimationPlayer_animation_finished(anim_name):
+	if mouseIsInTile == false and growAnimation:
+		growAnimation = false
+		$CardAnimationPlayer.play("HoverShrink")
+

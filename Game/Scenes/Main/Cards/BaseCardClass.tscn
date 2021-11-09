@@ -22,7 +22,7 @@ extents = Vector2( 72.3944, 101.297 )
 
 [sub_resource type="Animation" id=4]
 resource_name = "HoverGrow"
-length = 0.5
+length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:scale")
 tracks/0/interp = 1
@@ -30,7 +30,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
+"times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 0.75, 0.75 ), Vector2( 1.5, 1.5 ) ]
@@ -38,7 +38,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=5]
 resource_name = "HoverShrink"
-length = 0.5
+length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:scale")
 tracks/0/interp = 1
@@ -46,7 +46,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
+"times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 1.5, 1.5 ), Vector2( 0.75, 0.75 ) ]
@@ -137,5 +137,11 @@ shape = SubResource( 3 )
 [node name="CardAnimationPlayer" type="AnimationPlayer" parent="."]
 anims/HoverGrow = SubResource( 4 )
 anims/HoverShrink = SubResource( 5 )
+
+[node name="CardAnimationTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
 [connection signal="mouse_entered" from="." to="." method="_on_Card_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_Card_mouse_exited"]
+[connection signal="animation_finished" from="CardAnimationPlayer" to="." method="_on_CardAnimationPlayer_animation_finished"]
+[connection signal="timeout" from="CardAnimationTimer" to="." method="_on_CardAnimationTimer_timeout"]
